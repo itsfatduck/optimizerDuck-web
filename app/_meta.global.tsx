@@ -24,8 +24,9 @@ export default {
     download: {
         type: 'page',
         theme: {
+            layout: 'full',
             toc: false,
-            typesetting: 'article',
+            timestamp: false,
         }
     },
     contact: {
