@@ -7,19 +7,22 @@ import {NextraSearchDialog} from "@/components/nextra-search-dialog";
 import {getPagesFromPageMap} from "@/lib/getPagesFromPageMap";
 
 export const metadata: Metadata = {
+    title: 'optimizerDuck',
+    description: 'optimizerDuck - Free, open-source Windows optimization tool for performance, privacy, and simplicity.',
     // Define your metadata here
     // For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 }
 
 // const banner = <Banner storageKey="some-key">This template was created with 🩸 and 💦 by <Link href="https://github.com/phucbm">PHUCBM</Link> 🐧</Banner>
+// :))) ok ni'
 const navbar = (
     <Navbar
-        projectLink="https://github.com/phucbm/nextra-docs-starter"
-        logo={<img src="/images/general/logo.svg" alt="Logo" width={100} height={20}/>}
+        projectLink="https://github.com/itsfatduck/optimizerduck-docs"
+        logo={<img src="/images/general/logo.png" alt="Logo" width={350} height={25}/>}
         // ... Your additional navbar options
     />
 )
-const footer = <Footer>MIT {new Date().getFullYear()} © Nextra.</Footer>
+const footer = <Footer>MIT {new Date().getFullYear()} © fatDuck.</Footer>
 
 export default async function RootLayout({children}) {
     const pageMap = await getPageMap();
@@ -46,7 +49,7 @@ export default async function RootLayout({children}) {
         <Head
             // ... Your additional head options
         >
-            <link rel="shortcut icon" href="/images/general/icon.svg"/>
+            <link rel="shortcut icon" href="/images/general/icon.png"/>
             {/* Your additional tags should be passed as `children` of `<Head>` element */}
         </Head>
         <body>
@@ -54,7 +57,7 @@ export default async function RootLayout({children}) {
             // banner={banner}
             navbar={navbar}
             pageMap={pageMap}
-            docsRepositoryBase="https://github.com/phucbm/nextra-docs-starter/tree/main"
+            docsRepositoryBase="https://github.com/itsfatduck/optimizerduck-docs/tree/main"
             footer={footer}
             search={<NextraSearchDialog pages={pages}/>}
             // ... Your additional layout options

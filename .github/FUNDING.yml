@@ -1,9 +1,9 @@
 # These are supported funding model platforms
 
-github: phucbm
-patreon: phucbm
-open_collective: phucbm
-ko_fi: phucbm
+github: # Replace with a single GitHub username e.g., cloud-foundry
+patreon: # Replace with a single Patreon username e.g., cloud-foundry
+open_collective: # Replace with a single Open Collective username e.g., cloud-foundry
+ko_fi: itsfatduck
 tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
 community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry
 liberapay: # Replace with a single Liberapay username
