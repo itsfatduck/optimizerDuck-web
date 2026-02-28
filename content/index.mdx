@@ -4,7 +4,45 @@ description: About optimizerDuck
 ---
 
 import { Hero } from "@/components/landing/Hero";
-import { Features } from "@/components/landing/Features";
+import { Problem } from "@/components/landing/Problem";
+import { Features, Feature } from "@/components/landing/Features";
+import { WhyUs } from "@/components/landing/WhyUs";
+import { CTA } from "@/components/landing/CTA";
 
 <Hero />
-<Features />
+
+<Problem />
+
+<Features>
+  <Feature 
+    icon="SlidersHorizontal" 
+    title="Effortless Windows Optimization"
+    description="Instead of scouring the internet for tweaks, manually editing the Registry, or running complex CMD/PowerShell scripts, you can simply browse and apply optimizations directly within the app. Each tweak clearly displays its name, description, and safety level. Optimization is as easy as toggling a switch—no manual configuration required."
+    color="text-[#f27c13]" 
+  />
+
+  <Feature 
+    icon="History" 
+    title="Safe & Reversible Changes"
+    description="Easily revert any optimization if it doesn't suit your workflow or causes unexpected issues. The revert function specifically targets only the changes you've applied, guaranteeing that the rest of your system remains untouched and completely stable."
+    color="text-[#fed114]" 
+  />
+
+  <Feature 
+    icon="Languages" 
+    title="Multi-language Support"
+    description="To make the app accessible globally, I have added support for multiple languages including English, Vietnamese, Simplified Chinese, and Russian. However, I still highly recommend using the English interface for the most accurate and precise technical terminology."
+    color="text-[#f27c13]" 
+  />
+
+  <Feature 
+    icon="Wrench" 
+    title="Built-in Essential Tools"
+    description="optimizerDuck is more than just an optimization tweaker. It comes packed with additional built-in utilities designed to make Windows management effortless, including a powerful Bloatware Remover, an advanced Startup Manager, and much more."
+    color="text-[#fed114]" 
+  />
+</Features>
+
+<WhyUs />
+
+<CTA />

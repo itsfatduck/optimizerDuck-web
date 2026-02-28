@@ -1,10 +1,24 @@
-import {Footer, Layout, Navbar} from 'nextra-theme-docs'
-import {Head} from 'nextra/components'
-import {getPageMap} from 'nextra/page-map'
+import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Head } from 'nextra/components'
+import { getPageMap } from 'nextra/page-map'
 import './globals.css'
-import {Metadata} from "next";
-import {NextraSearchDialog} from "@/components/nextra-search-dialog";
-import {getPagesFromPageMap} from "@/lib/getPagesFromPageMap";
+import { Metadata } from "next";
+import { NextraSearchDialog } from "@/components/nextra-search-dialog";
+import { getPagesFromPageMap } from "@/lib/getPagesFromPageMap";
+import { JetBrains_Mono, Quicksand } from 'next/font/google'
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ['latin', 'vietnamese'],
+    variable: '--font-jetbrains-mono',
+    display: 'swap',
+})
+
+const quicksand = Quicksand({
+    subsets: ['latin', 'vietnamese'],
+    variable: '--font-quicksand',
+    display: 'swap',
+    weight: ['300', '400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
     title: 'optimizerDuck',
@@ -21,13 +35,13 @@ export const metadata: Metadata = {
 const navbar = (
     <Navbar
         projectLink="https://github.com/itsfatduck/optimizerduck-docs"
-        logo={<img src="/images/general/logo.png" alt="Logo" width={350} height={25}/>}
-        // ... Your additional navbar options
+        logo={<img src="/images/general/logo.png" alt="Logo" width={350} height={25} />}
+    // ... Your additional navbar options
     />
 )
 const footer = <Footer>MIT {new Date().getFullYear()} © fatDuck.</Footer>
 
-export default async function RootLayout({children}) {
+export default async function RootLayout({ children }) {
     const pageMap = await getPageMap();
     const pages = await getPagesFromPageMap({
         pageMapArray: pageMap,
@@ -41,28 +55,28 @@ export default async function RootLayout({children}) {
 
 
     return (
-        <html lang="en" dir="ltr" className="scroll-smooth" suppressHydrationWarning>
-        <Head
+        <html lang="en" dir="ltr" className={`scroll-smooth ${quicksand.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+            <Head
             // ... Your additional head options
-        >
-            <link rel="shortcut icon" href="/images/general/icon.png"/>
-            {/* Your additional tags should be passed as `children` of `<Head>` element */}
-        </Head>
-        <body>
-          <div className="mica-ambient" />
-          <div className="mica-glass" />
-          <Layout
-              // banner={banner}
-              navbar={navbar}
-              pageMap={pageMap}
-              docsRepositoryBase="https://github.com/itsfatduck/optimizerduck-docs/tree/main"
-              footer={footer}
-              search={<NextraSearchDialog pages={pages}/>}
-              // ... Your additional layout options
-          >
-              {children}
-          </Layout>
-        </body>
+            >
+                <link rel="shortcut icon" href="/images/general/icon.png" />
+                {/* Your additional tags should be passed as `children` of `<Head>` element */}
+            </Head>
+            <body>
+                <div className="mica-ambient" />
+                <div className="mica-glass" />
+                <Layout
+                    // banner={banner}
+                    navbar={navbar}
+                    pageMap={pageMap}
+                    docsRepositoryBase="https://github.com/itsfatduck/optimizerduck-docs/tree/main"
+                    footer={footer}
+                    search={<NextraSearchDialog pages={pages} />}
+                // ... Your additional layout options
+                >
+                    {children}
+                </Layout>
+            </body>
         </html>
     )
 }

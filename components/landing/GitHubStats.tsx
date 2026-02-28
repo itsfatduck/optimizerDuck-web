@@ -49,24 +49,18 @@ export function GitHubStats({ repo }: GitHubStatsProps) {
       value: stats.stars,
       icon: Star,
       href: `https://github.com/${repo}/stargazers`,
-      color: 'hover:text-[#f27c13]',
-      fillColor: 'fill-[#f27c13]',
     },
     {
       label: 'Issues',
       value: stats.issues,
       icon: CircleDot,
       href: `https://github.com/${repo}/issues`,
-      color: 'hover:text-[#fed114]',
-      fillColor: 'fill-[#fed114]',
     },
     {
       label: 'Pull Requests',
       value: stats.pulls,
       icon: GitPullRequest,
       href: `https://github.com/${repo}/pulls`,
-      color: 'hover:text-[#f27c13]',
-      fillColor: 'fill-[#f27c13]',
     },
   ];
 
@@ -78,9 +72,10 @@ export function GitHubStats({ repo }: GitHubStatsProps) {
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`group flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 transition-all duration-300 bg-white/40 dark:bg-[#0a0a0a]/40 backdrop-blur-md border border-gray-200/50 dark:border-gray-800/50 rounded-full hover:bg-white/60 dark:hover:bg-[#111]/60 shadow-xs ${item.color}`}
+          title={`${item.label}: ${item.value.toLocaleString()}`}
+          className="group flex items-center gap-1.5 text-sm font-medium text-muted-foreground font-mono transition-all duration-300 hover:text-foreground"
         >
-          <item.icon className={`w-4 h-4 transition-all duration-300 group-hover:${item.fillColor}`} />
+          <item.icon className="w-4 h-4 transition-all duration-300" />
           <span className="tabular-nums">{item.value.toLocaleString()}</span>
         </a>
       ))}

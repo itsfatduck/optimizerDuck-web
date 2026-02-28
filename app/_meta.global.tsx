@@ -1,4 +1,4 @@
-import {MetaRecord} from "nextra";
+import { MetaRecord } from "nextra";
 
 const DOCS_ITEMS: MetaRecord = {
     index: '',
@@ -20,14 +20,6 @@ export default {
         type: 'page',
         title: 'Documentation',
         items: DOCS_ITEMS
-    },
-    download: {
-        type: 'page',
-        theme: {
-            layout: 'full',
-            toc: false,
-            timestamp: false,
-        }
     },
     contact: {
         type: 'page',
