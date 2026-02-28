@@ -142,7 +142,7 @@ export function Hero() {
                     View Source
                   </a>
                   <a
-                    href="https://discord.gg/optimizerduck"
+                    href="https://discord.gg/tDUBDCYw9Q"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center justify-center gap-2 p-3 win-btn text-sm font-medium"

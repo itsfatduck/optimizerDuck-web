@@ -18,6 +18,7 @@
     "url": "https://github.com/itsfatduck/optimizerduck-docs/issues"
   },
   "homepage": "https://github.com/itsfatduck/optimizerduck-docs#readme",
+  "chat": "https://discord.gg/tDUBDCYw9Q",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
     "@tailwindcss/postcss": "^4.1.18",

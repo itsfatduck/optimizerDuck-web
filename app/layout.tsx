@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 const navbar = (
     <Navbar
         projectLink="https://github.com/itsfatduck/optimizerduck-docs"
+        chatLink="https://discord.gg/tDUBDCYw9Q"
         logo={<img src="/images/general/logo.png" alt="Logo" width={350} height={25} />}
     // ... Your additional navbar options
     />
