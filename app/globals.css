@@ -252,7 +252,7 @@
 }
 
 @utility win-btn-primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 rounded-xl border border-primary/20 shadow-lg cursor-pointer;
+  @apply bg-[#fed114] text-primary-foreground hover:bg-[#fed114]/90 transition-all duration-300 rounded-xl border border-[#fed114]/20 shadow-lg cursor-pointer;
 }
 
 @utility win-btn {

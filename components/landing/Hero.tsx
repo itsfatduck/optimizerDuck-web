@@ -77,8 +77,7 @@ export function Hero() {
       </div>
 
       <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both leading-relaxed font-mono tracking-tight">
-        A free, open-source Windows optimization tool. <br className="hidden md:block" />
-        Simply <span className="bg-linear-to-r from-[#fed114] via-[#f27c13] to-[#fed114] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(242,124,19,0.3)] font-bold font-mono">optimize</span> your PC.
+        A simple and powerful multilingual open-source system optimizer for Windows, built by and for the community, helping you clean, tweak, and optimize your PC easier than ever.
       </p>
 
       <GitHubStats repo="itsfatduck/optimizerDuck" />

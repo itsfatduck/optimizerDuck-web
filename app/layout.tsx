@@ -36,7 +36,7 @@ const navbar = (
     <Navbar
         projectLink="https://github.com/itsfatduck/optimizerduck-docs"
         chatLink="https://discord.gg/tDUBDCYw9Q"
-        logo={<img src="/images/general/logo.png" alt="Logo" width={350} height={25} />}
+        logo={<img src="/images/general/logo.svg" alt="Logo" width={180} height={18} />}
     // ... Your additional navbar options
     />
 )
