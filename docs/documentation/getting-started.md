@@ -17,7 +17,7 @@ Welcome to **optimizerDuck**, a free, open-source Windows optimization tool buil
 
 optimizerDuck is a portable application, which means **no installation is required**!
 
-1. Go to the [download page](/docs/download) to download the latest executable file.
+1. Go to the [Download page](/download) to download the latest executable file.
 2. After downloading, you will have `{{ latestRelease?.assets?.find(a => a.name.endsWith('.exe'))?.name || 'optimizerDuck.exe' }}` file.
 3. Double-click the downloaded `.exe` file to run it.
 
