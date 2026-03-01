@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { computed, onMounted } from "vue";
+import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
 
 const props = defineProps({
@@ -16,32 +17,23 @@ const {
   fetchReleases,
 } = useGitHub("itsfatduck/optimizerDuck");
 
-const md = ref(null);
-
-onMounted(async () => {
-  fetchReleases();
-
-  try {
-    if (!window.markdownit) {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js";
-      document.head.appendChild(script);
-      await new Promise((resolve) => (script.onload = resolve));
-    }
-    md.value = window.markdownit({
-      html: true,
-      linkify: true,
-      typographer: true,
-    });
-  } catch (err) {
-    console.error("Failed to load markdown parser", err);
-  }
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
 });
 
-const renderMD = (content) => {
-  return md.value ? md.value.render(content || "") : content || "";
-};
+onMounted(() => {
+  fetchReleases();
+});
+
+const renderedBody = computed(() => {
+  if (!release.value?.body) return "";
+  // Render markdown and add lazy loading to images
+  let html = md.render(release.value.body);
+  html = html.replace(/<img /g, '<img loading="lazy" ');
+  return html;
+});
 
 const formatSize = (bytes) => {
   if (bytes === 0) return "0 Bytes";
@@ -77,7 +69,7 @@ const formatSize = (bytes) => {
 
     <div v-if="release.body" class="release-body">
       <h4>Release Notes</h4>
-      <div class="release-body-content vp-doc" v-html="renderMD(release.body)" />
+      <div class="release-body-content vp-doc" v-html="renderedBody" />
     </div>
   </div>
   <div v-else-if="loading" class="loading">Fetching latest release...</div>
@@ -150,6 +142,7 @@ h3 {
 
 .release-body-content :deep(img) {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
   margin: 1rem 0;
 }

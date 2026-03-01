@@ -1,14 +1,24 @@
 import { ref } from "vue";
 
 const CACHE_KEY = "github-release-cache";
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 const PER_PAGE = 5;
 const isClient = typeof window !== "undefined";
 
 function getCachedData() {
   if (!isClient) return null;
   try {
-    return JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    // Check TTL
+    if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return data;
   } catch {
+    try { localStorage.removeItem(CACHE_KEY); } catch {}
     return null;
   }
 }
@@ -26,6 +36,11 @@ const loadingMore = ref(false);
 export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
   const fetchReleases = () => {
     if (fetchPromise.value) return fetchPromise.value;
+
+    // If we have fresh cached data, skip fetch
+    if (latestRelease.value && releases.value.length > 0) {
+      return Promise.resolve();
+    }
 
     loading.value = true;
     fetchPromise.value = Promise.all([
@@ -50,14 +65,16 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
         error.value = null;
 
         if (isClient) {
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({
-              latest: latest,
-              all: releases.value,
-              timestamp: Date.now(),
-            }),
-          );
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({
+                latest,
+                all: releases.value,
+                timestamp: Date.now(),
+              }),
+            );
+          } catch {}
         }
       })
       .catch((err) => {

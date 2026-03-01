@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, computed, nextTick } from "vue";
+import { ref, onMounted, computed } from "vue";
+import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
-import { contentUpdatedCallbacks } from "vitepress/dist/client/app/utils";
 
 const props = defineProps({
   repo: {
@@ -20,16 +20,13 @@ const {
   loadMoreReleases,
 } = useGitHub(props.repo);
 
-const md = ref(null);
-const expandedReleases = ref(new Set());
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
 
-const triggerOutlineUpdate = () => {
-  nextTick(() => {
-    requestAnimationFrame(() => {
-      contentUpdatedCallbacks.forEach((fn) => fn());
-    });
-  });
-};
+const expandedReleases = ref(new Set());
 
 const isBadgeUrl = (url) => {
   if (!url) return true;
@@ -45,7 +42,6 @@ const isBadgeUrl = (url) => {
 };
 
 const isBadgeImg = (tag) => {
-  // Check dimensions — badges are typically very small
   const widthMatch = tag.match(/width=["']?(\d+)/i);
   const heightMatch = tag.match(/height=["']?(\d+)/i);
   if (widthMatch && heightMatch) {
@@ -84,7 +80,7 @@ const getReleasePreview = (body) => {
     }
   }
 
-  // Build snippet text regardless of image
+  // Build snippet text
   let snippet = body
     .replace(/!\[.*?\]\(.*?\)/g, "")
     .replace(/<img[^>]*\/?>/gi, "")
@@ -93,15 +89,13 @@ const getReleasePreview = (body) => {
     .replace(/<[^>]+>/g, "")
     .replace(/\*\*(.*?)\*\*/g, "$1")
     .replace(/\*(.*?)\*/g, "$1")
-    .replace(/https?:\/\/\S+/g, "") // Remove URLs from preview
+    .replace(/https?:\/\/\S+/g, "")
     .trim();
 
-  // Extract only the first sentence
   const firstSentenceMatch = snippet.match(/.*?[.!?](?:\s|$)/);
   if (firstSentenceMatch) {
     snippet = firstSentenceMatch[0].trim();
   } else {
-    // Fallback if no period found
     snippet = snippet.split("\n")[0].trim();
     if (snippet.length > 200) snippet = snippet.substring(0, 200) + "...";
   }
@@ -117,36 +111,26 @@ const processedReleases = computed(() => {
   }));
 });
 
+// Cache rendered markdown per release ID
+const renderedCache = new Map();
+
+const renderMD = (content, id) => {
+  if (!content) return "";
+  if (renderedCache.has(id)) return renderedCache.get(id);
+  let html = md.render(content);
+  // Add lazy loading to all images
+  html = html.replace(/<img /g, '<img loading="lazy" ');
+  renderedCache.set(id, html);
+  return html;
+};
+
 const handleLoadMore = async () => {
   await loadMoreReleases();
-  triggerOutlineUpdate();
 };
 
-onMounted(async () => {
-  await fetchReleases();
-  triggerOutlineUpdate();
-
-  try {
-    if (!window.markdownit) {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js";
-      document.head.appendChild(script);
-      await new Promise((resolve) => (script.onload = resolve));
-    }
-    md.value = window.markdownit({
-      html: true,
-      linkify: true,
-      typographer: true,
-    });
-  } catch (err) {
-    console.error("Failed to load markdown parser", err);
-  }
+onMounted(() => {
+  fetchReleases();
 });
-
-const renderMD = (content) => {
-  return md.value ? md.value.render(content) : content;
-};
 
 const toggleRelease = (id) => {
   if (expandedReleases.value.has(id)) {
@@ -181,14 +165,14 @@ const isExpanded = (id) => expandedReleases.value.has(id);
         <template v-if="!isExpanded(release.id)">
           <div class="release-preview" @click="toggleRelease(release.id)">
             <div v-if="release.preview.hasImage" class="preview-image-container">
-              <img :src="release.preview.imageUrl" class="preview-image" alt="Release Preview" />
+              <img :src="release.preview.imageUrl" class="preview-image" alt="Release Preview" loading="lazy" />
             </div>
             <div v-if="release.preview.snippet" class="preview-content">
               <p class="preview-snippet">{{ release.preview.snippet }}</p>
             </div>
           </div>
         </template>
-        <div v-else class="changelog-body vp-doc" v-html="renderMD(release.body || '')" />
+        <div v-else class="changelog-body vp-doc" v-html="renderMD(release.body || '', release.id)" />
       </div>
 
       <button v-if="isExpanded(release.id)" class="collapse-btn" @click="toggleRelease(release.id)">
@@ -328,22 +312,9 @@ h2 {
   overflow: hidden;
 }
 
-.changelog-body.collapsed {
-  max-height: 250px;
-}
-
-.blur-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(to bottom, transparent, var(--vp-c-bg));
-  pointer-events: none;
-}
-
 .changelog-body :deep(img) {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
   margin: 1rem 0;
 }
