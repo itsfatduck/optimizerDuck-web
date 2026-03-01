@@ -1,4 +1,4 @@
-# Changelogs
+# Changelog
 
 All notable changes to the optimizerDuck project based on GitHub releases.
 

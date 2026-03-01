@@ -21,10 +21,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <a v-if="latestRelease" :href="'./changelogs#' + latestRelease.tag_name" class="changelog-link">
+    <a v-if="latestRelease" :href="'./changelog#' + latestRelease.tag_name" class="changelog-link">
         {{ text }} →
     </a>
-    <a v-else href="./changelogs" class="changelog-link">
+    <a v-else href="./changelog" class="changelog-link">
         {{ text }} →
     </a>
 </template>

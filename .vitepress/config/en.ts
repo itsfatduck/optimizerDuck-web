@@ -83,7 +83,7 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
       text: "General sections",
       items: [
         { text: "Download", link: "/docs/download" },
-        { text: "Changelogs", link: "/docs/changelogs" },
+        { text: "Changelog", link: "/docs/changelog" },
       ],
     },
     {
@@ -111,15 +111,15 @@ function getNav(): DefaultTheme.NavItem[] {
   return [
     {
       text: "Get {app_version}",
-      activeMatch: "^/*?(download|changelogs)/*?$",
+      activeMatch: "^/*?(download|changelog)/*?$",
       items: [
         {
           text: "Download",
           link: "/docs/download",
         },
         {
-          text: "Changelogs",
-          link: "/docs/changelogs",
+          text: "Changelog",
+          link: "/docs/changelog",
         },
       ],
     },

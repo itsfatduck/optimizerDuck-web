@@ -1,51 +1,46 @@
-# Runtime API Examples
+# General FAQ
 
-This page demonstrates usage of some of the runtime APIs provided by VitePress.
+## What is optimizerDuck?
 
-The main `useData()` API can be used to access site, theme, and page data for the current page. It works in both `.md` and `.vue` files:
+optimizerDuck is designed to help you optimize Windows as easily as possible.
 
-```md
-<script setup>
-import { useData } from 'vitepress'
+::: warning Disclaimer
+optimizerDuck is provided "as is", without warranty of any kind.
 
-const { theme, page, frontmatter } = useData()
-</script>
+By using this tool, you agree that the authors are not responsible for:
 
-## Results
+- System instability
+- Data loss
+- Performance issues caused by third party software or user modifications
 
-### Theme Data
+**Always create a restore point or backup before applying system changes.**
+:::
 
-<pre>{{ theme }}</pre>
+## How are these optimizations applied?
 
-### Page Data
+The optimizations are not magic. The application simply applies Registry changes, runs Shell commands, and customizes service startup modes.
 
-<pre>{{ page }}</pre>
+Every optimization comes with a clear name and description, making it easy for you to understand exactly what it does to your system before you apply it.
 
-### Page Frontmatter
+## Can I double my FPS with this application?
 
-<pre>{{ frontmatter }}</pre>
-```
+It is highly unlikely, but not entirely impossible. The optimizations provided here primarily help your system by:
 
-<script setup>
-import { useData } from 'vitepress'
+- Reducing system latency and input delay.
+- Freeing up wasted resources like RAM and CPU cycles.
+- Reducing micro stutters and game freezes.
+- Disabling power saving features.
 
-const { site, theme, page, frontmatter } = useData()
-</script>
+You will notice your system feeling faster, and your games might gain a few dozen FPS because they can utilize more system resources. However, the most reliable way to significantly increase FPS is by upgrading your hardware, improving cooling, or overclocking. Applying software optimizations alone will rarely double your FPS.
 
-## Results
+## Does this app offer anything other than optimizations?
 
-### Theme Data
+Yes! The app is built with several integrated tools to make your experience easier, so you do not need to download additional software. For example, it includes a bloatware removal tool, a startup manager, and more. Feel free to download it and explore all the features.
 
-<pre>{{ theme }}</pre>
+## Where do these optimizations come from?
 
-### Page Data
+Most of the optimizations included here are researched and inspired by various online sources, including Reddit, YouTube, Discord servers, WinUtil, and other optimization websites.
 
-<pre>{{ page }}</pre>
+## How can I report bugs, contribute, or request features?
 
-### Page Frontmatter
-
-<pre>{{ frontmatter }}</pre>
-
-## More
-
-Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
+You can submit requests, report bugs, or request new features at [this link](https://github.com/itsfatduck/optimizerDuck/issues/new/choose).

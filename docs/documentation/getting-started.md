@@ -29,7 +29,7 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
 
 optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
 
-- 🇺🇸 **English (United States)** — Primary & recommended
+- 🇺🇸 **English (United States)** - Primary & recommended
 - 🇻🇳 **Vietnamese (Tiếng Việt)**
 - 🇨🇳 **Chinese (Simplified) (简体中文)** _(AI translated)_
 - 🇷🇺 **Russian (Русский)** _(AI translated)_
@@ -37,8 +37,8 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 **How to change the language:**
 
 1. Open **optimizerDuck**.
-2. Navigate to the **Settings** context from the main menu.
-3. Look for the **Language** dropdown.
+2. Navigate to the **Settings** tab from the navigation bar.
+3. Look for the **Language** card and its dropdown menu.
 4. Select your preferred language.
 5. Restart the application to apply the changes.
 
@@ -52,9 +52,9 @@ You can easily configure the visual appearance of optimizerDuck to match your Wi
 
 **How to change the theme:**
 
-1. Open the **Settings** menu within the app.
-2. Locate the **Theme** or **Appearance** option block.
-3. Choose between **Light Mode** or **Dark Mode**.
+1. Open the **Settings** tab from the navigation bar.
+2. Locate the **Theme** card and its dropdown menu.
+3. Choose between **Light**, **Dark**, or **High Contrast**.
 4. The application's UI will instantly update to reflect your newly selected visual style.
 
 ## Important Best Practices
