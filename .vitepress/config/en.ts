@@ -93,6 +93,41 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           text: "General",
           link: "/docs/faq/general",
         },
+        {
+          text: "Community",
+          link: "/docs/faq/community",
+        },
+        {
+          text: "Troubleshooting",
+          link: "/docs/faq/troubleshooting",
+          collapsed: true,
+          items: [
+            {
+              text: "SmartScreen Warning",
+              link: "/docs/faq/troubleshooting/smartscreen",
+            },
+            {
+              text: "Antivirus False Positive",
+              link: "/docs/faq/troubleshooting/antivirus",
+            },
+            {
+              text: "Download Issues",
+              link: "/docs/faq/troubleshooting/download",
+            },
+            {
+              text: "App Won't Open",
+              link: "/docs/faq/troubleshooting/app-wont-open",
+            },
+            {
+              text: "App Running Slowly",
+              link: "/docs/faq/troubleshooting/slow-performance",
+            },
+            {
+              text: "Something Broke",
+              link: "/docs/faq/troubleshooting/revert-changes",
+            },
+          ],
+        },
       ],
     },
     {
@@ -101,6 +136,31 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
         {
           text: "Getting Started",
           link: "/docs/documentation/getting-started",
+        },
+        {
+          text: "Optimize",
+          link: "/docs/documentation/optimize",
+        },
+        {
+          text: "Bloatware",
+          link: "/docs/documentation/bloatware",
+        },
+      ],
+    },
+    {
+      text: "Contribute",
+      items: [
+        {
+          text: "Overview",
+          link: "/docs/contribute/overview",
+        },
+        {
+          text: "Development",
+          link: "/docs/contribute/development",
+        },
+        {
+          text: "Translations",
+          link: "/docs/contribute/translations",
         },
       ],
     },
@@ -126,7 +186,12 @@ function getNav(): DefaultTheme.NavItem[] {
     {
       text: "Documentation",
       link: "/docs/documentation/getting-started",
-      activeMatch: "/docs/",
+      activeMatch: "/docs/documentation/",
+    },
+    {
+      text: "Contribute",
+      link: "/docs/contribute/overview",
+      activeMatch: "/docs/contribute/",
     },
   ];
 }

@@ -12,6 +12,6 @@ Get the latest version of optimizerDuck for Windows.
 
 ## Recent Changes
 
-Check out the latest improvements and bug fixes directly from our GitHub releases.
+Check out the latest improvements and bug fixes.
 
 <GitHubChangelogLink repo="itsfatduck/optimizerDuck" text="View Full Changelog" />

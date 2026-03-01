@@ -54,7 +54,7 @@ You can easily configure the visual appearance of optimizerDuck to match your Wi
 
 1. Open the **Settings** tab from the navigation bar.
 2. Locate the **Theme** card and its dropdown menu.
-3. Choose between **Light**, **Dark**, or **High Contrast**.
+3. Choose between **Light**, **Dark** (recommended), or **High Contrast**.
 4. The application's UI will instantly update to reflect your newly selected visual style.
 
 ## Important Best Practices

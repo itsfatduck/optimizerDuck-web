@@ -11,15 +11,11 @@ hero:
     alt: optimizerDuck
   actions:
     - theme: brand
-      text: Download
+      text: Download for Windows
       link: /docs/download
     - theme: alt
-      text: GitHub
-      link: https://github.com/itsfatduck/optimizerDuck
-    - theme: alt
-      text: Discord
-      link: https://discord.gg/tDUBDCYw9Q
-
+      text: Documentation
+      link: /docs/documentation/getting-started
 features:
   - title: Open Source & Community
     details: Proudly developed on GitHub with 30+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.

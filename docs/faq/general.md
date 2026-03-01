@@ -1,4 +1,6 @@
-# General FAQ
+# General
+
+Frequently Asked Questions and Answers about optimizerDuck.
 
 ## What is optimizerDuck?
 
