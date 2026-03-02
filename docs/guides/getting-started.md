@@ -27,6 +27,11 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
 
 ## Changing Language
 
+<ImagePreview 
+  src="/guides/getting-started/simplified_chinese_app.png" 
+  caption="Simplified Chinese language"
+/>
+
 optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
 
 - 🇺🇸 **English (United States)** - Primary & recommended
