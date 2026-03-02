@@ -73,6 +73,16 @@ export const config = {
         next: "Next page",
       },
       footer: getFooter(),
+      editLink: {
+        pattern: "https://github.com/itsfatduck/optimizerduck-web/edit/main/:path",
+        text: "Suggest improvements",
+      },
+      lastUpdated: {
+        text: "Last updated",
+        transformer: (timestamp: number) => {
+          return new Date(timestamp).toLocaleDateString('en-US')
+        }
+      },
     },
   },
 };
