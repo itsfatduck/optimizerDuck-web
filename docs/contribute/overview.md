@@ -1,29 +1,59 @@
-# Contributing Overview
+# 🤝 Contributing to optimizerDuck
 
-Thank you for your interest in contributing to **optimizerDuck**. This project is a community-driven effort to build a fast, transparent, and user-friendly Windows optimization tool.
+Thank you for your interest in making **optimizerDuck** better! This project is built by the community, for the community, and every contribution matters.
 
-There are several ways to get involved, whether you are a developer, a translator, or a power user.
+Whether you're a developer, translator, or simply a passionate user, there's a place for you here. Pick the area that fits you best and jump right in!
 
-## Core Values
+---
 
-- **Transparency**: Every line of code is open for audit.
-- **System Stability**: We prioritize safe optimizations and clear risk assessment.
-- **Modern UI**: Leveraging WPF UI for a native and sleek Windows experience.
+## Core Development
 
-## Ways to Contribute
+Build features, squash bugs, and improve the C# / WPF codebase.
 
-### Bug Reports & Feature Requests
+[**Development Guide**](/docs/contribute/development) - Environment setup, coding standards, and PR workflow.
 
-If you encounter issues or have ideas for new optimizations, please check existing discussions or open a new issue on the [GitHub repository](https://github.com/itsfatduck/optimizerDuck/issues).
+---
 
-### Technical Development
+## Website & Docs
 
-optimizerDuck is built with **C#** and **WPF**. If you are familiar with .NET and XAML, you can help implement new features or refactor existing logic. See the [Development Guide](/docs/contribute/development).
+Improve this documentation website, add new pages, or enhance existing components.
 
-### Localization
+[**Website Development**](/docs/contribute/website-development) - How to run the docs locally and contribute changes.
 
-We aim to support as many languages as possible. optimizerDuck uses the standard .NET `.resx` system for translations. See the [Translations Guide](/docs/contribute/translations).
+---
 
-### Community Support
+## Translations
 
-Help other users in our [Discord server](https://discord.gg/tDUBDCYw9Q) or share the project with others who want to optimize their Windows experience.
+Help make optimizerDuck accessible worldwide by translating the UI into your language.
+
+[**Translations Guide**](/docs/contribute/translations) - How the `.resx` localization system works.
+
+---
+
+## Contributors
+
+See who's behind the project and how you can join them.
+
+[**Contributors**](/docs/contribute/contributors) - Hall of fame and how to get featured.
+
+---
+
+## Support the Project
+
+optimizerDuck is 100% free. If it's helped you, consider supporting its development.
+
+[**Support Me**](/docs/contribute/support-me) - Donate, star, or share.
+
+---
+
+## Quick Links
+
+| What | Where |
+| --- | --- |
+| Report a bug | [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues) |
+| Ask a question | [Discord Server](https://discord.gg/tDUBDCYw9Q) |
+| View the source | [GitHub Repository](https://github.com/itsfatduck/optimizerDuck) |
+
+::: tip First time contributing?
+Start with the [Development Guide](/docs/contribute/development) or look for issues tagged **good first issue** on GitHub. We're happy to help you get started!
+:::

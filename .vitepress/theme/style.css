@@ -268,7 +268,12 @@
   --vp-home-hero-tagline-font-family: 'Montserrat', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
 }
@@ -380,18 +385,23 @@ h1, h2, h3, h4, h5, h6 {
 :lang(pt) {
   --vp-code-copy-copied-text-content: 'Copiado';
 }
+
 :lang(fa) {
   --vp-code-copy-copied-text-content: 'کپی شد';
 }
+
 :lang(ko) {
   --vp-code-copy-copied-text-content: '복사됨';
 }
+
 :lang(ru) {
   --vp-code-copy-copied-text-content: 'Скопировано';
 }
+
 :lang(zh) {
   --vp-code-copy-copied-text-content: '已复制';
 }
+
 :lang(ja) {
   --vp-code-copy-copied-text-content: 'コピー完了';
 }
@@ -501,13 +511,33 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.5rem !important;
 }
 
-.vp-doc .custom-block.info { border-color: var(--vp-custom-block-info-border) !important; }
-.vp-doc .custom-block.tip { border-color: var(--vp-custom-block-tip-border) !important; }
-.vp-doc .custom-block.warning { border-color: var(--vp-custom-block-warning-border) !important; }
-.vp-doc .custom-block.danger { border-color: var(--vp-custom-block-danger-border) !important; }
-.vp-doc .custom-block.important { border-color: var(--vp-custom-block-important-border) !important; }
-.vp-doc .custom-block.caution { border-color: var(--vp-custom-block-caution-border) !important; }
-.vp-doc .custom-block.note { border-color: var(--vp-custom-block-note-border) !important; }
+.vp-doc .custom-block.info {
+  border-color: var(--vp-custom-block-info-border) !important;
+}
+
+.vp-doc .custom-block.tip {
+  border-color: var(--vp-custom-block-tip-border) !important;
+}
+
+.vp-doc .custom-block.warning {
+  border-color: var(--vp-custom-block-warning-border) !important;
+}
+
+.vp-doc .custom-block.danger {
+  border-color: var(--vp-custom-block-danger-border) !important;
+}
+
+.vp-doc .custom-block.important {
+  border-color: var(--vp-custom-block-important-border) !important;
+}
+
+.vp-doc .custom-block.caution {
+  border-color: var(--vp-custom-block-caution-border) !important;
+}
+
+.vp-doc .custom-block.note {
+  border-color: var(--vp-custom-block-note-border) !important;
+}
 
 
 /**
@@ -750,4 +780,50 @@ h1, h2, h3, h4, h5, h6 {
 .vp-doc a:not(.vp-button):hover {
   opacity: 0.8;
   transition: opacity 0.2s ease;
+}
+
+/**
+ * Performance: Global Smoothness
+ * -------------------------------------------------------------------------- */
+
+/* Smooth anchor scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skip rendering off-screen doc sections for better scroll performance */
+.vp-doc>div> :nth-child(n+6) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 200px;
+}
+
+/* GPU-accelerated page transitions between routes */
+.VPContent {
+  transition: opacity 0.15s ease;
+}
+
+/* Optimize heavy components with will-change hints */
+.VPNav {
+  will-change: transform;
+}
+
+/* Smooth image rendering in all doc content */
+.vp-doc img {
+  image-rendering: auto;
+  transform: translateZ(0);
 }

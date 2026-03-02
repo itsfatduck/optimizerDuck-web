@@ -12,8 +12,8 @@ This guide covers the technical setup and workflow for developers contributing t
 ## Environment Setup
 
 1. **Prerequisites**:
-   - [Visual Studio 2022](https://visualstudio.microsoft.com/) (recommended) or JetBrains Rider.
-   - .NET SDK (check `global.json` or project files for version).
+   - [Visual Studio 2026](https://visualstudio.microsoft.com/) (recommended) or JetBrains Rider.
+   - Latest .NET SDK: https://dotnet.microsoft.com/download
 2. **Clone the Repository**:
    ```bash
    git clone https://github.com/itsfatduck/optimizerDuck.git
@@ -38,7 +38,7 @@ This guide covers the technical setup and workflow for developers contributing t
 We follow standard C# naming conventions and use `.editorconfig` to enforce style consistency.
 
 - **Naming**: `PascalCase` for classes and methods; `camelCase` for variables and parameters.
-- **XAML**: Use the custom localization extension `{ext:Loc Key}` for all user-facing text.
+- **XAML**: Use the custom localization extension `{ext:Loc Key}` (or `{ext:Loc Key, {Binding arg}}` to format strings) for all user-facing text.
 - **Commits**: We use [Conventional Commits](https://www.conventionalcommits.org/):
   - `feat`: New features or optimizations.
   - `fix`: Bug fixes.

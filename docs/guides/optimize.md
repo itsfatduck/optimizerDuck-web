@@ -6,7 +6,7 @@ This document helps you understand how to optimize your system using optimizerDu
 
 Optimization is the process of making your system run faster and more efficiently. These optimizations are designed to improve your system's performance, security, and privacy.
 
-Learn more about optimization [here (FAQ, General)](/docs/faq/general#how-are-these-optimizations-applied) or [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
+Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-are-these-optimizations-applied) or [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
 
 ## Apply an optimization
 

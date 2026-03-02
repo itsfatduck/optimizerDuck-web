@@ -78,7 +78,11 @@ onUnmounted(() => {
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
   let html = md.render(release.value.body);
-  html = html.replace(/<img /g, '<img loading="lazy" ');
+  // Add lazy loading, async decoding, and dimension hints to images
+  html = html.replace(
+    /<img\s/g,
+    '<img loading="lazy" decoding="async" '
+  );
   return html;
 });
 
@@ -151,7 +155,22 @@ const closeDialog = () => {
       </button>
     </div>
   </div>
-  <div v-else-if="loading" class="loading">Fetching latest release...</div>
+
+  <!-- Skeleton Loader -->
+  <div v-else-if="loading" class="github-release skeleton-container">
+    <div class="skeleton-header">
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line skeleton-date"></div>
+      <div class="skeleton-line skeleton-btn"></div>
+    </div>
+    <div class="skeleton-body">
+      <div class="skeleton-line" style="width: 100%"></div>
+      <div class="skeleton-line" style="width: 85%"></div>
+      <div class="skeleton-line" style="width: 70%"></div>
+      <div class="skeleton-line" style="width: 90%"></div>
+    </div>
+  </div>
+
   <div v-else class="error">Error: {{ error }}</div>
 
   <!-- Download Dialog -->
@@ -317,7 +336,7 @@ h3 {
   position: relative;
   max-height: 280px;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .is-long.is-expanded .release-body-wrapper {
@@ -326,6 +345,11 @@ h3 {
 
 .release-body:not(.is-long) .release-body-wrapper {
   max-height: none;
+}
+
+/* Performance: isolate layout recalculations to the release body */
+.release-body-content {
+  contain: content;
 }
 
 .fade-overlay {
@@ -379,11 +403,20 @@ h3 {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Image performance optimizations */
 .release-body-content :deep(img) {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
   margin: 1rem 0;
+  /* GPU-accelerated rendering */
+  transform: translateZ(0);
+  /* Prevent layout shifts while images load */
+  background: var(--vp-c-bg-mute);
+  min-height: 60px;
+  /* Smooth fade-in when loaded */
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .release-body-content :deep(h1),
@@ -399,15 +432,58 @@ h3 {
   padding-left: 1.5rem;
 }
 
-.loading,
 .error {
   padding: 1rem;
   text-align: center;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-danger-1);
 }
 
-.error {
-  color: var(--vp-c-danger-1);
+/* === Skeleton Loader === */
+.skeleton-container {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: var(--vp-c-bg-mute);
+}
+
+.skeleton-title {
+  width: 50%;
+  height: 22px;
+}
+
+.skeleton-date {
+  width: 35%;
+  height: 14px;
+}
+
+.skeleton-btn {
+  width: 240px;
+  height: 44px;
+  border-radius: 8px;
+  margin-top: 0.25rem;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* ===== Download Dialog ===== */

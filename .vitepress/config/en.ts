@@ -135,6 +135,14 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
             },
           ],
         },
+        {
+          text: "Optimizing",
+          link: "/docs/faq/optimizing",
+        },
+        {
+          text: "Compatibility",
+          link: "/docs/faq/compatibility",
+        },
       ],
     },
     {
@@ -143,6 +151,18 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
         {
           text: "Getting Started",
           link: "/docs/guides/getting-started",
+        },
+        {
+          text: "How it Works",
+          link: "/docs/guides/how-it-works",
+        },
+        {
+          text: "Best Practices",
+          link: "/docs/guides/best-practices",
+        },
+        {
+          text: "Uninstalling & Reverting",
+          link: "/docs/guides/uninstall",
         },
         {
           text: "Optimize",
@@ -170,8 +190,20 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           link: "/docs/contribute/overview",
         },
         {
+          text: "Contributors",
+          link: "/docs/contribute/contributors",
+        },
+        {
+          text: "Support Me",
+          link: "/docs/contribute/support-me",
+        },
+        {
           text: "Development",
           link: "/docs/contribute/development",
+        },
+        {
+          text: "Website Development",
+          link: "/docs/contribute/website-development",
         },
         {
           text: "Translations",

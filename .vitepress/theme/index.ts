@@ -7,6 +7,8 @@ import GitHubChangelog from './components/GitHub/GitHubChangelog.vue'
 import GitHubChangelogLink from './components/GitHub/GitHubChangelogLink.vue'
 import DiscordWidget from './components/Discord/DiscordWidget.vue'
 import ImagePreview from './components/ImagePreview.vue'
+import ContributorList from './components/ContributorList.vue'
+import SupportCard from './components/SupportCard.vue'
 import Layout from './Layout.vue'
 
 export default {
@@ -18,5 +20,7 @@ export default {
     app.component('GitHubChangelogLink', GitHubChangelogLink)
     app.component('DiscordWidget', DiscordWidget)
     app.component('ImagePreview', ImagePreview)
+    app.component('ContributorList', ContributorList)
+    app.component('SupportCard', SupportCard)
   }
 } satisfies Theme
