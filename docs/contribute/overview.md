@@ -4,15 +4,11 @@ Thank you for your interest in making **optimizerDuck** better! This project is 
 
 Whether you're a developer, translator, or simply a passionate user, there's a place for you here. Pick the area that fits you best and jump right in!
 
----
-
 ## Core Development
 
 Build features, squash bugs, and improve the C# / WPF codebase.
 
 [**Development Guide**](/docs/contribute/development) - Environment setup, coding standards, and PR workflow.
-
----
 
 ## Website & Docs
 
@@ -20,15 +16,11 @@ Improve this documentation website, add new pages, or enhance existing component
 
 [**Website Development**](/docs/contribute/website-development) - How to run the docs locally and contribute changes.
 
----
-
 ## Translations
 
 Help make optimizerDuck accessible worldwide by translating the UI into your language.
 
 [**Translations Guide**](/docs/contribute/translations) - How the `.resx` localization system works.
-
----
 
 ## Contributors
 
@@ -36,15 +28,11 @@ See who's behind the project and how you can join them.
 
 [**Contributors**](/docs/contribute/contributors) - Hall of fame and how to get featured.
 
----
-
 ## Support the Project
 
 optimizerDuck is 100% free. If it's helped you, consider supporting its development.
 
 [**Support Me**](/docs/contribute/support-me) - Donate, star, or share.
-
----
 
 ## Quick Links
 
