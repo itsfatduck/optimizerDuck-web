@@ -2,7 +2,18 @@
 
 This document helps you understand how to optimize your system using optimizerDuck.
 
+## What is Optimization?
+
+Optimization is the process of making your system run faster and more efficiently. These optimizations are designed to improve your system's performance, security, and privacy.
+
+Learn more about optimization [here (FAQ, General)](/docs/faq/general#how-are-these-optimizations-applied) or [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
+
 ## Apply an optimization
+
+<ImagePreview 
+  src="/guides/optimize/apply.png" 
+  caption="Optimization items organized into grid sections"
+/>
 
 When you open the application and navigate to the **Optimize** tab, you will see optimization items organized into different grid sections. Each optimization includes:
 

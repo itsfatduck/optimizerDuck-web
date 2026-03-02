@@ -94,6 +94,7 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
       items: [
         { text: "Download", link: "/docs/download" },
         { text: "Changelog", link: "/docs/changelog" },
+        { text: "Community", link: "/docs/community" },
       ],
     },
     {
@@ -102,10 +103,6 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
         {
           text: "General",
           link: "/docs/faq/general",
-        },
-        {
-          text: "Community",
-          link: "/docs/faq/community",
         },
         {
           text: "Troubleshooting",
@@ -141,19 +138,27 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: "Documentation",
+      text: "Guides",
       items: [
         {
           text: "Getting Started",
-          link: "/docs/documentation/getting-started",
+          link: "/docs/guides/getting-started",
         },
         {
           text: "Optimize",
-          link: "/docs/documentation/optimize",
+          link: "/docs/guides/optimize",
         },
         {
           text: "Bloatware",
-          link: "/docs/documentation/bloatware",
+          link: "/docs/guides/bloatware",
+        },
+        {
+          text: "Startup Manager",
+          link: "/docs/guides/startup-manager",
+        },
+        {
+          text: "Disk Cleanup",
+          link: "/docs/guides/disk-cleanup",
         },
       ],
     },
@@ -195,8 +200,8 @@ function getNav(): DefaultTheme.NavItem[] {
     },
     {
       text: "Documentation",
-      link: "/docs/documentation/getting-started",
-      activeMatch: "/docs/documentation/",
+      link: "/docs/guides/getting-started",
+      activeMatch: "/docs/guides/",
     },
     {
       text: "Contribute",

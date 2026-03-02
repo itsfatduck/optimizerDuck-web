@@ -26,4 +26,4 @@ A simple restart can resolve many performance issues by clearing temporary files
 
 ## Disable unnecessary startup programs
 
-Too many startup programs can slow down your system. You can use optimizerDuck's built-in [Startup Manager](/docs/documentation/startup-manager) to manage which programs run at startup.
+Too many startup programs can slow down your system. You can use optimizerDuck's built-in [Startup Manager](/docs/guides/startup-manager) to manage which programs run at startup.

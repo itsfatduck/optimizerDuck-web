@@ -6,6 +6,7 @@ import GitHubRelease from './components/GitHub/GitHubRelease.vue'
 import GitHubChangelog from './components/GitHub/GitHubChangelog.vue'
 import GitHubChangelogLink from './components/GitHub/GitHubChangelogLink.vue'
 import DiscordWidget from './components/Discord/DiscordWidget.vue'
+import ImagePreview from './components/ImagePreview.vue'
 import Layout from './Layout.vue'
 
 export default {
@@ -16,5 +17,6 @@ export default {
     app.component('GitHubChangelog', GitHubChangelog)
     app.component('GitHubChangelogLink', GitHubChangelogLink)
     app.component('DiscordWidget', DiscordWidget)
+    app.component('ImagePreview', ImagePreview)
   }
 } satisfies Theme

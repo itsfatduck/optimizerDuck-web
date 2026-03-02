@@ -15,7 +15,7 @@ hero:
       link: /docs/download
     - theme: alt
       text: Documentation
-      link: /docs/documentation/getting-started
+      link: /docs/guides/getting-started
 features:
   - title: Open Source & Community
     details: Proudly developed on GitHub with 30+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.

@@ -24,6 +24,8 @@ The optimizations are not magic. The application simply applies Registry changes
 
 Every optimization comes with a clear name and description, making it easy for you to understand exactly what it does to your system before you apply it.
 
+You can learn more about optimization [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
+
 ## Can I double my FPS with this application?
 
 It is highly unlikely, but not entirely impossible. The optimizations provided here primarily help your system by:

@@ -4,9 +4,14 @@ Manage the applications that automatically run when your computer starts up.
 
 ## What is the Startup Manager?
 
-The Startup Manager is a built-in tool in optimizerDuck that lets you view and control which programs launch automatically when Windows starts. Too many startup programs can significantly slow down your boot time and consume system resources in the background.
+The Startup Manager is a built-in tool in optimizerDuck that lets you view and control which programs launch automatically when Windows starts. Too many startup programs can significantly slow down your boot time and consume system resources in the background. It also includes startup scheduled tasks.
 
 ## Viewing startup items
+
+<ImagePreview 
+  src="/guides/startup-manager/app.png" 
+  caption="Startup Manager (Startup Apps)"
+/>
 
 Navigate to the **Startup Manager** tab to see a list of all registered startup programs. Each entry displays:
 
@@ -35,12 +40,21 @@ If you previously disabled a startup program and want to re-enable it:
 2. Click the **toggle switch** to enable it
 3. The program will launch automatically on the next Windows startup
 
+## Disabling/Enabling a startup scheduled task
+
+<ImagePreview 
+  src="/guides/startup-manager/schedule.png" 
+  caption="Startup Manager (Startup Schedule)"
+/>
+
+Follow the same steps as above to disable or enable a startup scheduled task.
+
 ## What should I disable?
 
 As a general rule of thumb:
 
 - **Safe to disable:** Cloud storage sync apps (OneDrive, Dropbox), messaging apps (Discord, Skype, Teams), media players, and game launchers that you don't need running immediately.
-- **Keep enabled:** Antivirus software, hardware drivers (audio, graphics, input devices), and any programs you rely on being available immediately after boot.
+- **Keep enabled:** Antivirus software, hardware drivers (audio, graphics, input devices), important system utilities, and any programs you rely on being available immediately after boot.
 
 ::: warning
 Be cautious when disabling startup items you are unfamiliar with. Some entries may be related to critical system services or hardware drivers. If you are unsure, leave them enabled or search online for more information about the specific program.

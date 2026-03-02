@@ -46,16 +46,23 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 English is the recommended language as it provides the most accurate and complete descriptions for all optimizations.
 :::
 
-## Changing Theme
+## Community
 
-You can easily configure the visual appearance of optimizerDuck to match your Windows system settings or personal preferences.
+Join the optimizerDuck community to get help, share feedback, and connect with other users.
 
-**How to change the theme:**
+- **Discord**: Join our [Discord server](https://discord.gg/tDUBDCYw9Q) to interact with the development team and other users.
+- **GitHub**: Star the repository, report bugs, or contribute on [GitHub](https://github.com/itsfatduck/optimizerDuck).
 
-1. Open the **Settings** tab from the navigation bar.
-2. Locate the **Theme** card and its dropdown menu.
-3. Choose between **Light**, **Dark** (recommended), or **High Contrast**.
-4. The application's UI will instantly update to reflect your newly selected visual style.
+For more details, visit the [Community](/docs/community) page.
+
+## Get Started with Optimization
+
+Explore the guides below to optimize and manage your system effectively:
+
+- [Optimize](/docs/guides/optimize) - Improve overall system performance.
+- [Startup Manager](/docs/guides/startup-manager) - Control and manage startup programs.
+- [Disk Cleanup](/docs/guides/disk-cleanup) - Free up disk space by removing unnecessary files.
+- [Bloatware](/docs/guides/bloatware) - Remove unwanted pre-installed applications.
 
 ## Important Best Practices
 
