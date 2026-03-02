@@ -2,7 +2,7 @@
 
 <img src="./.github/assets/optimizerDuck.png" alt="optimizerDuck Banner" title="optimizerDuck"/>
 
-# [optimizerDuck Official Website](https://optimizerduck.vercel.app)
+# [optimizerDuck](https://optimizerduck.vercel.app)
 
 **This is source code for optimizerDuck official website.**
 
