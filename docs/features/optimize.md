@@ -11,7 +11,7 @@ Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-
 ## Apply an optimization
 
 <ImagePreview 
-  src="/guides/optimize/apply.png" 
+  src="/features/optimize/apply.png" 
   caption="Optimization items organized into grid sections"
 />
 

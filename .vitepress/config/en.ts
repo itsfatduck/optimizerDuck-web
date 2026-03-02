@@ -164,21 +164,26 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           text: "Uninstalling & Reverting",
           link: "/docs/guides/uninstall",
         },
+      ],
+    },
+    {
+      text: "Features",
+      items: [
         {
           text: "Optimize",
-          link: "/docs/guides/optimize",
+          link: "/docs/features/optimize",
         },
         {
           text: "Bloatware",
-          link: "/docs/guides/bloatware",
+          link: "/docs/features/bloatware",
         },
         {
           text: "Startup Manager",
-          link: "/docs/guides/startup-manager",
+          link: "/docs/features/startup-manager",
         },
         {
           text: "Disk Cleanup",
-          link: "/docs/guides/disk-cleanup",
+          link: "/docs/features/disk-cleanup",
         },
       ],
     },

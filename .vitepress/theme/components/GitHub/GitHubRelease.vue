@@ -78,12 +78,23 @@ onUnmounted(() => {
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
   let html = md.render(release.value.body);
-  // Add lazy loading, async decoding, and dimension hints to images
-  html = html.replace(
-    /<img\s/g,
-    '<img loading="lazy" decoding="async" '
+  // Optimize images: use proxy for WebP conversion, resize, and lazy load
+  return html.replace(
+    /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
+    (match, p1, src, p2) => {
+      let optimizedSrc = src;
+      if (src.startsWith('http')) {
+        const isBadge = src.match(/shields\.io|badge|badgen\.net|sonarcloud\.io|\.svg(\?|$)/i);
+        if (!isBadge) {
+          optimizedSrc = `https://wsrv.nl/?url=${encodeURIComponent(src)}&w=1000&output=webp&we`;
+        }
+      }
+      let attrs = ` ${p1} ${p2} `;
+      if (!attrs.includes('loading=')) attrs += 'loading="lazy" ';
+      if (!attrs.includes('decoding=')) attrs += 'decoding="async" ';
+      return `<img src="${optimizedSrc}" ${attrs}>`;
+    }
   );
-  return html;
 });
 
 const formatSize = (bytes) => {
@@ -116,10 +127,19 @@ const closeDialog = () => {
   <div class="github-release" v-if="!loading && !error && release">
     <div class="release-info">
       <h3>Latest Version: {{ release.tag_name }}</h3>
-      <p class="release-date">
-        Published on:
-        {{ new Date(release.published_at).toLocaleDateString() }}
-      </p>
+      <div class="release-meta">
+        <p class="release-date">
+          Published on:
+          {{ new Date(release.published_at).toLocaleDateString() }}
+        </p>
+        <span class="meta-divider">•</span>
+        <a :href="release.html_url" target="_blank" rel="noopener" class="github-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          View Release on GitHub
+        </a>
+      </div>
 
       <div v-for="asset in release.assets" :key="asset.id" class="download-card">
         <button class="download-button" @click="handleDownload(asset)">
@@ -272,16 +292,49 @@ const closeDialog = () => {
   border-radius: 8px;
   background-color: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
 }
 
 h3 {
   margin-top: 0;
+  margin-bottom: 0.5rem;
   color: var(--vp-c-brand-1);
 }
 
+.release-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .release-date {
+  margin: 0;
   color: var(--vp-c-text-2);
   font-size: 0.9rem;
+}
+
+.meta-divider {
+  color: var(--vp-c-text-3);
+  font-size: 0.9rem;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--vp-c-brand-1);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.github-link:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 
 .download-card {
@@ -417,6 +470,7 @@ h3 {
   /* Smooth fade-in when loaded */
   opacity: 1;
   transition: opacity 0.3s ease;
+  content-visibility: auto;
 }
 
 .release-body-content :deep(h1),

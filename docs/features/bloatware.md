@@ -11,7 +11,7 @@ This feature helps you manage and remove applications that come pre-installed on
 ## Select applications to remove
 
 <ImagePreview 
-  src="/guides/bloatware/selection.png" 
+  src="/features/bloatware/selection.png" 
   caption="Select applications to remove"
 />
 
@@ -38,7 +38,7 @@ Each application has a checkbox next to it. Check the checkbox to select the app
 ## Remove
 
 <ImagePreview 
-  src="/guides/bloatware/confirmation.png" 
+  src="/features/bloatware/confirmation.png" 
   caption="Confirmation dialog"
 />
 

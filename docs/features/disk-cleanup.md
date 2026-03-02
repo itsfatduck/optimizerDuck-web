@@ -9,7 +9,7 @@ Disk Cleanup is a built-in utility designed to free up disk space by removing un
 ## Select items to clean
 
 <ImagePreview 
-  src="/guides/disk-cleanup/selection.png" 
+  src="/features/disk-cleanup/selection.png" 
   caption="Select items to clean"
 />
 
@@ -24,7 +24,7 @@ Check the checkbox to select the item for cleaning.
 ## Cleaning up
 
 <ImagePreview 
-  src="/guides/disk-cleanup/cleaned-up.png" 
+  src="/features/disk-cleanup/cleaned-up.png" 
   caption="Disk Cleanup completed"
 />
 

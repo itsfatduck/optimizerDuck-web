@@ -80,6 +80,10 @@ const getReleasePreview = (body) => {
     }
   }
 
+  if (imageUrl && imageUrl.startsWith('http')) {
+    imageUrl = `https://wsrv.nl/?url=${encodeURIComponent(imageUrl)}&w=1000&output=webp&we`;
+  }
+
   // Build snippet text
   let snippet = body
     .replace(/!\[.*?\]\(.*?\)/g, "")
@@ -118,8 +122,23 @@ const renderMD = (content, id) => {
   if (!content) return "";
   if (renderedCache.has(id)) return renderedCache.get(id);
   let html = md.render(content);
-  // Add lazy loading to all images
-  html = html.replace(/<img /g, '<img loading="lazy" ');
+  // Optimize images: use proxy for WebP conversion, resize, and lazy load
+  html = html.replace(
+    /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
+    (match, p1, src, p2) => {
+      let optimizedSrc = src;
+      if (src.startsWith('http')) {
+        const isBadge = src.match(/shields\.io|badge|badgen\.net|sonarcloud\.io|\.svg(\?|$)/i);
+        if (!isBadge) {
+          optimizedSrc = `https://wsrv.nl/?url=${encodeURIComponent(src)}&w=1000&output=webp&we`;
+        }
+      }
+      let attrs = ` ${p1} ${p2} `;
+      if (!attrs.includes('loading=')) attrs += 'loading="lazy" ';
+      if (!attrs.includes('decoding=')) attrs += 'decoding="async" ';
+      return `<img src="${optimizedSrc}" ${attrs}>`;
+    }
+  );
   renderedCache.set(id, html);
   return html;
 };
@@ -194,6 +213,8 @@ const isExpanded = (id) => expandedReleases.value.has(id);
 <style scoped>
 .changelog-item {
   margin-bottom: 2.5rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 300px;
 }
 
 .changelog-header {
@@ -317,6 +338,11 @@ h2 {
   height: auto;
   border-radius: 8px;
   margin: 1rem 0;
+  /* Prevent layout shifts while displaying images */
+  background: var(--vp-c-bg-mute);
+  min-height: 60px;
+  content-visibility: auto;
+  transform: translateZ(0); 
 }
 
 .changelog-body :deep(h1),

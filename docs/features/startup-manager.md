@@ -9,16 +9,24 @@ The Startup Manager is a built-in tool in optimizerDuck that lets you view and c
 ## Viewing startup items
 
 <ImagePreview 
-  src="/guides/startup-manager/app.png" 
+  src="/features/startup-manager/app.png" 
   caption="Startup Manager (Startup Apps)"
 />
 
 Navigate to the **Startup Manager** tab to see a list of all registered startup programs. Each entry displays:
 
+**Startup App**:
 - **Name** of the application
-- **Publisher** of the application
+- **Location** of the application (Registry or Folder)
+- **Description** of the application
 - **Status** (Enabled or Disabled)
-- **File path** to the executable
+- **Command** to be executed
+
+**Startup Schedule (Logon)**:
+- **Name** of the scheduled task
+- **Description** of the scheduled task
+- **Status** (Enabled or Disabled)
+- **Task Location** (usually starts with `\`)
 
 ## Disabling a startup program
 
@@ -40,10 +48,10 @@ If you previously disabled a startup program and want to re-enable it:
 2. Click the **toggle switch** to enable it
 3. The program will launch automatically on the next Windows startup
 
-## Disabling/Enabling a startup scheduled task
+## Disabling/Enabling a startup scheduled task (Logon)
 
 <ImagePreview 
-  src="/guides/startup-manager/schedule.png" 
+  src="/features/startup-manager/schedule.png" 
   caption="Startup Manager (Startup Schedule)"
 />
 
