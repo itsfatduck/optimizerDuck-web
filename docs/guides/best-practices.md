@@ -24,7 +24,7 @@ If maximum FPS and lowest latency are your only goals:
 ### For Office & Daily Users
 If you use your PC for study, work, or casual browsing:
 - Stick to **UI / UX** tweaks (like disabling Bing Search in start menu, speeding up menu animations).
-- Use the [**Bloatware**](/docs/guides/bloatware) remover to uninstall pre-installed junk apps.
+- Use the [**Bloatware**](/docs/features/bloatware) remover to uninstall pre-installed junk apps.
 - Only disable Services if you are 100% sure you do not need them.
 
 ### For Developers & Creators

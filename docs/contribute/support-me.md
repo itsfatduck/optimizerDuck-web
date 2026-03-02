@@ -1,14 +1,18 @@
 # Support Me
 
-optimizerDuck is **100% free and open-source**, and always will be. I pour my free time into building, testing, and maintaining this tool so everyone can enjoy a snappier Windows experience.
+Hi, I'm [fatDuck](https://github.com/itsfatduck), the developer behind optimizerDuck.
 
-If optimizerDuck has helped you, here are a few ways you can give back and keep the project alive! 🚀
+I originally built this tool to solve my own frustrations with Windows performance and privacy. After years of gaming on a low-end laptop, I wanted a simple way to make my system feel lighter and more responsive, so I decided to create one.
+
+optimizerDuck is **100% free and open-source**, and it always will be. I dedicate my free time to building, improving, and maintaining this project so others can enjoy a smoother Windows experience too.
+
+If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
 
 ---
 
 <SupportCard 
   title="Buy me a coffee" 
-  description="The best way to support the project. Donations help cover server costs, fuel late-night coding sessions, and keep optimizerDuck growing." 
+  description="Help keep optimizerDuck running and evolving. Your support makes continued updates and improvements possible." 
   icon="kofi" 
   url="https://ko-fi.com/itsfatduck"
   ctaText="Donate on Ko-fi"
@@ -32,8 +36,6 @@ If optimizerDuck has helped you, here are a few ways you can give back and keep 
   url="https://github.com/itsfatduck/optimizerDuck"
   ctaText="Share the Link"
 />
-
----
 
 ## Why Your Support Matters
 
