@@ -8,7 +8,6 @@ import { onMounted, computed } from 'vue'
 
 const { latestRelease, fetchReleases } = useGitHub()
 
-const latestExeName = computed(() => latestRelease.value?.assets?.find(a => a.name.endsWith('.exe'))?.name || 'optimizerDuck.exe')
 const latestTag = computed(() => latestRelease.value?.tag_name || 'latest')
 
 onMounted(() => {
@@ -16,7 +15,7 @@ onMounted(() => {
 })
 </script>
 
-# 🛡️ Security Policy
+# Security Policy
 
 We take the security of **optimizerDuck** and its users very seriously. Since optimizerDuck operates with system-level permissions to perform optimizations, maintaining a secure environment is our highest priority. 
 
@@ -28,13 +27,13 @@ Currently, we only support the latest release of optimizerDuck for security upda
 
 | Version | Supported | Description |
 | ------- | --------- | ----------- |
-| **Latest Release** (`{{ latestExeName }}`) | ✅ | Receives all security patches and updates. |
-| **Older Versions** (&lt; {{ latestTag }}) | ❌ | No longer supported. Please update immediately. |
+| **Latest Release** (`{{ latestTag }}`) | ✅ | Receives all security patches and updates. |
+| **Older Versions** (< `{{ latestTag }}`) | ❌ | No longer supported. Please update immediately. |
 
 
 ## Reporting a Vulnerability
 
-🌍 **Please do not open a public issue for security-related matters.**
+**Please do not open a public issue for security-related matters.**
 
 If you discover a security vulnerability in optimizerDuck, we kindly ask that you responsibly disclose it to us privately so we can address it before it affects others.
 
