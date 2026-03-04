@@ -4,7 +4,7 @@ import { config as enConfig, searchLocale as searchLocaleEn } from "./config/en"
 
 export default defineConfig({
   title: "optimizerDuck",
-  titleTemplate: "optimizerDuck - :title",
+  titleTemplate: ":title - optimizerDuck",
   ignoreDeadLinks: true,
   description:
     "Free, open-source Windows optimization tool for performance, privacy, and simplicity.",

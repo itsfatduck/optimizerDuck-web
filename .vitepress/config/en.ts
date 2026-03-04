@@ -218,6 +218,10 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           text: "Translations",
           link: "/docs/contribute/translations",
         },
+        {
+          text: "Security",
+          link: "/docs/contribute/security",
+        },
       ],
     },
   ];

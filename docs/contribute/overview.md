@@ -28,6 +28,12 @@ See who's behind the project and how you can join them.
 
 [**Contributors**](/docs/contribute/contributors) - Hall of fame and how to get featured.
 
+## Security
+
+Learn how we handle vulnerabilities and how to properly disclose them to our community.
+
+[**Security**](/docs/contribute/security) - Read our security policies and reporting guidelines.
+
 ## Support the Project
 
 optimizerDuck is 100% free. If it's helped you, consider supporting its development.
