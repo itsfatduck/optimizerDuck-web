@@ -57,11 +57,11 @@ For more details, visit the [Community](/docs/community) page.
 
 Explore the guides below to optimize and manage your system effectively:
 
-- [Optimize](/docs/guides/optimize) - Improve overall system performance.
-- [Bloatware](/docs/guides/bloatware) - Remove unwanted pre-installed applications.
-- [Startup Manager](/docs/guides/startup-manager) - Control and manage startup programs.
-- [Scheduled Tasks](/docs/guides/scheduled-tasks) - Manage scheduled tasks.
-- [Disk Cleanup](/docs/guides/disk-cleanup) - Free up disk space by removing unnecessary files.
+- [Optimize](/docs/features/optimize) - Improve overall system performance.
+- [Bloatware](/docs/features/bloatware) - Remove unwanted pre-installed applications.
+- [Startup Manager](/docs/features/startup-manager) - Control and manage startup programs.
+- [Scheduled Tasks](/docs/features/scheduled-tasks) - Manage scheduled tasks.
+- [Disk Cleanup](/docs/features/disk-cleanup) - Free up disk space by removing unnecessary files.
 
 ## Contribute
 
