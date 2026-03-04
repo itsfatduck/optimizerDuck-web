@@ -58,8 +58,6 @@ VitePress uses standard Markdown, but also supports frontmatter and Vue componen
 We have created several custom Vue components to make the documentation look beautiful:
 
 - `<ImagePreview />`: Use this for all screenshots to get a nice zoomed lightbox effect.
-- `<SupportCard />`: Used on the "Support Me" page.
-- `<ContributorList />`: Used to list people who have helped build the project.
 
 You can use these directly in any markdown file without importing them, as they are globally registered in `.vitepress/theme/index.ts`.
 

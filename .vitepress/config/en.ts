@@ -182,6 +182,10 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           link: "/docs/features/startup-manager",
         },
         {
+          text: "Scheduled Tasks",
+          link: "/docs/features/scheduled-tasks",
+        },
+        {
           text: "Disk Cleanup",
           link: "/docs/features/disk-cleanup",
         },

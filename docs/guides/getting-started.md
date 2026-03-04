@@ -27,17 +27,10 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
 
 ## Changing Language
 
-<ImagePreview 
-  src="/guides/getting-started/simplified_chinese_app.png" 
-  caption="Simplified Chinese language"
-/>
-
 optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
 
 - 🇺🇸 **English (United States)** - Primary & recommended
 - 🇻🇳 **Vietnamese (Tiếng Việt)**
-- 🇨🇳 **Chinese (Simplified) (简体中文)** _(AI translated)_
-- 🇷🇺 **Russian (Русский)** _(AI translated)_
 
 **How to change the language:**
 
@@ -65,9 +58,17 @@ For more details, visit the [Community](/docs/community) page.
 Explore the guides below to optimize and manage your system effectively:
 
 - [Optimize](/docs/guides/optimize) - Improve overall system performance.
-- [Startup Manager](/docs/guides/startup-manager) - Control and manage startup programs.
-- [Disk Cleanup](/docs/guides/disk-cleanup) - Free up disk space by removing unnecessary files.
 - [Bloatware](/docs/guides/bloatware) - Remove unwanted pre-installed applications.
+- [Startup Manager](/docs/guides/startup-manager) - Control and manage startup programs.
+- [Scheduled Tasks](/docs/guides/scheduled-tasks) - Manage scheduled tasks.
+- [Disk Cleanup](/docs/guides/disk-cleanup) - Free up disk space by removing unnecessary files.
+
+## Contribute
+
+If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
+
+- [Support Me](/docs/contribute/support-me)
+- [Contribute](/docs/contribute/contribute)
 
 ## Important Best Practices
 

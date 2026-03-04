@@ -28,11 +28,43 @@ Open the `.resx` file for your target language in Visual Studio's Resource Edito
 
 ## Localization in XAML
 
-We use a custom localization extension to bind resources in the UI. **Do not hardcode strings** in XAML files. Use the following syntax:
+optimizerDuck uses a custom localization extension to bind resources in the UI.  
+**Do not hardcode strings** in XAML files.
+
+### Basic Usage
+
+Define the string in the resource file:
+
+```xml
+<String x:Key="Settings.Language.Description">Hello World!</String>
+```
+
+Bind it in XAML using the `ext:Loc` markup extension:
 
 ```xml
 <TextBlock Text="{ext:Loc Settings.Language.Description}" />
 ```
+
+---
+
+### Using Parameters
+
+You can also use formatted strings with parameters.
+
+Define the string with placeholders:
+
+```xml
+<String x:Key="Settings.Language.Description">This is a {0}</String>
+```
+
+Bind it in XAML and pass parameters:
+
+```xml
+<TextBlock Text="{ext:Loc Settings.Language.Description, {Binding ViewModel.SomeProperty}}" />
+```
+
+The localization extension supports standard composite formatting and allows multiple parameters.
+
 
 ## Guidelines
 
