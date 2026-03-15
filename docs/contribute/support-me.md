@@ -2,7 +2,7 @@
 
 Hi, I'm [fatDuck](https://github.com/itsfatduck), the developer behind optimizerDuck.
 
-I originally built this tool to solve my own frustrations with Windows performance and privacy. After years of gaming on a low-end laptop, I wanted a simple way to make my system feel lighter and more responsive, so I decided to create one.
+I originally built this tool to solve my own frustrations with Windows performance and privacy. After years of gaming on low-spec laptops, I wanted a simple way to not only optimize but also customize Windows easily, without having to open separate apps or edit individual registry entries, making the system lighter and smoother. That's why I decided to create optimizerDuck.
 
 optimizerDuck is **100% free and open-source**, and it always will be. I dedicate my free time to building, improving, and maintaining this project so others can enjoy a smoother Windows experience too.
 

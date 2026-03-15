@@ -105,6 +105,18 @@ const formatSize = (bytes) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
+const formatDownloads = (count) => {
+  return new Intl.NumberFormat().format(count || 0);
+};
+
+const totalDownloads = computed(() => {
+  if (!release.value?.assets?.length) return 0;
+  return release.value.assets.reduce(
+    (total, asset) => total + (asset.download_count || 0),
+    0,
+  );
+});
+
 const handleDownload = (asset) => {
   selectedAsset.value = asset;
   showDialog.value = true;
@@ -133,6 +145,10 @@ const closeDialog = () => {
           {{ new Date(release.published_at).toLocaleDateString() }}
         </p>
         <span class="meta-divider">•</span>
+        <p class="release-downloads">
+          Downloads: {{ formatDownloads(totalDownloads) }}
+        </p>
+        <span class="meta-divider">•</span>
         <a :href="release.html_url" target="_blank" rel="noopener" class="github-link">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
@@ -143,14 +159,30 @@ const closeDialog = () => {
 
       <div v-for="asset in release.assets" :key="asset.id" class="download-card">
         <button class="download-button" @click="handleDownload(asset)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Download {{ asset.name }}
-          <span class="file-size">({{ formatSize(asset.size) }})</span>
+          <span class="download-icon-wrap" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          </span>
+
+          <span class="download-copy">
+            <span class="download-title">Download {{ asset.name }}</span>
+            <span class="download-meta">
+              <span class="file-size">{{ formatSize(asset.size) }}</span>
+              <span class="asset-downloads">{{ formatDownloads(asset.download_count) }} downloads</span>
+            </span>
+          </span>
+
+          <span class="download-arrow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
         </button>
       </div>
     </div>
@@ -316,6 +348,12 @@ h3 {
   font-size: 0.9rem;
 }
 
+.release-downloads {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.9rem;
+}
+
 .meta-divider {
   color: var(--vp-c-text-3);
   font-size: 0.9rem;
@@ -342,34 +380,90 @@ h3 {
 }
 
 .download-button {
-  display: inline-flex;
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
-  background-color: var(--vp-c-brand-3);
-  color: var(--vp-c-black);
-  border: none;
-  border-radius: 8px;
+  gap: 0.9rem;
+  padding: 0.95rem 1rem;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
+  text-align: left;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
 .dark .download-button {
-  background-color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg-elv);
 }
 
 .download-button:hover {
-  background-color: var(--vp-c-brand-2);
-  color: var(--vp-c-black);
+  color: var(--vp-c-text-1);
+  transform: translateY(-1px);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+}
+
+.download-icon-wrap {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  color: var(--vp-c-brand-1);
+  flex-shrink: 0;
+}
+
+.download-copy {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.download-title {
+  display: block;
+  min-width: 0;
+  color: var(--vp-c-text-1);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.download-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.75rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.9rem;
+}
+
+.download-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--vp-c-text-3);
 }
 
 .file-size {
-  font-weight: 400;
-  font-size: 0.9em;
-  opacity: 0.9;
+  font-weight: 600;
+  font-size: 0.92em;
+}
+
+.asset-downloads {
+  font-weight: 600;
+  font-size: 0.92em;
 }
 
 .release-body {
@@ -720,6 +814,22 @@ h3 {
 .action-card:hover .action-arrow {
   transform: translateX(2px);
   color: var(--vp-c-brand-1);
+}
+
+@media (max-width: 640px) {
+  .download-button {
+    align-items: flex-start;
+  }
+
+  .download-title {
+    font-size: 0.96rem;
+  }
+
+  .download-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
 }
 
 .dialog-help-link {

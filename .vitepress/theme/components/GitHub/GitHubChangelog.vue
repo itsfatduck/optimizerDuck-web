@@ -160,24 +160,42 @@ const toggleRelease = (id) => {
 };
 
 const isExpanded = (id) => expandedReleases.value.has(id);
+
+const getReleaseDownloads = (release) => {
+  if (!release?.assets?.length) return 0;
+  return release.assets.reduce(
+    (total, asset) => total + (asset.download_count || 0),
+    0,
+  );
+};
+
+const formatDownloads = (count) => {
+  return new Intl.NumberFormat().format(count || 0);
+};
 </script>
 
 <template>
   <div class="github-changelog" v-if="!loading && !error">
     <div v-for="release in processedReleases" :key="release.id" class="changelog-item">
-      <div class="changelog-header">
-        <div class="header-left">
-          <h2 :id="release.tag_name">
-            <a :href="release.html_url" target="_blank" rel="noopener" class="release-title-link">
-              {{ release.name || release.tag_name }}
+        <div class="changelog-header">
+          <div class="header-left">
+            <h2 :id="release.tag_name">
+              <a :href="release.html_url" target="_blank" rel="noopener" class="release-title-link">
+                {{ release.name || release.tag_name }}
             </a>
           </h2>
           <span v-if="release.isLatest" class="tag tag-latest">Latest</span>
           <span v-if="release.prerelease" class="tag tag-unstable">Unstable</span>
         </div>
-        <span class="date">
-          {{ new Date(release.published_at).toLocaleDateString() }}
-        </span>
+        <div class="header-meta">
+          <span class="date">
+            {{ new Date(release.published_at).toLocaleDateString() }}
+          </span>
+          <span class="meta-separator">•</span>
+          <span class="downloads">
+            {{ formatDownloads(getReleaseDownloads(release)) }} downloads
+          </span>
+        </div>
       </div>
 
       <div class="changelog-body-wrapper">
@@ -276,6 +294,24 @@ h2 {
 
 .date {
   color: var(--vp-c-text-2);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.header-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--vp-c-text-2);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.meta-separator {
+  color: var(--vp-c-text-3);
+}
+
+.downloads {
   font-size: 0.9em;
   white-space: nowrap;
 }
@@ -425,5 +461,16 @@ h2 {
 
 .error {
   color: var(--vp-c-danger-1);
+}
+
+@media (max-width: 640px) {
+  .changelog-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header-meta {
+    justify-content: flex-start;
+  }
 }
 </style>

@@ -27,10 +27,17 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
 
 ## Changing Language
 
+<ImagePreview 
+  src="/guides/getting-started/tw.png" 
+  caption="Traditional Chinese interface of optimizerDuck, translated by abc0922001"
+/>
+
+
 optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
 
 - 🇺🇸 **English (United States)** - Primary & recommended
 - 🇻🇳 **Vietnamese (Tiếng Việt)**
+- 🇹🇼 **Traditional Chinese (正體中文)** - translation by [abc0922001](https://github.com/abc0922001)
 
 **How to change the language:**
 
@@ -42,6 +49,12 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 
 ::: info Recommended Language
 English is the recommended language as it provides the most accurate and complete descriptions for all optimizations.
+:::
+
+::: tip Contributing Translations
+If you would like to contribute a translation for optimizerDuck, please check out the [Contributing Translations](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md#-translations) guide for instructions on how to get involved.
+
+Every contribution is welcome and appreciated, and it helps make optimizerDuck more accessible to users around the world! <3
 :::
 
 ## Community
@@ -57,6 +70,7 @@ For more details, visit the [Community](/docs/community) page.
 
 Explore the guides below to optimize and manage your system effectively:
 
+- [Features](/docs/features/features) - Toggle built-in Windows behaviors such as taskbar, desktop, Explorer, and gaming options.
 - [Optimize](/docs/features/optimize) - Improve overall system performance.
 - [Bloatware](/docs/features/bloatware) - Remove unwanted pre-installed applications.
 - [Startup Manager](/docs/features/startup-manager) - Control and manage startup programs.
@@ -68,7 +82,7 @@ Explore the guides below to optimize and manage your system effectively:
 If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
 
 - [Support Me](/docs/contribute/support-me)
-- [Contribute](/docs/contribute/contribute)
+- [Contribute](/docs/contribute/overview)
 
 ## Important Best Practices
 

@@ -6,6 +6,7 @@ export default defineConfig({
   title: "optimizerDuck",
   titleTemplate: ":title - optimizerDuck",
   ignoreDeadLinks: true,
+  lastUpdated: true,
   description:
     "Free, open-source Windows optimization tool for performance, privacy, and simplicity.",
   head: [

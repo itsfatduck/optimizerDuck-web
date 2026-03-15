@@ -90,7 +90,7 @@ export const config = {
 function getSidebar(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: "General sections",
+      text: "General Sections",
       items: [
         { text: "Download", link: "/docs/download" },
         { text: "Changelog", link: "/docs/changelog" },
@@ -174,6 +174,10 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           link: "/docs/features/optimize",
         },
         {
+          text: "Features",
+          link: "/docs/features/features",
+        },
+        {
           text: "Bloatware",
           link: "/docs/features/bloatware",
         },
@@ -207,20 +211,8 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           link: "/docs/contribute/support-me",
         },
         {
-          text: "Development",
-          link: "/docs/contribute/development",
-        },
-        {
           text: "Website Development",
           link: "/docs/contribute/website-development",
-        },
-        {
-          text: "Translations",
-          link: "/docs/contribute/translations",
-        },
-        {
-          text: "Security",
-          link: "/docs/contribute/security",
         },
       ],
     },
