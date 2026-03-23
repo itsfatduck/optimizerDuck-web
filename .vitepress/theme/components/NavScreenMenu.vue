@@ -46,8 +46,14 @@ const nav = computed(() => {
 
 <template>
   <nav v-if="nav" class="VPNavScreenMenu">
-    <template v-for="item in nav" :key="item.text">
+    <template v-for="item in nav" :key="JSON.stringify(item)">
       <VPNavScreenMenuLink v-if="'link' in item" :item="item" />
+      <component
+        v-else-if="'component' in item"
+        :is="item.component"
+        v-bind="item.props"
+        screen-menu
+      />
       <VPNavScreenMenuGroup
         v-else
         :text="item.text || ''"
