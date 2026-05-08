@@ -15,7 +15,7 @@ The Startup Manager is a built-in tool in optimizerDuck designed to give you com
   caption="Startup Manager (Startup Apps)"
 />
 
-When you navigate to the **Startup Manager** tab, optimizerDuck presents a clean, unified list of every program registered to run at startup. 
+When you navigate to the **Startup Manager** tab, optimizerDuck presents a clean, unified list of every program registered to run at startup.
 
 Instead of showing confusing technical entries, the interface is designed to help you quickly identify each application. For every item, you will see its recognized name, its description, and precisely where the startup trigger is located (such as the registry or a specific folder). Most importantly, you can view the exact command that the application executes, giving you full transparency into what is happening behind the scenes.
 
@@ -26,6 +26,7 @@ The view is divided into two primary sections: **Startup Apps**, which rely on t
 Taking control of your startup items is the easiest way to improve boot times. If you spot a program that you recognize but don't need running immediately every time you turn on your computer (like a game launcher, an update daemon, or a cloud sync client), you can disable it effortlessly.
 
 To prevent a program from launching automatically:
+
 1. Locate the program in the list of startup items.
 2. Click the **toggle switch** located on its card to disable it.
 3. The switch will update visually, and the program's registry key or task will be disabled, preventing it from running during the next boot.
@@ -43,8 +44,6 @@ Some applications try to bypass traditional startup lists by creating a task in 
 
 Managing these works exactly the same way as traditional startup apps. You can review the task details and use the toggle switch to easily enable or disable them in one click.
 
-Simply toggle the switch to enable or disable the task.
-
 ::: tip
 Disabling a startup program or scheduled task does not uninstall, delete, or break it. You are simply stopping it from opening automatically. You can always open the program manually from your Start menu or desktop shortcut whenever you actually need to use it.
 :::
@@ -53,7 +52,7 @@ Disabling a startup program or scheduled task does not uninstall, delete, or bre
 
 Knowing what to turn off can be intimidating, but as a general rule of thumb, you only need a few essential services running continuously.
 
-- **Safe to disable:** Cloud storage sync clients (if you don't need instant syncing), chat applications like Discord, Skype, or Microsoft Teams, media players, game launchers, and software update checkers. 
+- **Safe to disable:** Cloud storage sync clients (if you don't need instant syncing), chat applications like Discord, Skype, or Microsoft Teams, media players, game launchers, and software update checkers.
 - **Keep enabled:** Security and antivirus software, necessary hardware drivers (such as your audio control panel, graphics card companion software, or mouse/keyboard software), and crucial system utilities.
 
 ::: warning

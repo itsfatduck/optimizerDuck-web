@@ -1,57 +1,91 @@
-# Under the Hood: How it Works
+# How optimizerDuck Works
 
-For advanced users and developers who want to understand exactly what **optimizerDuck** is doing behind the scenes, this guide explains its core mechanisms.
+This guide explains what optimizerDuck actually does when you apply optimizations. Whether you're a developer or a regular user, this will help you understand the technical side.
 
-## System Interaction
+## What optimizerDuck Actually Does
 
-optimizerDuck does not use "black magic" or deeply injected resident drivers. Instead, it acts as a very capable UI wrapper for native Windows APIs and command-line tools. Everything the app does can theoretically be done manually, optimizerDuck just makes it safe, fast, and automated.
+optimizerDuck doesn't use hidden drivers or anything mysterious. It simply automates Windows built-in tools through a graphical interface. Everything it does can be done manually through Windows, but it would take much longer and require technical knowledge.
+
+Every change optimizerDuck makes can be done manually through Windows built-in tools. We just make it faster and easier.
+
+## The Four Main Methods
+
+optimizerDuck interacts with Windows using four different approaches. Here's how each one works:
 
 ### 1. Registry Edits
 
-The vast majority of Windows behaviors (telemetry, context menus, hidden settings) are controlled via the Windows Registry. optimizerDuck reads and writes to specific Registry keys (`HKLM`, `HKCU`, etc.) to toggle these features.
-- *Example: Disabling Bing search in the Start Menu by creating a specific DWORD value.*
+**What it is:** The Windows Registry is a database that stores Windows configuration settings. Things like context menu options, startup programs, and system behaviors are all controlled here.
 
-Learn more:
+**How optimizerDuck uses it:** When you toggle a setting, optimizerDuck reads or writes specific registry keys. For example, to disable Bing search in the Start Menu, it changes a registry value from 1 to 0.
+
+**Why this matters:** Most Windows optimizations work through registry edits. We only modify well-documented keys that have been tested.
+
 - [Microsoft Docs: Registry](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry)
-- [RegistryService.cs](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/OptimizationServices/RegistryService.cs) - The source code for the RegistryService class.
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/RegistryService.cs)
 
 ### 2. Windows Services
-Many background processes running on Windows are managed as system services. optimizerDuck interacts with the Service Control Manager (SCM) to modify their startup type
-- *For example, changing a service from **Automatic** to **Manual** or **Disabled**.*
 
-Learn more:
+**What it is:** Windows Services are background processes that run automatically. Examples include Windows Update, print spooler, and various system utilities. Each service has a startup type: Automatic, Manual, Disabled, or Delayed Start.
+
+**How optimizerDuck uses it:** We change the startup type of services. If you don't use Windows Fax and Scan, we can set that service to Manual so it only starts when you actually need it.
+
+**Why this matters:** Disabling unused services reduces background resource usage and can improve boot time.
+
 - [Microsoft Docs: Service Control Manager](https://learn.microsoft.com/en-us/windows/win32/services/service-control-manager)
-- [ServiceProcessService.cs](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/OptimizationServices/ServiceProcessService.cs) - The source code for the ServiceProcessService class.
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ServiceProcessService.cs)
 
 ### 3. Scheduled Tasks
 
-To manage scheduled tasks, optimizerDuck uses the Task Scheduler API. This allows the application to create, modify, and delete scheduled tasks on the system.
-- *For example, disabling the "Windows Defender Antivirus" scheduled task.*
+**What it is:** Windows Task Scheduler allows programs to run automatically at specific times or events. Many applications create scheduled tasks that run at login or on a schedule without telling you.
 
-Learn more:
+**How optimizerDuck uses it:** We can disable these tasks. For example, some apps create tasks that run every time you log in to check for updates. We can disable those to speed up login.
+
+**Why this matters:** Fewer background tasks means less CPU usage and faster startup.
+
 - [Microsoft Docs: Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
-- [NuGet package: TaskScheduler](https://www.nuget.org/packages/TaskScheduler/)
-- [ScheduledTasksService.cs](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/OptimizationServices/ScheduledTasksService.cs) - The source code for the ScheduledTasksService class.
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ScheduledTasksService.cs)
 
-### 4. PowerShell & CMD Execution
-For actions like removing built-in UWP apps (Bloatware) or running advanced system cleanups, optimizerDuck programmatically executes PowerShell scripts (`Remove-AppxPackage`) and CMD commands in the background without showing an annoying black terminal window.
+### 4. PowerShell and CMD Commands
 
-Learn more:
+**What it is:** PowerShell and CMD are command-line interfaces for Windows. They can execute system commands that aren't available through the graphical interface.
+
+**How optimizerDuck uses it:** For operations like removing pre-installed apps (bloatware) or system cleanup, we run PowerShell commands in the background. The commands execute silently without showing a terminal window.
+
+**Why this matters:** Some Windows features can only be controlled through command-line tools. We handle the technical parts so you don't have to.
+
 - [Microsoft Docs: PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview)
-- [Microsoft Docs: CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd)
-- [ShellService.cs](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/OptimizationServices/ShellService.cs) - The source code for the ShellService class.
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ShellService.cs)
 
 ## The Revert System
 
-We don't just change your settings blindly. We ensure you have a safety net.
+Changing system settings can be risky. That's why optimizerDuck automatically backs up the original state before making any changes.
 
-Whenever you apply an optimization, the application:
-1. **Reads** the current state of the Registry key or Service.
-2. **Saves** that exact original state into a local `.json` file.
-3. **Applies** the new optimized state.
+**How it works:**
 
-These `.json` backups are stored in `%localappdata%\optimizerDuck\Revert\`. When you choose to revert a tweak, the app simply reads this file and writes the original value back to the system.
+1. optimizerDuck reads the current value before changing anything
+2. It saves that original value to a JSON file on your computer
+3. Then it applies the new setting
 
-## Transparency & Open Source
+Backup files are stored here:
 
-Because optimizerDuck is completely open-source, you don't have to take our word for it. You can browse the C# and WPF source code on [GitHub](https://github.com/itsfatduck/optimizerDuck) to see the exact code used for every single toggle in the application.
+```
+%localappdata%\optimizerDuck\Revert\
+```
+
+**To undo a change:**
+
+- Click the toggle button again to revert
+- optimizerDuck reads the backup file and restores the original value
+- Your system returns to its previous state
+
+You can safely try different optimizations. If something doesn't work as expected, just revert it.
+
+## Open Source
+
+optimizerDuck is completely open source. This means:
+
+- All source code is publicly available on GitHub
+- Anyone can review the code for security issues
+- There are no hidden operations or data collection
+
+You can verify everything yourself by browsing the code at [github.com/itsfatduck/optimizerDuck](https://github.com/itsfatduck/optimizerDuck).

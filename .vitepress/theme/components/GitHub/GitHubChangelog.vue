@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, nextTick, watch } from "vue";
 import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
 
@@ -80,9 +80,7 @@ const getReleasePreview = (body) => {
     }
   }
 
-  if (imageUrl && imageUrl.startsWith('http')) {
-    imageUrl = `https://wsrv.nl/?url=${encodeURIComponent(imageUrl)}&w=1000&output=webp&we`;
-  }
+  // Keep original image URL for native browser optimization
 
   // Build snippet text
   let snippet = body
@@ -122,22 +120,15 @@ const renderMD = (content, id) => {
   if (!content) return "";
   if (renderedCache.has(id)) return renderedCache.get(id);
   let html = md.render(content);
-  // Optimize images: use proxy for WebP conversion, resize, and lazy load
+  // Optimize images: add lazy loading and async decoding
   html = html.replace(
     /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
     (match, p1, src, p2) => {
-      let optimizedSrc = src;
-      if (src.startsWith('http')) {
-        const isBadge = src.match(/shields\.io|badge|badgen\.net|sonarcloud\.io|\.svg(\?|$)/i);
-        if (!isBadge) {
-          optimizedSrc = `https://wsrv.nl/?url=${encodeURIComponent(src)}&w=1000&output=webp&we`;
-        }
-      }
       let attrs = ` ${p1} ${p2} `;
-      if (!attrs.includes('loading=')) attrs += 'loading="lazy" ';
-      if (!attrs.includes('decoding=')) attrs += 'decoding="async" ';
-      return `<img src="${optimizedSrc}" ${attrs}>`;
-    }
+      if (!attrs.includes("loading=")) attrs += 'loading="lazy" ';
+      if (!attrs.includes("decoding=")) attrs += 'decoding="async" ';
+      return `<img src="${src}" ${attrs}>`;
+    },
   );
   renderedCache.set(id, html);
   return html;
@@ -145,7 +136,58 @@ const renderMD = (content, id) => {
 
 const handleLoadMore = async () => {
   await loadMoreReleases();
+  // Wait for DOM to update then refresh VitePress TOC
+  await nextTick();
+  updateVitePressTOC();
 };
+
+// Update VitePress table of contents when new releases are loaded
+const updateVitePressTOC = () => {
+  if (typeof window === "undefined") return;
+
+  // Find VitePress TOC container
+  const tocContainer = document.querySelector(".VPDocAsideOutline");
+  if (!tocContainer) return;
+
+  // Get all h2 elements from our component
+  const headings = document.querySelectorAll(".github-changelog h2");
+  if (!headings.length) return;
+
+  // Find the outline list in the TOC
+  const outlineList = tocContainer.querySelector(".outline-links");
+  if (!outlineList) return;
+
+  // Get existing TOC links to avoid duplicates
+  const existingLinks = new Set(
+    Array.from(outlineList.querySelectorAll("a")).map((a) =>
+      a.getAttribute("href"),
+    ),
+  );
+
+  // Add new headings to TOC
+  headings.forEach((heading) => {
+    const id = heading.id;
+    if (!id || existingLinks.has(`#${id}`)) return;
+
+    const link = document.createElement("a");
+    link.href = `#${id}`;
+    link.textContent = heading.textContent.trim();
+    link.className = "outline-link";
+
+    const listItem = document.createElement("li");
+    listItem.className = "outline-item";
+    listItem.appendChild(link);
+
+    outlineList.appendChild(listItem);
+    existingLinks.add(`#${id}`);
+  });
+};
+
+// Also update TOC on initial load
+watch(releases, async () => {
+  await nextTick();
+  updateVitePressTOC();
+});
 
 onMounted(() => {
   fetchReleases();
@@ -176,16 +218,27 @@ const formatDownloads = (count) => {
 
 <template>
   <div class="github-changelog" v-if="!loading && !error">
-    <div v-for="release in processedReleases" :key="release.id" class="changelog-item">
-        <div class="changelog-header">
-          <div class="header-left">
-            <h2 :id="release.tag_name">
-              <a :href="release.html_url" target="_blank" rel="noopener" class="release-title-link">
-                {{ release.name || release.tag_name }}
+    <div
+      v-for="release in processedReleases"
+      :key="release.id"
+      class="changelog-item"
+    >
+      <div class="changelog-header">
+        <div class="header-left">
+          <h2 :id="release.tag_name">
+            <a
+              :href="release.html_url"
+              target="_blank"
+              rel="noopener"
+              class="release-title-link"
+            >
+              {{ release.name || release.tag_name }}
             </a>
           </h2>
           <span v-if="release.isLatest" class="tag tag-latest">Latest</span>
-          <span v-if="release.prerelease" class="tag tag-unstable">Unstable</span>
+          <span v-if="release.prerelease" class="tag tag-unstable"
+            >Unstable</span
+          >
         </div>
         <div class="header-meta">
           <span class="date">
@@ -201,25 +254,45 @@ const formatDownloads = (count) => {
       <div class="changelog-body-wrapper">
         <template v-if="!isExpanded(release.id)">
           <div class="release-preview" @click="toggleRelease(release.id)">
-            <div v-if="release.preview.hasImage" class="preview-image-container">
-              <img :src="release.preview.imageUrl" class="preview-image" alt="Release Preview" loading="lazy" />
+            <div
+              v-if="release.preview.hasImage"
+              class="preview-image-container"
+            >
+              <img
+                :src="release.preview.imageUrl"
+                class="preview-image"
+                alt="Release Preview"
+                loading="lazy"
+              />
             </div>
             <div v-if="release.preview.snippet" class="preview-content">
               <p class="preview-snippet">{{ release.preview.snippet }}</p>
             </div>
           </div>
         </template>
-        <div v-else class="changelog-body vp-doc" v-html="renderMD(release.body || '', release.id)" />
+        <div
+          v-else
+          class="changelog-body vp-doc"
+          v-html="renderMD(release.body || '', release.id)"
+        />
       </div>
 
-      <button v-if="isExpanded(release.id)" class="collapse-btn" @click="toggleRelease(release.id)">
+      <button
+        v-if="isExpanded(release.id)"
+        class="collapse-btn"
+        @click="toggleRelease(release.id)"
+      >
         <span class="icon">↑</span>
         Show less
       </button>
     </div>
 
     <div v-if="hasMore" class="load-more-wrapper">
-      <button class="load-more-btn" :disabled="loadingMore" @click="handleLoadMore">
+      <button
+        class="load-more-btn"
+        :disabled="loadingMore"
+        @click="handleLoadMore"
+      >
         {{ loadingMore ? "Loading..." : "Load more releases" }}
       </button>
     </div>
@@ -378,7 +451,7 @@ h2 {
   background: var(--vp-c-bg-mute);
   min-height: 60px;
   content-visibility: auto;
-  transform: translateZ(0); 
+  transform: translateZ(0);
 }
 
 .changelog-body :deep(h1),

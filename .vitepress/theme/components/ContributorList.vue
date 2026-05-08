@@ -1,38 +1,93 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
 const props = defineProps({
   repo: {
     type: String,
-    default: 'itsfatduck/OptimizerDuck'
-  }
-})
+    default: "itsfatduck/optimizerDuck",
+  },
+});
 
-const contributors = ref([])
-const loading = ref(true)
-const error = ref(null)
+const CACHE_KEY = `github-contributors-${props.repo}`;
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const isClient = typeof window !== "undefined";
+
+const contributors = ref([]);
+const loading = ref(true);
+const error = ref(null);
+
+function getCachedData() {
+  if (!isClient) return null;
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    // Check TTL
+    if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return data;
+  } catch {
+    try {
+      localStorage.removeItem(CACHE_KEY);
+    } catch {}
+    return null;
+  }
+}
 
 onMounted(async () => {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${props.repo}/contributors`)
-    if (!res.ok) throw new Error('Failed to fetch contributors')
-    const data = await res.json()
-    // filter to only display actual users and ignore bots
-    contributors.value = data.filter(c => c.type === 'User' && !c.login.toLowerCase().includes('bot'))
-  } catch (err) {
-    error.value = err.message
-  } finally {
-    loading.value = false
+  const cached = getCachedData();
+  if (cached) {
+    contributors.value = cached.contributors;
+    loading.value = false;
+    return;
   }
-})
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${props.repo}/contributors`,
+    );
+    if (!res.ok) {
+      if (res.status === 403) {
+        throw new Error(
+          "GitHub API rate limit exceeded. Please try again later.",
+        );
+      }
+      throw new Error("Failed to fetch contributors");
+    }
+    const data = await res.json();
+    // filter to only display actual users and ignore bots
+    contributors.value = data.filter(
+      (c) => c.type === "User" && !c.login.toLowerCase().includes("bot"),
+    );
+
+    // Cache the data
+    if (isClient) {
+      try {
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({
+            contributors: contributors.value,
+            timestamp: Date.now(),
+          }),
+        );
+      } catch {}
+    }
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
 
 <template>
   <div v-if="loading" class="loading">Loading contributors...</div>
   <div v-else-if="error" class="error">{{ error }}</div>
   <div v-else class="contributor-grid">
-    <a 
-      v-for="contributor in contributors" 
+    <a
+      v-for="contributor in contributors"
       :key="contributor.id"
       :href="contributor.html_url"
       target="_blank"
@@ -40,7 +95,12 @@ onMounted(async () => {
       class="contributor-card"
     >
       <div class="avatar-wrapper">
-        <img :src="contributor.avatar_url" :alt="contributor.login" class="avatar-img" loading="lazy" />
+        <img
+          :src="contributor.avatar_url"
+          :alt="contributor.login"
+          class="avatar-img"
+          loading="lazy"
+        />
       </div>
       <div class="info-wrapper">
         <h3 class="name">{{ contributor.login }}</h3>
@@ -62,11 +122,13 @@ onMounted(async () => {
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 1rem;
-  border-radius: 8px; 
-  background: var(--vp-c-bg-soft); 
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
   text-decoration: none !important;
   color: inherit !important;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .contributor-card:hover {
@@ -107,7 +169,8 @@ onMounted(async () => {
   line-height: 1.2;
 }
 
-.loading, .error {
+.loading,
+.error {
   color: var(--vp-c-text-2);
   font-size: 0.9rem;
   margin: 1rem 0;

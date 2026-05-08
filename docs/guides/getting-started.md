@@ -32,7 +32,6 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
   caption="Traditional Chinese interface of optimizerDuck, translated by abc0922001"
 />
 
-
 optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
 
 - 🇺🇸 **English (United States)** - Primary & recommended
@@ -62,7 +61,6 @@ Every contribution is welcome and appreciated, and it helps make optimizerDuck m
 Join the optimizerDuck community to get help, share feedback, and connect with other users.
 
 - **Discord**: Join our [Discord server](https://discord.gg/tDUBDCYw9Q) to interact with the development team and other users.
-- **GitHub**: Star the repository, report bugs, or contribute on [GitHub](https://github.com/itsfatduck/optimizerDuck).
 
 For more details, visit the [Community](/docs/community) page.
 
@@ -81,8 +79,10 @@ Explore the guides below to optimize and manage your system effectively:
 
 If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
 
-- [Support Me](/docs/contribute/support-me)
-- [Contribute](/docs/contribute/overview)
+- **GitHub**: Star the repository, report bugs, or contribute on [GitHub](https://github.com/itsfatduck/optimizerDuck).
+- or, if you want to support the project financially, consider buying me a coffee or sharing the project with your friends!
+
+Visit the [Support Me](/docs/contribute/support-me) and [Contribute](/docs/contribute/overview) page to learn more.
 
 ## Important Best Practices
 
@@ -93,4 +93,20 @@ Always create a Windows System Restore Point or a backup before applying system 
 :::
 
 - **Restart Your PC:** Remember to restart your computer after applying optimizations so that all registry and system changes take effect properly.
-- **Check for Updates:** Even though optimizerDuck updates often, keep an eye on the GitHub repository for new releases to benefit from the latest features and bug fixes.
+- **Check for Updates:** Although optimizerDuck updates frequently, check the GitHub repository for new releases to benefit from the latest features and bug fixes.
+
+## Disclaimer
+
+optimizerDuck is an independent project and is not affiliated with, endorsed by, or sponsored by Microsoft Corporation. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.
+Please use optimizerDuck at your own risk.
+
+::: info
+
+Learn more:
+
+- [Privacy Policy](https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md)
+- [Terms of Service](https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md)
+- [Disclaimer](https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md)
+- [License](https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE)
+
+:::

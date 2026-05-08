@@ -26,7 +26,7 @@ locally and contribute changes safely.
 
 - [Git](https://git-scm.com/) for cloning the repository and opening pull
   requests
-- [Node.js](https://nodejs.org/) 18 or newer for the VitePress toolchain
+- [Node.js](https://nodejs.org/) 26 or newer for the VitePress toolchain
 - [Bun](https://bun.sh/) if you want to use the recommended package manager
 
 > **Note:** Bun is the preferred option for this guide. If you use `npm`, the

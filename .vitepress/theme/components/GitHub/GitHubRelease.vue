@@ -52,10 +52,13 @@ const checkHeight = () => {
 };
 
 // Watch for content changes to re-check height
-watch(() => release.value, async () => {
-  await nextTick();
-  checkHeight();
-});
+watch(
+  () => release.value,
+  async () => {
+    await nextTick();
+    checkHeight();
+  },
+);
 
 onMounted(async () => {
   await fetchReleases();
@@ -78,22 +81,15 @@ onUnmounted(() => {
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
   let html = md.render(release.value.body);
-  // Optimize images: use proxy for WebP conversion, resize, and lazy load
+  // Optimize images: add lazy loading and async decoding
   return html.replace(
     /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
     (match, p1, src, p2) => {
-      let optimizedSrc = src;
-      if (src.startsWith('http')) {
-        const isBadge = src.match(/shields\.io|badge|badgen\.net|sonarcloud\.io|\.svg(\?|$)/i);
-        if (!isBadge) {
-          optimizedSrc = `https://wsrv.nl/?url=${encodeURIComponent(src)}&w=1000&output=webp&we`;
-        }
-      }
       let attrs = ` ${p1} ${p2} `;
-      if (!attrs.includes('loading=')) attrs += 'loading="lazy" ';
-      if (!attrs.includes('decoding=')) attrs += 'decoding="async" ';
-      return `<img src="${optimizedSrc}" ${attrs}>`;
-    }
+      if (!attrs.includes("loading=")) attrs += 'loading="lazy" ';
+      if (!attrs.includes("decoding=")) attrs += 'decoding="async" ';
+      return `<img src="${src}" ${attrs}>`;
+    },
   );
 });
 
@@ -121,12 +117,15 @@ const handleDownload = (asset) => {
   selectedAsset.value = asset;
   showDialog.value = true;
   // Trigger the actual download
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = asset.browser_download_url;
   a.download = asset.name;
   document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  try {
+    a.click();
+  } finally {
+    document.body.removeChild(a);
+  }
 };
 
 const closeDialog = () => {
@@ -149,19 +148,45 @@ const closeDialog = () => {
           Downloads: {{ formatDownloads(totalDownloads) }}
         </p>
         <span class="meta-divider">•</span>
-        <a :href="release.html_url" target="_blank" rel="noopener" class="github-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+        <a
+          :href="release.html_url"
+          target="_blank"
+          rel="noopener"
+          class="github-link"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            ></path>
           </svg>
           View Release on GitHub
         </a>
       </div>
 
-      <div v-for="asset in release.assets" :key="asset.id" class="download-card">
+      <div
+        v-for="asset in release.assets"
+        :key="asset.id"
+        class="download-card"
+      >
         <button class="download-button" @click="handleDownload(asset)">
           <span class="download-icon-wrap" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
@@ -172,13 +197,24 @@ const closeDialog = () => {
             <span class="download-title">Download {{ asset.name }}</span>
             <span class="download-meta">
               <span class="file-size">{{ formatSize(asset.size) }}</span>
-              <span class="asset-downloads">{{ formatDownloads(asset.download_count) }} downloads</span>
+              <span class="asset-downloads"
+                >{{ formatDownloads(asset.download_count) }} downloads</span
+              >
             </span>
           </span>
 
           <span class="download-arrow" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
@@ -187,21 +223,43 @@ const closeDialog = () => {
       </div>
     </div>
 
-    <div v-if="release.body" class="release-body" :class="{ 'is-expanded': isExpanded, 'is-long': isLong }">
+    <div
+      v-if="release.body"
+      class="release-body"
+      :class="{ 'is-expanded': isExpanded, 'is-long': isLong }"
+    >
       <h4>Release Notes</h4>
       <div class="release-body-wrapper" ref="contentWrapper">
         <div class="release-body-content vp-doc" v-html="renderedBody" />
-        <div v-if="isLong && !isExpanded" class="fade-overlay" @click="isExpanded = true">
+        <div
+          v-if="isLong && !isExpanded"
+          class="fade-overlay"
+          @click="isExpanded = true"
+        >
           <button class="expand-trigger">
             Click to expand
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon"
+            >
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </button>
         </div>
       </div>
-      <button v-if="isLong && isExpanded" class="collapse-btn" @click="isExpanded = false">
+      <button
+        v-if="isLong && isExpanded"
+        class="collapse-btn"
+        @click="isExpanded = false"
+      >
         <span class="icon">↑</span>
         Show less
       </button>
@@ -232,8 +290,17 @@ const closeDialog = () => {
         <div class="dialog-container">
           <!-- Close button -->
           <button class="dialog-close" @click="closeDialog" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
@@ -242,17 +309,34 @@ const closeDialog = () => {
           <!-- Header -->
           <div class="dialog-header">
             <div class="dialog-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </div>
-            <h3 class="dialog-title">Thank you for downloading optimizerDuck</h3>
+            <h3 class="dialog-title">
+              Thank you for downloading optimizerDuck
+            </h3>
             <p class="dialog-description">
-              Click <a v-if="selectedAsset" :href="selectedAsset.browser_download_url" class="manual-link">here</a> if
-              your download hasn't started.
+              Click
+              <a
+                v-if="selectedAsset"
+                :href="selectedAsset.browser_download_url"
+                class="manual-link"
+                >here</a
+              >
+              if your download hasn't started.
             </p>
           </div>
 
@@ -261,53 +345,116 @@ const closeDialog = () => {
 
           <!-- Actions -->
           <div class="dialog-actions">
-            <a href="/docs/guides/getting-started" class="action-card" @click="closeDialog">
+            <a
+              href="/docs/guides/getting-started"
+              class="action-card"
+              @click="closeDialog"
+            >
               <div class="action-icon">
                 <!-- Book / Docs icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                  <path
+                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                  />
                   <line x1="8" y1="7" x2="16" y2="7" />
                   <line x1="8" y1="11" x2="13" y2="11" />
                 </svg>
               </div>
               <div class="action-text">
                 <span class="action-title">Read the Documentation</span>
-                <span class="action-desc">Learn how to set up and use optimizerDuck</span>
+                <span class="action-desc"
+                  >Learn how to set up and use optimizerDuck</span
+                >
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="action-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-arrow"
+              >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </a>
 
-            <a href="https://discord.gg/tDUBDCYw9Q" target="_blank" rel="noopener" class="action-card">
+            <a
+              href="https://discord.gg/tDUBDCYw9Q"
+              target="_blank"
+              rel="noopener"
+              class="action-card"
+            >
               <div class="action-icon discord">
                 <!-- Discord icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <path
-                    d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8733.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
+                    d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.8733.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"
+                  />
                 </svg>
               </div>
               <div class="action-text">
                 <span class="action-title">Join our Discord</span>
-                <span class="action-desc">Get help, share feedback, and connect with the community</span>
+                <span class="action-desc"
+                  >Get help, share feedback, and connect with the
+                  community</span
+                >
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="action-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-arrow"
+              >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </a>
           </div>
 
           <!-- Troubleshooting link -->
-          <a href="/docs/faq/troubleshooting" class="dialog-help-link" @click="closeDialog">
+          <a
+            href="/docs/faq/troubleshooting"
+            class="dialog-help-link"
+            @click="closeDialog"
+          >
             Having issues downloading or opening optimizerDuck?
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </a>
@@ -367,7 +514,9 @@ h3 {
   font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
 }
 
 .github-link:hover {
@@ -394,7 +543,10 @@ h3 {
   font-size: 1rem;
   text-align: left;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
@@ -406,7 +558,8 @@ h3 {
   color: var(--vp-c-text-1);
   transform: translateY(-1px);
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 12px 24px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  box-shadow: 0 12px 24px
+    color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
 }
 
 .download-icon-wrap {
@@ -630,8 +783,13 @@ h3 {
 }
 
 @keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* ===== Download Dialog ===== */
@@ -691,14 +849,17 @@ h3 {
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--vp-c-brand-soft), color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent));
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-brand-soft),
+    color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent)
+  );
   color: var(--vp-c-brand-1);
   margin-bottom: 1.25rem;
   animation: pulse-download 2s ease-in-out infinite;
 }
 
 @keyframes pulse-download {
-
   0%,
   100% {
     transform: scale(1);
@@ -781,8 +942,8 @@ h3 {
 }
 
 .action-icon.discord {
-  background: color-mix(in srgb, #5865F2 12%, transparent);
-  color: #5865F2;
+  background: color-mix(in srgb, #5865f2 12%, transparent);
+  color: #5865f2;
 }
 
 .action-text {

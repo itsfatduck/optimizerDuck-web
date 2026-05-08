@@ -31,7 +31,7 @@ If optimizerDuck has been helpful to you, here are a few ways you can support th
 
 <SupportCard 
   title="Share with Friends" 
-  description="Know someone struggling with a slow PC? Share optimizerDuck and help them get their system running like new." 
+  description="Know someone struggling with a slow PC? Share optimizerDuck and help them optimize their system." 
   icon="share" 
   url="https://github.com/itsfatduck/optimizerDuck"
   ctaText="Share the Link"
@@ -41,4 +41,4 @@ If optimizerDuck has been helpful to you, here are a few ways you can support th
 
 optimizerDuck is built and maintained by a **solo developer**. Every star, every donation, and every pull request directly fuels the motivation to keep shipping new features and improvements.
 
-> _Your support, no matter how small, truly makes a difference._ <3
+> _Your support, no matter how small, truly makes a difference._

@@ -8,7 +8,7 @@ Optimization generally refers to modifying system settings to ensure your operat
 
 In optimizerDuck, "Optimization" applies specifically to configuring network settings, disabling unnecessary telemetry features, adjusting registry values to prioritize performance, and removing resource-hungry background services. These targeted adjustments collectively refine your system by cutting down on latency, ensuring your hardware works efficiently, and limiting the amount of background data sent back to Microsoft.
 
-Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-are-these-optimizations-applied) or [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
+Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-are-these-optimizations-applied) or [here (Wikipedia)](<https://en.wikipedia.org/wiki/Optimization_(computer_science)>).
 
 ## Apply an optimization
 
@@ -17,13 +17,13 @@ Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-
   caption="Optimization items organized into grid sections"
 />
 
-When you navigate to the **Optimize** tab within the application, you are presented with an organized grid of specific system enhancements. To keep everything accessible, optimizerDuck neatly categorizes these options rather than presenting a confusing list of technical commands. 
+When you navigate to the **Optimize** tab within the application, you are presented with an organized grid of specific system enhancements. To keep everything accessible, optimizerDuck neatly categorizes these options rather than presenting a confusing list of technical commands.
 
-Each optimization card provides a comprehensive description explaining precisely how the tweak affects your system, completely removing the guesswork. Additionally, tags are used so you can quickly filter and find optimizations that match your specific goals, whether that means boosting gaming performance, enhancing network speed, or increasing privacy. 
+Each optimization card provides a comprehensive description explaining precisely how the tweak affects your system, completely removing the guesswork. Additionally, tags are used so you can quickly filter and find optimizations that match your specific goals, whether that means boosting gaming performance, enhancing network speed, or increasing privacy.
 
 Before applying an optimization, you can review its built-in safety rating. The tool classifies changes into three levels: **Safe**, **Caution**, and **Risky**, allowing you to implement changes with confidence based on how they interact with Windows services.
 
-To apply an optimization, simply locate the card for the tweak you wish to perform and click the **toggle switch** in the bottom-right corner. A progress dialog will appear, showing the progress of the optimization. Once the optimization is applied, the switch will turn yellow (applied), indicating that the optimization is applied.
+To apply an optimization, simply locate the card for the tweak you wish to perform and click the **toggle switch** in the bottom-right corner. A progress dialog will appear, showing the progress of the optimization. Once the optimization is applied, the switch will turn yellow to indicate the change.
 
 ::: warning Some optimizations require an internet connection
 Certain optimizations, specifically those that download updated configurations or interact with network drivers, need an active internet connection to be successfully applied. You will see a **"Network connection required"** tag with a Wi-Fi icon below the optimization name if this is the case.
