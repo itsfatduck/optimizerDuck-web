@@ -18,7 +18,7 @@ hero:
       link: /docs/guides/getting-started
 features:
   - title: Open Source & Community
-    details: Proudly developed on GitHub with 45+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
+    details: Proudly developed on GitHub with 500+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
   - title: Built with Modern Tech
     details: Written in C# and powered by .NET. Focuses on performance, privacy, and simplicity with a sleek multilingual interface.
   - title: Comprehensive Tweaks
