@@ -34,9 +34,9 @@ const selectedAsset = ref(null);
 
 const {
   latestRelease: release,
-  loading,
-  error,
-  fetchReleases,
+  loadingLatest: loading,
+  errorLatest: error,
+  fetchLatestRelease,
 } = useGitHub(props.repo);
 
 const md = new MarkdownIt({
@@ -61,7 +61,7 @@ watch(
 );
 
 onMounted(async () => {
-  await fetchReleases();
+  await fetchLatestRelease();
   await nextTick();
   checkHeight();
 
@@ -78,11 +78,33 @@ onUnmounted(() => {
   }
 });
 
+const parseMentions = (html) => {
+  let inSkipTag = 0;
+  const parts = html.split(/(<\/?[a-z0-9]+[^>]*>)/gi);
+  const processed = parts.map((part, index) => {
+    if (index % 2 === 0) {
+      if (inSkipTag > 0) return part;
+      return part.replace(/\B@([a-z0-9](?:-?[a-z0-9]){0,38})\b/gi, '<a href="https://github.com/$1" target="_blank" rel="noopener noreferrer" class="mention">@$1</a>');
+    } else {
+      const tagName = part.match(/^<\/?([a-z0-9]+)/i)?.[1]?.toLowerCase();
+      if (tagName === 'a' || tagName === 'code' || tagName === 'pre') {
+        if (part.startsWith('</')) {
+          inSkipTag = Math.max(0, inSkipTag - 1);
+        } else {
+          inSkipTag++;
+        }
+      }
+      return part;
+    }
+  });
+  return processed.join('');
+};
+
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
   let html = md.render(release.value.body);
   // Optimize images: add lazy loading and async decoding
-  return html.replace(
+  html = html.replace(
     /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
     (match, p1, src, p2) => {
       let attrs = ` ${p1} ${p2} `;
@@ -91,6 +113,7 @@ const renderedBody = computed(() => {
       return `<img src="${src}" ${attrs}>`;
     },
   );
+  return parseMentions(html);
 });
 
 const formatSize = (bytes) => {
@@ -135,7 +158,7 @@ const closeDialog = () => {
 </script>
 
 <template>
-  <div class="github-release" v-if="!loading && !error && release">
+  <div class="github-release" v-if="release">
     <div class="release-info">
       <h3>Latest Version: {{ release.tag_name }}</h3>
       <div class="release-meta">
@@ -267,7 +290,7 @@ const closeDialog = () => {
   </div>
 
   <!-- Skeleton Loader -->
-  <div v-else-if="loading" class="github-release skeleton-container">
+  <div v-else-if="loading || (!release && !error)" class="github-release skeleton-container">
     <div class="skeleton-header">
       <div class="skeleton-line skeleton-title"></div>
       <div class="skeleton-line skeleton-date"></div>
@@ -281,7 +304,7 @@ const closeDialog = () => {
     </div>
   </div>
 
-  <div v-else class="error">Error: {{ error }}</div>
+  <div v-else-if="error" class="error">Error: {{ error }}</div>
 
   <!-- Download Dialog -->
   <Teleport to="body">
@@ -718,6 +741,24 @@ h3 {
   opacity: 1;
   transition: opacity 0.3s ease;
   content-visibility: auto;
+}
+
+.release-body-content :deep(.mention) {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: inline-block;
+  line-height: 1.3;
+}
+
+.release-body-content :deep(.mention:hover) {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
+  color: var(--vp-c-brand-2);
+  text-decoration: none;
 }
 
 .release-body-content :deep(h1),

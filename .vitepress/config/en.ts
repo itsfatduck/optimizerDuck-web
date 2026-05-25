@@ -252,16 +252,19 @@ function getFooter(): FooterConfig {
   return {
     navigation: [
       {
+        title: "Legal",
+        items: [
+          { text: "Privacy Policy", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md" },
+          { text: "Terms of Service", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md" },
+          { text: "Disclaimer", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md" },
+          { text: "License", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE" },
+        ],
+      },
+      {
         title: "Links",
         items: [
           { text: "GitHub", link: "https://github.com/itsfatduck/optimizerDuck" },
           { text: "Discord", link: "https://discord.gg/tDUBDCYw9Q" },
-        ],
-      },
-      {
-        title: "Legal",
-        items: [
-          { text: "License", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE" },
         ],
       },
     ],

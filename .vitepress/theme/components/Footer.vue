@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
         <div class="footer-license">
           <a v-if="footer.license" :href="footer.license.link" target="_blank" rel="noopener noreferrer"
             class="license-link">
-            <img src="/gplv3.png" alt="GPL-3.0 License" class="license-logo" />
+            <img src="/gplv3.png" alt="GPL-3.0 License" class="license-logo" loading="lazy" decoding="async" />
             <span class="license-text">{{ footer.license.text }}</span>
           </a>
           <span v-if="footer.copyright" class="footer-copyright">
@@ -76,7 +76,8 @@ const year = new Date().getFullYear();
 .footer-top {
   display: flex;
   flex-wrap: wrap;
-  gap: 4rem;
+  justify-content: flex-start;
+  gap: 6rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }

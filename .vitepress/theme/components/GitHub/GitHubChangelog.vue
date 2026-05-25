@@ -12,11 +12,11 @@ const props = defineProps({
 
 const {
   releases,
-  loading,
-  error,
+  loadingChangelog: loading,
+  errorChangelog: error,
   hasMore,
   loadingMore,
-  fetchReleases,
+  fetchChangelog,
   loadMoreReleases,
 } = useGitHub(props.repo);
 
@@ -116,6 +116,28 @@ const processedReleases = computed(() => {
 // Cache rendered markdown per release ID
 const renderedCache = new Map();
 
+const parseMentions = (html) => {
+  let inSkipTag = 0;
+  const parts = html.split(/(<\/?[a-z0-9]+[^>]*>)/gi);
+  const processed = parts.map((part, index) => {
+    if (index % 2 === 0) {
+      if (inSkipTag > 0) return part;
+      return part.replace(/\B@([a-z0-9](?:-?[a-z0-9]){0,38})\b/gi, '<a href="https://github.com/$1" target="_blank" rel="noopener noreferrer" class="mention">@$1</a>');
+    } else {
+      const tagName = part.match(/^<\/?([a-z0-9]+)/i)?.[1]?.toLowerCase();
+      if (tagName === 'a' || tagName === 'code' || tagName === 'pre') {
+        if (part.startsWith('</')) {
+          inSkipTag = Math.max(0, inSkipTag - 1);
+        } else {
+          inSkipTag++;
+        }
+      }
+      return part;
+    }
+  });
+  return processed.join('');
+};
+
 const renderMD = (content, id) => {
   if (!content) return "";
   if (renderedCache.has(id)) return renderedCache.get(id);
@@ -130,6 +152,7 @@ const renderMD = (content, id) => {
       return `<img src="${src}" ${attrs}>`;
     },
   );
+  html = parseMentions(html);
   renderedCache.set(id, html);
   return html;
 };
@@ -145,29 +168,42 @@ const handleLoadMore = async () => {
 const updateVitePressTOC = () => {
   if (typeof window === "undefined") return;
 
-  // Find VitePress TOC container
-  const tocContainer = document.querySelector(".VPDocAsideOutline");
-  if (!tocContainer) return;
-
   // Get all h2 elements from our component
   const headings = document.querySelectorAll(".github-changelog h2");
   if (!headings.length) return;
+
+  // Find VitePress TOC container or create it if missing (e.g. when page has no static headings)
+  let tocContainer = document.querySelector(".VPDocAsideOutline");
+  if (!tocContainer) {
+    const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
+    if (!asideContainer) return; // Aside is disabled on this layout
+
+    tocContainer = document.createElement("div");
+    tocContainer.className = "VPDocAsideOutline";
+    tocContainer.innerHTML = `
+      <div class="content">
+        <div class="outline-title" role="heading" aria-level="2">On this page</div>
+        <div class="outline-marker"></div>
+        <nav aria-labelledby="doc-outline-aria-label">
+          <span id="doc-outline-aria-label" class="visually-hidden">Table of Contents</span>
+          <ul class="outline-links"></ul>
+        </nav>
+      </div>
+    `;
+    asideContainer.appendChild(tocContainer);
+  }
 
   // Find the outline list in the TOC
   const outlineList = tocContainer.querySelector(".outline-links");
   if (!outlineList) return;
 
-  // Get existing TOC links to avoid duplicates
-  const existingLinks = new Set(
-    Array.from(outlineList.querySelectorAll("a")).map((a) =>
-      a.getAttribute("href"),
-    ),
-  );
+  // Clear existing items to avoid duplicates and ensure perfect ordering on load more
+  outlineList.innerHTML = "";
 
-  // Add new headings to TOC
+  // Add all headings to TOC
   headings.forEach((heading) => {
     const id = heading.id;
-    if (!id || existingLinks.has(`#${id}`)) return;
+    if (!id) return;
 
     const link = document.createElement("a");
     link.href = `#${id}`;
@@ -179,7 +215,6 @@ const updateVitePressTOC = () => {
     listItem.appendChild(link);
 
     outlineList.appendChild(listItem);
-    existingLinks.add(`#${id}`);
   });
 };
 
@@ -190,7 +225,7 @@ watch(releases, async () => {
 });
 
 onMounted(() => {
-  fetchReleases();
+  fetchChangelog();
 });
 
 const toggleRelease = (id) => {
@@ -217,7 +252,7 @@ const formatDownloads = (count) => {
 </script>
 
 <template>
-  <div class="github-changelog" v-if="!loading && !error">
+  <div class="github-changelog" v-if="releases && releases.length > 0">
     <div
       v-for="release in processedReleases"
       :key="release.id"
@@ -297,8 +332,8 @@ const formatDownloads = (count) => {
       </button>
     </div>
   </div>
-  <div v-else-if="loading" class="loading">Loading changelog...</div>
-  <div v-else class="error">Error: {{ error }}</div>
+  <div v-else-if="loading || (!releases.length && !error)" class="loading">Loading changelog...</div>
+  <div v-else-if="error" class="error">Error: {{ error }}</div>
 </template>
 
 <style scoped>
@@ -452,6 +487,24 @@ h2 {
   min-height: 60px;
   content-visibility: auto;
   transform: translateZ(0);
+}
+
+.changelog-body :deep(.mention) {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: inline-block;
+  line-height: 1.3;
+}
+
+.changelog-body :deep(.mention:hover) {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
+  color: var(--vp-c-brand-2);
+  text-decoration: none;
 }
 
 .changelog-body :deep(h1),

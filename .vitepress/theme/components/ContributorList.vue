@@ -100,6 +100,7 @@ onMounted(async () => {
           :alt="contributor.login"
           class="avatar-img"
           loading="lazy"
+          decoding="async"
         />
       </div>
       <div class="info-wrapper">

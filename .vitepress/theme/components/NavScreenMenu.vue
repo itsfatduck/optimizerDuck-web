@@ -9,14 +9,14 @@ import { computed, onMounted, ref } from "vue";
 import { useGitHub } from "../composables/useGitHub";
 
 const { theme } = useData<DefaultTheme.Config>();
-const { latestRelease, fetchReleases } = useGitHub("itsfatduck/optimizerDuck");
+const { latestRelease, fetchLatestRelease } = useGitHub("itsfatduck/optimizerDuck");
 
 // Used to avoid hydration mismatch between SSR and client.
 const replace = ref(false);
 
 onMounted(() => {
   replace.value = true;
-  fetchReleases();
+  fetchLatestRelease();
 });
 
 /**
@@ -46,7 +46,7 @@ const nav = computed(() => {
 
 <template>
   <nav v-if="nav" class="VPNavScreenMenu">
-    <template v-for="item in nav" :key="JSON.stringify(item)">
+    <template v-for="item in nav" :key="item.text + ('link' in item ? item.link : '')">
       <VPNavScreenMenuLink v-if="'link' in item" :item="item" />
       <component
         v-else-if="'component' in item"

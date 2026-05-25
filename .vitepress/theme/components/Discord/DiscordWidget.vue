@@ -8,12 +8,49 @@ const props = defineProps({
     }
 })
 
-const widgetData = ref(null)
-const guildInfo = ref(null)
-const loading = ref(true)
+const CACHE_KEY = `discord-widget-${props.guildId}`
+const CACHE_TTL = 10 * 60 * 1000 // 10 minutes cache
+const isClient = typeof window !== 'undefined'
+
+const getCachedWidget = () => {
+    if (!isClient) return null
+    try {
+        const raw = localStorage.getItem(CACHE_KEY)
+        if (!raw) return null
+        const data = JSON.parse(raw)
+        if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
+            localStorage.removeItem(CACHE_KEY)
+            return null
+        }
+        return data
+    } catch {
+        try { localStorage.removeItem(CACHE_KEY) } catch {}
+        return null
+    }
+}
+
+const setCachedWidget = (widget, guild) => {
+    if (!isClient) return
+    try {
+        localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({
+                widget,
+                guild,
+                timestamp: Date.now()
+            })
+        )
+    } catch {}
+}
+
+const cached = getCachedWidget()
+const widgetData = ref(cached ? cached.widget : null)
+const guildInfo = ref(cached ? cached.guild : null)
+const loading = ref(cached ? false : true)
 const error = ref(null)
 
 const fetchWidget = async () => {
+    if (cached) return
     try {
         // Fetch basic widget data
         const widgetResponse = await fetch(`https://discord.com/api/guilds/${props.guildId}/widget.json`)
@@ -22,13 +59,16 @@ const fetchWidget = async () => {
         widgetData.value = data
 
         // Extract invite code to get more guild info (like the icon)
+        let guildData = null
         if (data.instant_invite) {
             const inviteCode = data.instant_invite.split('/').pop()
             const inviteResponse = await fetch(`https://discord.com/api/v9/invites/${inviteCode}`)
             if (inviteResponse.ok) {
-                guildInfo.value = await inviteResponse.json()
+                guildData = await inviteResponse.json()
+                guildInfo.value = guildData
             }
         }
+        setCachedWidget(data, guildData)
     } catch (err) {
         error.value = err.message
     } finally {

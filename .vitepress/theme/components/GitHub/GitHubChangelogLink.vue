@@ -13,10 +13,10 @@ const props = defineProps({
     },
 });
 
-const { latestRelease, fetchReleases } = useGitHub(props.repo);
+const { latestRelease, fetchLatestRelease } = useGitHub(props.repo);
 
 onMounted(() => {
-    fetchReleases();
+    fetchLatestRelease();
 });
 </script>
 
