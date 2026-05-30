@@ -41,6 +41,8 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 - 🇹🇼 **Traditional Chinese (正體中文)** - translation by [abc0922001](https://github.com/abc0922001)
 - 🇨🇳 **Simplified Chinese (简体中文)** - translation by [wcxu21](https://github.com/wcxu21)
 - 🇷🇺 **Russian (Русский)** - translation by [Foodhead](https://github.com/Foodhead)
+- 🇫🇷 **French (Français)** - translation by [Robocnop](https://github.com/Robocnop)
+- 🇰🇷 **Korean (한국어)** - translation by [klfnn](https://github.com/klfnn)
 
 **How to change the language:**
 
