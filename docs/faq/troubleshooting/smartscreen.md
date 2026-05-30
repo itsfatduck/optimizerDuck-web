@@ -17,6 +17,8 @@ When you first run optimizerDuck, Windows SmartScreen may display a warning that
 1. Click **"More info"** on the SmartScreen popup
 2. Click **"Run anyway"**
 
-::: tip
+<Card title="Tip" icon="lightbulb">
+
 This warning only appears the first time you run the application. After that, Windows will remember your choice.
-:::
+
+</Card>

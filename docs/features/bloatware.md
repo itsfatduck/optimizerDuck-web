@@ -19,13 +19,13 @@ When you open the **Bloatware** tab, optimizerDuck thoroughly scans your system 
 
 To help you make informed decisions, optimizerDuck also evaluates each application and assigns it a clear safety rating.
 
-::: warning Safety levels
+<Card title="Safety levels" icon="triangle-exclamation">
 
 - **Safe:** These applications are generally non-essential to the core functioning of Windows. Removing them carries virtually no risk of breaking your system.
 - **Caution:** These applications might be tied to certain built-in Windows features or could be dependencies for other software. It is highly recommended to create a system restore point or a backup before deciding to remove them.
 
 Even for applications marked as "Safe", it's best practice to only select the ones you are completely sure you do not use. Don't blindly remove everything just because the app allows it.
-:::
+</Card>
 
 To mark an application for removal, simply check the box located next to its name. You can select as many applications as you want in a single session.
 

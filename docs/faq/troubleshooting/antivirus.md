@@ -10,9 +10,11 @@ Some antivirus software may flag optimizerDuck as potentially unwanted because i
 2. Navigate to the quarantine or threat history section
 3. Restore optimizerDuck and add it to the exclusion/whitelist
 
-::: info Why does this happen?
+<Card title="Why does this happen?" icon="circle-info">
+
 Optimization tools often trigger false positives because they interact with system components in ways that are similar to potentially unwanted programs (PUPs). Since optimizerDuck is open source, you can verify exactly what the app does by reviewing the [source code](https://github.com/itsfatduck/optimizerDuck).
-:::
+
+</Card>
 
 ## Common antivirus software
 

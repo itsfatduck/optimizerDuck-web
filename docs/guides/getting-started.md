@@ -21,9 +21,11 @@ optimizerDuck is a portable application, which means **no installation is requir
 2. After downloading, you will have `{{ latestRelease?.assets?.find(a => a.name.endsWith('.exe'))?.name || 'optimizerDuck.exe' }}` file.
 3. Double-click the downloaded `.exe` file to run it.
 
-::: tip Run as Administrator
+<Card title="Run as Administrator" icon="lightbulb">
+
 For optimizerDuck to apply system-level optimizations effectively, it natively requests administrative privileges when required. You can also right-click the `.exe` file and select **Run as administrator** if you face any issues.
-:::
+
+</Card>
 
 ## Changing Language
 
@@ -48,15 +50,19 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 4. Select your preferred language.
 5. Restart the application to apply the changes.
 
-::: info Recommended Language
-English is the recommended language as it provides the most accurate and complete descriptions for all optimizations.
-:::
+<Card title="Recommended Language" icon="circle-info">
 
-::: tip Contributing Translations
+English is the recommended language as it provides the most accurate and complete descriptions for all optimizations.
+
+</Card>
+
+<Card title="Contributing Translations" icon="lightbulb">
+
 If you would like to contribute a translation for optimizerDuck, please check out the [Contributing Translations](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md#-translations) guide for instructions on how to get involved.
 
 Every contribution is welcome and appreciated, and it helps make optimizerDuck more accessible to users around the world! <3
-:::
+
+</Card>
 
 ## Community
 
@@ -90,9 +96,11 @@ Visit the [Support Me](/docs/contribute/support-me) and [Contribute](/docs/contr
 
 Before you dive into optimizing your Windows system, please keep the following tips in mind:
 
-::: warning Create a Restore Point
+<Card title="Create a Restore Point" icon="triangle-exclamation">
+
 Always create a Windows System Restore Point or a backup before applying system optimizations. This ensures you can revert changes instantly if something doesn't work as expected.
-:::
+
+</Card>
 
 - **Restart Your PC:** Remember to restart your computer after applying optimizations so that all registry and system changes take effect properly.
 - **Check for Updates:** Although optimizerDuck updates frequently, check the GitHub repository for new releases to benefit from the latest features and bug fixes.
@@ -102,13 +110,11 @@ Always create a Windows System Restore Point or a backup before applying system 
 optimizerDuck is an independent project and is not affiliated with, endorsed by, or sponsored by Microsoft Corporation. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.
 Please use optimizerDuck at your own risk.
 
-::: info
-
-Learn more:
+<Card title="Learn more" icon="circle-info">
 
 - [Privacy Policy](https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md)
 - [Terms of Service](https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md)
 - [Disclaimer](https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md)
 - [License](https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE)
 
-:::
+</Card>

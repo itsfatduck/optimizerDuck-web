@@ -21,9 +21,11 @@ optimizerDuck requires Administrator privileges to apply system optimizations.
 1. Right-click the **optimizerDuck** application file
 2. Select **"Run as administrator"**
 
-::: tip
+<Card title="Tip" icon="lightbulb">
+
 If you always want to run optimizerDuck as Administrator, right-click the file → **Properties** → **Compatibility** tab → check **"Run this program as an administrator"** → **OK**.
-:::
+
+</Card>
 
 ## Check for corrupted download
 

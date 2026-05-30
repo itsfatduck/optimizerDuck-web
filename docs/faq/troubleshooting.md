@@ -11,6 +11,8 @@ Having trouble downloading or running optimizerDuck? Browse the topics below for
 | [App Running Slowly](/docs/faq/troubleshooting/slow-performance) | optimizerDuck is unresponsive or slow                  |
 | [Something Broke](/docs/faq/troubleshooting/revert-changes)      | Issues after applying optimizations                    |
 
-::: tip Still need help?
+<Card title="Still need help?" icon="lightbulb">
+
 If your issue is not listed here, you can ask for help in our [Discord community](https://discord.gg/tDUBDCYw9Q) or report a bug on [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues/new/choose).
-:::
+
+</Card>

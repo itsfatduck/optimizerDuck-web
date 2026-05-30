@@ -9,6 +9,10 @@ import DiscordWidget from './components/Discord/DiscordWidget.vue'
 import ImagePreview from './components/ImagePreview.vue'
 import ContributorList from './components/ContributorList.vue'
 import SupportCard from './components/SupportCard.vue'
+import CustomBlock from './components/CustomBlock.vue'
+import Card from './components/Card.vue'
+import CardGrid from './components/CardGrid.vue'
+import Icon from './components/Icon.vue'
 import Layout from './Layout.vue'
 
 export default {
@@ -22,5 +26,9 @@ export default {
     app.component('ImagePreview', ImagePreview)
     app.component('ContributorList', ContributorList)
     app.component('SupportCard', SupportCard)
+    app.component('CustomBlock', CustomBlock)
+    app.component('Card', Card)
+    app.component('CardGrid', CardGrid)
+    app.component('Icon', Icon)
   }
 } satisfies Theme

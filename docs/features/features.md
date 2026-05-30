@@ -72,17 +72,21 @@ Windows before the effect is fully visible.
 The Features section is convenient, but it still changes real Windows settings.
 Keep these points in mind before making larger batches of changes.
 
-::: warning Feature behavior depends on Windows version
+<Card title="Feature behavior depends on Windows version" icon="triangle-exclamation">
+
 Some toggles only make sense on certain Windows versions. For example, classic
 context menu behavior is specific to Windows 11, while other taskbar options may
 behave differently across Windows 10 and Windows 11.
-:::
 
-::: tip Many toggles are easy to reverse
+</Card>
+
+<Card title="Many toggles are easy to reverse" icon="lightbulb">
+
 Unlike one-way tweaks, feature switches are built around enabling and disabling
 the same Windows behavior. If you do not like the result, return to the same
 card and switch it back.
-:::
+
+</Card>
 
 ## Why use this instead of changing Windows manually?
 

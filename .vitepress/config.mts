@@ -55,7 +55,7 @@ export default defineConfig({
   // Replace VitePress built-in components with custom ones
   vite: {
     resolve: {
-      alias: ["VPNavBarMenu", "VPNavScreenMenu", "VPFooter"].map(
+      alias: ["VPNavBarMenu", "VPNavScreenMenu", "VPFooter", "VPFeature"].map(
         (componentName) => ({
           find: new RegExp(`^.*/${componentName}\\.vue$`),
           replacement: fileURLToPath(

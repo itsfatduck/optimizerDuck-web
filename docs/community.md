@@ -32,6 +32,8 @@ You can also engage with the project on [GitHub](https://github.com/itsfatduck/o
 - 💡 **Request features** by [opening a feature request](https://github.com/itsfatduck/optimizerDuck/issues/new/choose)
 - 🔧 **Contribute code** by submitting a pull request
 
-::: tip Open Source
+<Card title="Open Source" icon="lightbulb">
+
 optimizerDuck is completely free and open source under the [GPL-3.0 license](https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE). Contributions of all kinds are welcome!
-:::
+
+</Card>

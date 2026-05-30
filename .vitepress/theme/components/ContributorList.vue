@@ -83,8 +83,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="loading" class="loading">Loading contributors...</div>
-  <div v-else-if="error" class="error">{{ error }}</div>
+  <div v-if="loading" class="loading">
+    <Icon name="spinner" class="spinner" /> Loading contributors...
+  </div>
+  <div v-else-if="error" class="error">
+    <Icon name="triangle-exclamation" /> {{ error }}
+  </div>
   <div v-else class="contributor-grid">
     <a
       v-for="contributor in contributors"
@@ -175,5 +179,16 @@ onMounted(async () => {
   color: var(--vp-c-text-2);
   font-size: 0.9rem;
   margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
 }
 </style>

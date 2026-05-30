@@ -12,6 +12,8 @@ We welcome contributions of all kinds! Whether you're fixing a typo, adding a ne
 
 To get started, check out our [Contributing Guide](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md).
 
-::: tip Hall of Fame
+<Card title="Hall of Fame" icon="lightbulb">
+
 If you submit a significant PR that gets merged, you'll be featured right here on this page! We review PRs regularly and add active contributors to this list.
-:::
+
+</Card>

@@ -6,7 +6,8 @@ Frequently Asked Questions and Answers about optimizerDuck in general. Let's cov
 
 optimizerDuck is a comprehensive utility designed to help you optimize and clean up your Windows operating system as easily as possible.
 
-::: warning Disclaimer
+<Card title="Disclaimer" icon="triangle-exclamation">
+
 optimizerDuck is provided "as is", without warranty of any kind.
 
 By using this tool, you agree that the authors are not responsible for:
@@ -16,7 +17,8 @@ By using this tool, you agree that the authors are not responsible for:
 - Performance issues caused by third party software or user modifications
 
 **Always create a restore point or backup before applying system changes.**
-:::
+
+</Card>
 
 ## Does this app offer anything other than optimizations?
 

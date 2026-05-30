@@ -16,11 +16,11 @@ Every contribution, big or small, is greatly appreciated. Thank you for helping 
 
 Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md) page on GitHub to see detailed guidelines on how to contribute in each of these areas. We look forward to your contributions! <3
 
-::: tip
+<Card title="Tip" icon="lightbulb">
 
 Once you've made your contribution, you'll be added to the [Contributors](/contribute/contributors) page!
 
-:::
+</Card>
 
 ## Support me
 

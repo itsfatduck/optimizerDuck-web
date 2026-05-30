@@ -2,6 +2,7 @@
 import { ref, onMounted, computed, nextTick, watch } from "vue";
 import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
+import Icon from "../Icon.vue";
 
 const props = defineProps({
   repo: {
@@ -59,7 +60,6 @@ const getReleasePreview = (body) => {
 
   let imageUrl = null;
 
-  // Try markdown images first, filtering badges
   const mdImgRegex = /!\[.*?\]\((.*?)\)/g;
   let match;
   while ((match = mdImgRegex.exec(body)) !== null) {
@@ -69,7 +69,6 @@ const getReleasePreview = (body) => {
     }
   }
 
-  // Try HTML <img> tags, filtering badges
   if (!imageUrl) {
     const htmlImgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*\/?>/gi;
     while ((match = htmlImgRegex.exec(body)) !== null) {
@@ -80,9 +79,6 @@ const getReleasePreview = (body) => {
     }
   }
 
-  // Keep original image URL for native browser optimization
-
-  // Build snippet text
   let snippet = body
     .replace(/!\[.*?\]\(.*?\)/g, "")
     .replace(/<img[^>]*\/?>/gi, "")
@@ -113,7 +109,6 @@ const processedReleases = computed(() => {
   }));
 });
 
-// Cache rendered markdown per release ID
 const renderedCache = new Map();
 
 const parseMentions = (html) => {
@@ -142,7 +137,6 @@ const renderMD = (content, id) => {
   if (!content) return "";
   if (renderedCache.has(id)) return renderedCache.get(id);
   let html = md.render(content);
-  // Optimize images: add lazy loading and async decoding
   html = html.replace(
     /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
     (match, p1, src, p2) => {
@@ -159,24 +153,20 @@ const renderMD = (content, id) => {
 
 const handleLoadMore = async () => {
   await loadMoreReleases();
-  // Wait for DOM to update then refresh VitePress TOC
   await nextTick();
   updateVitePressTOC();
 };
 
-// Update VitePress table of contents when new releases are loaded
 const updateVitePressTOC = () => {
   if (typeof window === "undefined") return;
 
-  // Get all h2 elements from our component
   const headings = document.querySelectorAll(".github-changelog h2");
   if (!headings.length) return;
 
-  // Find VitePress TOC container or create it if missing (e.g. when page has no static headings)
   let tocContainer = document.querySelector(".VPDocAsideOutline");
   if (!tocContainer) {
     const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
-    if (!asideContainer) return; // Aside is disabled on this layout
+    if (!asideContainer) return;
 
     tocContainer = document.createElement("div");
     tocContainer.className = "VPDocAsideOutline";
@@ -193,14 +183,11 @@ const updateVitePressTOC = () => {
     asideContainer.appendChild(tocContainer);
   }
 
-  // Find the outline list in the TOC
   const outlineList = tocContainer.querySelector(".outline-links");
   if (!outlineList) return;
 
-  // Clear existing items to avoid duplicates and ensure perfect ordering on load more
   outlineList.innerHTML = "";
 
-  // Add all headings to TOC
   headings.forEach((heading) => {
     const id = heading.id;
     if (!id) return;
@@ -218,7 +205,6 @@ const updateVitePressTOC = () => {
   });
 };
 
-// Also update TOC on initial load
 watch(releases, async () => {
   await nextTick();
   updateVitePressTOC();
@@ -252,350 +238,390 @@ const formatDownloads = (count) => {
 </script>
 
 <template>
-  <div class="github-changelog" v-if="releases && releases.length > 0">
+  <div class="gh-changelog" v-if="releases && releases.length > 0">
     <div
       v-for="release in processedReleases"
       :key="release.id"
-      class="changelog-item"
+      class="gh-cl-item"
     >
-      <div class="changelog-header">
-        <div class="header-left">
-          <h2 :id="release.tag_name">
+      <div class="gh-cl-item__header">
+        <div class="gh-cl-item__left">
+          <h2 :id="release.tag_name" class="gh-cl-item__title">
             <a
               :href="release.html_url"
               target="_blank"
               rel="noopener"
-              class="release-title-link"
+              class="gh-cl-item__link"
             >
               {{ release.name || release.tag_name }}
             </a>
           </h2>
-          <span v-if="release.isLatest" class="tag tag-latest">Latest</span>
-          <span v-if="release.prerelease" class="tag tag-unstable"
-            >Unstable</span
-          >
+          <span v-if="release.isLatest" class="gh-tag gh-tag--latest">Latest</span>
+          <span v-if="release.prerelease" class="gh-tag gh-tag--pre">Pre</span>
         </div>
-        <div class="header-meta">
-          <span class="date">
+        <div class="gh-cl-item__meta">
+          <span class="gh-cl-meta-item">
+            <Icon name="calendar" type="regular" :size="12" />
             {{ new Date(release.published_at).toLocaleDateString() }}
           </span>
-          <span class="meta-separator">•</span>
-          <span class="downloads">
-            {{ formatDownloads(getReleaseDownloads(release)) }} downloads
+          <span class="gh-cl-meta-sep" />
+          <span class="gh-cl-meta-item">
+            <Icon name="arrow-down" type="solid" :size="11" />
+            {{ formatDownloads(getReleaseDownloads(release)) }}
           </span>
         </div>
       </div>
 
-      <div class="changelog-body-wrapper">
+      <div class="gh-cl-item__body">
         <template v-if="!isExpanded(release.id)">
-          <div class="release-preview" @click="toggleRelease(release.id)">
-            <div
-              v-if="release.preview.hasImage"
-              class="preview-image-container"
-            >
+          <div class="gh-cl-preview" @click="toggleRelease(release.id)">
+            <div v-if="release.preview.hasImage" class="gh-cl-preview__img-wrap">
               <img
                 :src="release.preview.imageUrl"
-                class="preview-image"
+                class="gh-cl-preview__img"
                 alt="Release Preview"
                 loading="lazy"
               />
             </div>
-            <div v-if="release.preview.snippet" class="preview-content">
-              <p class="preview-snippet">{{ release.preview.snippet }}</p>
+            <div v-if="release.preview.snippet" class="gh-cl-preview__content">
+              <p class="gh-cl-preview__text">{{ release.preview.snippet }}</p>
+              <span class="gh-cl-preview__hint">
+                <Icon name="chevron-down" type="solid" :size="11" />
+                Expand
+              </span>
             </div>
           </div>
         </template>
         <div
           v-else
-          class="changelog-body vp-doc"
+          class="gh-cl-expanded vp-doc"
           v-html="renderMD(release.body || '', release.id)"
         />
       </div>
 
       <button
         v-if="isExpanded(release.id)"
-        class="collapse-btn"
+        class="gh-cl-collapse"
         @click="toggleRelease(release.id)"
       >
-        <span class="icon">↑</span>
-        Show less
+        <Icon name="chevron-up" type="solid" :size="12" />
+        <span>Show less</span>
       </button>
     </div>
 
-    <div v-if="hasMore" class="load-more-wrapper">
+    <div v-if="hasMore" class="gh-cl-load-more">
       <button
-        class="load-more-btn"
+        class="gh-cl-load-btn"
         :disabled="loadingMore"
         @click="handleLoadMore"
       >
-        {{ loadingMore ? "Loading..." : "Load more releases" }}
+        <template v-if="loadingMore">
+          <Icon name="spinner" type="solid" :size="13" />
+          <span>Loading...</span>
+        </template>
+        <template v-else>
+          <Icon name="plus" type="solid" :size="13" />
+          <span>Load more releases</span>
+        </template>
       </button>
     </div>
   </div>
-  <div v-else-if="loading || (!releases.length && !error)" class="loading">Loading changelog...</div>
-  <div v-else-if="error" class="error">Error: {{ error }}</div>
+  <div v-else-if="loading || (!releases.length && !error)" class="gh-cl-loading">
+    <Icon name="spinner" type="solid" :size="16" />
+    Loading changelog...
+  </div>
+  <div v-else-if="error" class="gh-cl-error">{{ error }}</div>
 </template>
 
 <style scoped>
-.changelog-item {
-  margin-bottom: 2.5rem;
+/* ── Changelog Container ── */
+.gh-changelog {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Release Item ── */
+.gh-cl-item {
   content-visibility: auto;
   contain-intrinsic-size: 0 300px;
 }
 
-.changelog-header {
+.gh-cl-item__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem 0.75rem;
 }
 
-.header-left {
+.gh-cl-item__left {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
   min-width: 0;
 }
 
-h2 {
+.gh-cl-item__title {
   margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  letter-spacing: -0.01em;
+  word-break: break-word;
 }
 
-.release-title-link {
+.gh-cl-item__link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.gh-cl-item__link:hover {
   color: var(--vp-c-brand-1);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s;
 }
 
-.release-title-link:hover {
-  text-decoration-color: var(--vp-c-brand-1);
-}
-
-.tag {
+/* ── Tags ── */
+.gh-tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.55rem;
-  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   border-radius: 4px;
-  white-space: nowrap;
-  line-height: 1.4;
+  line-height: 1.3;
+  margin-top: 0.1rem;
 }
 
-.tag-latest {
-  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
+.gh-tag--latest {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
   color: var(--vp-c-brand-1);
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent);
 }
 
-.tag-unstable {
-  background: color-mix(in srgb, var(--vp-c-warning-1) 15%, transparent);
+.gh-tag--pre {
+  background: color-mix(in srgb, var(--vp-c-warning-1) 12%, transparent);
   color: var(--vp-c-warning-1);
-  border: 1px solid color-mix(in srgb, var(--vp-c-warning-1) 30%, transparent);
 }
 
-.date {
-  color: var(--vp-c-text-2);
-  font-size: 0.9em;
-  white-space: nowrap;
-}
-
-.header-meta {
+/* ── Meta ── */
+.gh-cl-item__meta {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   color: var(--vp-c-text-2);
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
 }
 
-.meta-separator {
-  color: var(--vp-c-text-3);
-}
-
-.downloads {
-  font-size: 0.9em;
+.gh-cl-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
   white-space: nowrap;
 }
 
-.changelog-body-wrapper {
-  position: relative;
+.gh-cl-meta-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--vp-c-text-3);
+  flex-shrink: 0;
 }
 
-.release-preview {
+/* ── Preview Card ── */
+.gh-cl-preview {
   display: flex;
   flex-direction: column;
   background: var(--vp-c-bg-soft);
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
-  margin-bottom: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.release-preview:hover {
+.gh-cl-preview:hover {
   border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
 }
 
-.preview-image-container {
+.gh-cl-preview__img-wrap {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg-mute);
+  position: relative;
+  min-height: 100px;
 }
 
-.preview-image {
+.gh-cl-preview__img {
+  display: block;
   width: 100%;
   height: 100%;
+  position: absolute;
+  inset: 0;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
-.release-preview:hover .preview-image {
-  transform: scale(1.02);
+.gh-cl-preview:hover .gh-cl-preview__img {
+  transform: scale(1.015);
 }
 
-.preview-content {
-  padding: 1.25rem;
+.gh-cl-preview__content {
+  padding: 1rem 1.15rem;
 }
 
-.preview-snippet {
+.gh-cl-preview__text {
   margin: 0;
   color: var(--vp-c-text-2);
   line-height: 1.6;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
 }
 
-.changelog-body {
+.gh-cl-preview__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--vp-c-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: color 0.15s;
+}
+
+.gh-cl-preview:hover .gh-cl-preview__hint {
+  color: var(--vp-c-brand-1);
+}
+
+/* ── Expanded Body ── */
+.gh-cl-expanded {
   overflow: hidden;
 }
 
-.changelog-body :deep(img) {
+.gh-cl-expanded :deep(img) {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 6px;
   margin: 1rem 0;
-  /* Prevent layout shifts while displaying images */
   background: var(--vp-c-bg-mute);
   min-height: 60px;
-  content-visibility: auto;
   transform: translateZ(0);
 }
 
-.changelog-body :deep(.mention) {
+.gh-cl-expanded :deep(.mention) {
   color: var(--vp-c-brand-1);
   font-weight: 600;
   text-decoration: none;
   background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
-  padding: 0.1rem 0.35rem;
-  border-radius: 6px;
-  transition: all 0.2s;
-  display: inline-block;
-  line-height: 1.3;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  transition: background 0.15s;
 }
 
-.changelog-body :deep(.mention:hover) {
+.gh-cl-expanded :deep(.mention:hover) {
   background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
-  color: var(--vp-c-brand-2);
-  text-decoration: none;
 }
 
-.changelog-body :deep(h1),
-.changelog-body :deep(h2),
-.changelog-body :deep(h3) {
+.gh-cl-expanded :deep(h1),
+.gh-cl-expanded :deep(h2),
+.gh-cl-expanded :deep(h3) {
   margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   border: none;
 }
 
-.changelog-body :deep(ul) {
+.gh-cl-expanded :deep(ul) {
   list-style-type: disc;
   padding-left: 1.5rem;
 }
 
-.collapse-btn {
+/* ── Collapse Button ── */
+.gh-cl-collapse {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.85rem;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-3);
   background: transparent;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 20px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 0.15s, border-color 0.15s;
 }
 
-.collapse-btn .icon {
-  font-size: 1rem;
-  transition: transform 0.25s ease;
+.gh-cl-collapse:hover {
+  color: var(--vp-c-text-1);
+  border-color: var(--vp-c-text-3);
 }
 
-.collapse-btn:hover {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-soft);
-}
-
-.collapse-btn:hover .icon {
-  transform: translateY(-2px);
-}
-
-.load-more-wrapper {
+/* ── Load More ── */
+.gh-cl-load-more {
   text-align: center;
-  padding: 1rem 0;
+  padding: 1.5rem 0 0.5rem;
 }
 
-.load-more-btn {
-  padding: 0.6rem 2rem;
-  font-size: 0.9rem;
+.gh-cl-load-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.5rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
 }
 
-.load-more-btn:hover:not(:disabled) {
+.gh-cl-load-btn:hover:not(:disabled) {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
 }
 
-.load-more-btn:disabled {
-  opacity: 0.6;
+.gh-cl-load-btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.loading,
-.error {
-  padding: 1rem;
-  text-align: center;
-  color: var(--vp-c-text-2);
+/* ── Loading / Error ── */
+.gh-cl-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  color: var(--vp-c-text-3);
+  font-size: 0.88rem;
 }
 
-.error {
+.gh-cl-error {
+  padding: 1.5rem;
+  text-align: center;
   color: var(--vp-c-danger-1);
+  font-size: 0.88rem;
 }
 
 @media (max-width: 640px) {
-  .changelog-header {
+  .gh-cl-item__header {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .header-meta {
+  .gh-cl-item__meta {
     justify-content: flex-start;
   }
 }
