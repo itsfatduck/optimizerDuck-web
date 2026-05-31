@@ -4,7 +4,7 @@ Manage the applications that automatically run when your computer starts up.
 
 ## What is the Startup Manager?
 
-When you turn on your computer and log into Windows, several programs are configured to launch automatically in the background. While this is helpful for essential tools like antivirus software, many third-party applications quietly add themselves to this list without your explicit permission. These extra programs consume processor cycles, take up RAM, and can drastically increase the time it takes for your PC to become fully usable after booting.
+When you log into Windows, several programs are configured to launch automatically. This is helpful for essential tools like antivirus, but many third-party applications add themselves to this list during installation. These extra programs consume CPU and RAM and increase boot time.
 
 The Startup Manager is a built-in tool in optimizerDuck designed to give you complete visibility and control over this process. It unifies all startup triggers, whether they are hidden in the system registry, placed in startup folders, or set up as logon scheduled tasks, into one easy-to-manage dashboard.
 

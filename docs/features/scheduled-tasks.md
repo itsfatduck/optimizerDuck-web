@@ -4,9 +4,9 @@ View and manage Windows scheduled tasks.
 
 ## What are scheduled tasks?
 
-Operating systems like Windows have a built-in scheduler that allows programs and scripts to launch automatically at specific times, when you log into your computer, or after certain system events occur. 
+Windows has a built-in scheduler that lets programs and scripts run automatically at specific times, when you log in, or after system events.
 
-While this is incredibly useful for genuine system maintenance, such as performing automatic nightly backups, checking for essential security updates, or running routine diagnostics, many third-party applications abuse this feature. When you install new software, they often create their own hidden scheduled tasks to run background telemetry, launch update checkers on every boot, or pre-load services you didn't ask for. Managing these tasks directly puts you back in control of your system's resources.
+This is useful for system maintenance like backups and security updates, but many third-party applications create their own scheduled tasks—to run telemetry, launch update checkers on boot, or pre-load services you didn't ask for. Managing these tasks puts you back in control.
 
 ## How to disable or enable a scheduled task?
 

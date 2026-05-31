@@ -14,7 +14,7 @@ There are many ways you can contribute:
 
 Every contribution, big or small, is greatly appreciated. Thank you for helping make optimizerDuck better!
 
-Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md) page on GitHub to see detailed guidelines on how to contribute in each of these areas. We look forward to your contributions! <3
+Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md) page on GitHub to see detailed guidelines on how to contribute in each of these areas. We look forward to your contributions! <3
 
 <Card title="Tip" icon="lightbulb">
 

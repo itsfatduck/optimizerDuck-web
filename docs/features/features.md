@@ -1,10 +1,9 @@
 # Features
 
-The **Features** section gives you a focused way to enable or disable specific
-Windows behaviors without digging through scattered Settings pages, legacy
-control panels, or raw registry paths. It is designed for quality-of-life
-changes such as taskbar preferences, File Explorer behavior, gaming-related
-switches, desktop icons, and a few system defaults.
+The **Features** section lets you enable or disable specific
+Windows behaviors without digging through Settings, Control Panel,
+or the registry. It covers quality-of-life changes like taskbar
+preferences, File Explorer behavior, gaming switches, and desktop icons.
 
 > **Note:** This is a preview feature currently under active development.
 
@@ -17,10 +16,7 @@ dedicated area for Windows feature toggles. It complements the existing
 In general:
 
 - use **Features** for Windows interface and behavior toggles
-- use **Optimize** for broader performance, privacy, and system tuning changes
-
-This distinction matters because many options that used to feel like
-user-experience tweaks fit much better here than in the optimization system.
+- use **Optimize** for performance, privacy, and system tuning
 
 ## Open and browse categories
 
@@ -54,18 +50,11 @@ resources, so you can understand what the switch changes before applying it.
 
 ## How changes are applied
 
-Most feature toggles in optimizerDuck are implemented as direct Windows setting
-changes, usually by writing the underlying registry values that control that
-behavior.
+Most feature toggles work by writing the underlying registry values.
 
-For many shell-related features, the app automatically refreshes the Windows
-shell after a change by restarting **Explorer**. This is why taskbar, Explorer,
-and desktop changes often take effect immediately instead of waiting for a full
-reboot.
-
-Some settings, especially gaming or system-level ones, may still depend on your
-Windows environment and can require you to sign out, restart Explorer, or reboot
-Windows before the effect is fully visible.
+For shell-related features, the app restarts **Explorer** so taskbar,
+Explorer, and desktop changes take effect immediately. Gaming and
+system-level settings may still require a sign-out or reboot.
 
 ## Things to keep in mind
 
@@ -90,13 +79,10 @@ card and switch it back.
 
 ## Why use this instead of changing Windows manually?
 
-optimizerDuck brings together settings that are normally spread across:
+optimizerDuck brings together settings normally spread across:
 
 - the Settings app
 - File Explorer options
 - taskbar personalization menus
 - older Control Panel pages
 - registry-based hidden switches
-
-That makes the Features section especially useful when you want a faster and
-more consistent way to apply common Windows customizations.

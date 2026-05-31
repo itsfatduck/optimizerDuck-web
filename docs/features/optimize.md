@@ -17,9 +17,9 @@ Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-
   caption="Optimization items organized into grid sections"
 />
 
-When you navigate to the **Optimize** tab within the application, you are presented with an organized grid of specific system enhancements. To keep everything accessible, optimizerDuck neatly categorizes these options rather than presenting a confusing list of technical commands.
+When you open the **Optimize** tab, you see an organized grid of system enhancements grouped by category.
 
-Each optimization card provides a comprehensive description explaining precisely how the tweak affects your system, completely removing the guesswork. Additionally, tags are used so you can quickly filter and find optimizations that match your specific goals, whether that means boosting gaming performance, enhancing network speed, or increasing privacy.
+Each card describes exactly how the tweak affects your system, and tags let you filter by goal—gaming, network, privacy, and more.
 
 Before applying an optimization, you can review its built-in safety rating. The tool classifies changes into three levels: **Safe**, **Caution**, and **Risky**, allowing you to implement changes with confidence based on how they interact with Windows services.
 
@@ -39,6 +39,6 @@ Due to the way Windows manages its registry and background services, many of the
 
 ## Revert an optimization
 
-I understand that changing system settings can sometimes lead to unexpected behaviors entirely depending on your specific hardware or installed software. Because each optimization has a different risk profile, optimizerDuck ensures that none of these changes are permanent.
+Each optimization has a different risk profile, so optimizerDuck ensures that none of these changes are permanent.
 
 If you experience any issues or simply decide you don't like how a specific setting behaves after applying it, you can easily revert it. All you need to do is open the module again, find the corresponding optimization card, and click the **toggle switch** to turn it off. This action restores your system to the state it was in right before you applied the optimization.

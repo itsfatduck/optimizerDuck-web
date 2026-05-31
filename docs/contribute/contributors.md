@@ -10,7 +10,7 @@ We are incredibly grateful to everyone who has contributed to **optimizerDuck**.
 
 We welcome contributions of all kinds! Whether you're fixing a typo, adding a new optimization, translating the app, or improving this documentation, your help is appreciated.
 
-To get started, check out our [Contributing Guide](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md).
+To get started, check out our [Contributing Guide](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md).
 
 <Card title="Hall of Fame" icon="lightbulb">
 

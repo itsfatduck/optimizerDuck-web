@@ -4,9 +4,9 @@ Free up disk space by removing temporary files and cache.
 
 ## What is Disk Cleanup?
 
-As you use your computer, browsing the internet, installing new updates, or running various applications, Windows continuously creates temporary files behind the scenes. These files are meant to improve performance or assist in temporary tasks, but they are often left on your drive long after they're no longer needed. 
+As you use your computer, Windows creates temporary files for performance and caching. These files often remain on your drive long after they're needed.
 
-Over time, this digital clutter can accumulate, consuming gigabytes of valuable storage space and potentially impacting your computer's read/write speeds. Disk Cleanup is a built-in utility that securely identifies these unnecessary leftover files, including browser caches, old Windows update logs, and temporary application files, allowing you to reclaim that lost space.
+Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifies these files—browser caches, Windows update logs, temp files—and lets you reclaim that space.
 
 ## Select items to clean
 

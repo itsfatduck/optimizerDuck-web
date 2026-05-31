@@ -4,9 +4,7 @@ This guide explains what optimizerDuck actually does when you apply optimization
 
 ## What optimizerDuck Actually Does
 
-optimizerDuck doesn't use hidden drivers or anything mysterious. It simply automates Windows built-in tools through a graphical interface. Everything it does can be done manually through Windows, but it would take much longer and require technical knowledge.
-
-Every change optimizerDuck makes can be done manually through Windows built-in tools. We just make it faster and easier.
+optimizerDuck doesn't use hidden drivers or anything mysterious. It simply automates Windows built-in tools through a graphical interface. Every change can be done manually through Windows—we just make it faster and easier.
 
 ## The Four Main Methods
 
@@ -43,7 +41,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 **Why this matters:** Fewer background tasks means less CPU usage and faster startup.
 
 - [Microsoft Docs: Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
-- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ScheduledTasksService.cs)
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ScheduledTaskService.cs)
 
 ### 4. PowerShell and CMD Commands
 

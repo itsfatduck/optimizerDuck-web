@@ -34,15 +34,17 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
   caption="Traditional Chinese interface of optimizerDuck, translated by abc0922001"
 />
 
-optimizerDuck natively supports multiple languages to provide a better user experience globally. Supported languages include:
+optimizerDuck natively supports multiple languages to provide a better user experience globally.
 
-- 🇺🇸 **English (United States)** - Primary & recommended
-- 🇻🇳 **Vietnamese (Tiếng Việt)**
-- 🇹🇼 **Traditional Chinese (正體中文)** - translation by [abc0922001](https://github.com/abc0922001)
-- 🇨🇳 **Simplified Chinese (简体中文)** - translation by [wcxu21](https://github.com/wcxu21)
-- 🇷🇺 **Russian (Русский)** - translation by [Foodhead](https://github.com/Foodhead)
-- 🇫🇷 **French (Français)** - translation by [Robocnop](https://github.com/Robocnop)
-- 🇰🇷 **Korean (한국어)** - translation by [klfnn](https://github.com/klfnn)
+| | Language | Native Name | Translator |
+|------|----------|-------------|------------|
+| 🇺🇸 | English (United States) | English | Primary & recommended |
+| 🇻🇳 | Vietnamese | Tiếng Việt | [itsfatduck](https://github.com/itsfatduck) |
+| 🇹🇼 | Traditional Chinese | 正體中文 | [abc0922001](https://github.com/abc0922001) |
+| 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
+| 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
+| 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+| 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 
 **How to change the language:**
 
@@ -60,7 +62,7 @@ English is the recommended language as it provides the most accurate and complet
 
 <Card title="Contributing Translations" icon="lightbulb">
 
-If you would like to contribute a translation for optimizerDuck, please check out the [Contributing Translations](https://github.com/itsfatduck/optimizerDuck/blob/master/.github/CONTRIBUTING.md#-translations) guide for instructions on how to get involved.
+If you would like to contribute a translation for optimizerDuck, please check out the [Contributing Translations](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md#-translations) guide for instructions on how to get involved.
 
 Every contribution is welcome and appreciated, and it helps make optimizerDuck more accessible to users around the world! <3
 
