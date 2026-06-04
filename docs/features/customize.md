@@ -1,8 +1,8 @@
 # Customize
 
-The **Customize** section lets you tweak how Windows looks and behaves —
+The **Customize** section lets you tweak how Windows looks and behaves,
 from desktop icons and taskbar layout to Explorer preferences and gaming
-settings — all in one place.
+settings, all in one place.
 
 > **Note:** This feature is currently under active development.
 
@@ -26,8 +26,8 @@ Tap a category card to open its settings page. Each page is divided into
 
 optimizerDuck gives you two tools to navigate the list:
 
-- **Search** — filter settings by name or description
-- **Sort** — reorder by name or current enabled state
+- **Search**: filter settings by name or description
+- **Sort**: reorder by name or current enabled state
 
 Every setting is presented as a card with a clear title and description.
 Flip the switch on the right to enable or disable it.
