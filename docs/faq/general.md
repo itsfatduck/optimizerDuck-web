@@ -6,7 +6,7 @@ Frequently Asked Questions and Answers about optimizerDuck in general. Let's cov
 
 optimizerDuck is a comprehensive utility designed to help you optimize and clean up your Windows operating system as easily as possible.
 
-<Card title="Disclaimer" icon="triangle-exclamation">
+<Card title="Disclaimer" type="warning" icon="triangle-exclamation">
 
 optimizerDuck is provided "as is", without warranty of any kind.
 

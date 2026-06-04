@@ -12,7 +12,7 @@ If you want to restore your computer to its original state before using optimize
 4. Wait for the application to restore the original Registry keys, services, and settings.
 5. **Restart your PC** to ensure all restored settings take effect.
 
-<Card title="Warning" icon="triangle-exclamation">
+<Card title="Warning" type="warning" icon="triangle-exclamation">
 
 If you delete the app and its data folder before reverting, you will lose the JSON backups of your original settings, making it harder to revert changes automatically.
 

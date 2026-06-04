@@ -8,6 +8,7 @@ const props = defineProps({
   icon: { type: String, default: undefined },
   iconType: { type: String, default: 'solid' },
   content: { type: String, default: undefined },
+  type: { type: String, default: 'info' },
 })
 
 const md = new MarkdownIt({ html: true, linkify: true, typographer: true })
@@ -21,7 +22,7 @@ const renderedContent = computed(() => {
 </script>
 
 <template>
-  <article class="card">
+  <article class="card" :class="`card--${type}`">
     <p class="card__title">
       <span v-if="icon" class="card__icon">
         <Icon :name="icon" :type="iconType" :size="16" />
@@ -45,7 +46,7 @@ const renderedContent = computed(() => {
   gap: clamp(0.5rem, 0.125rem + 1vw, 0.75rem);
   padding: clamp(0.85rem, 0.125rem + 2vw, 1.5rem);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   background: var(--vp-c-bg);
   transition: border-color 0.2s;
@@ -55,23 +56,18 @@ const renderedContent = computed(() => {
   border-color: var(--card-accent);
 }
 
-/* Accent rotation — brand first, then complementary palette */
-.card:nth-child(5n + 2) {
+/* Type-based accent colors */
+.card--info {
   --card-accent: var(--vp-c-success-1);
   --card-accent-bg: var(--vp-c-success-soft);
 }
 
-.card:nth-child(5n + 3) {
-  --card-accent: var(--vp-c-indigo-1);
-  --card-accent-bg: var(--vp-c-indigo-soft);
-}
-
-.card:nth-child(5n + 4) {
+.card--warning {
   --card-accent: var(--vp-c-warning-1);
   --card-accent-bg: var(--vp-c-warning-soft);
 }
 
-.card:nth-child(5n + 5) {
+.card--danger {
   --card-accent: var(--vp-c-danger-1);
   --card-accent-bg: var(--vp-c-danger-soft);
 }

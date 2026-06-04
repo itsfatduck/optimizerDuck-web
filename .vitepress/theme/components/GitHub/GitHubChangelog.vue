@@ -256,8 +256,10 @@ const formatDownloads = (count) => {
               {{ release.name || release.tag_name }}
             </a>
           </h2>
-          <span v-if="release.isLatest" class="gh-tag gh-tag--latest">Latest</span>
-          <span v-if="release.prerelease" class="gh-tag gh-tag--pre">Pre</span>
+          <div class="gh-cl-item__tags">
+            <span v-if="release.isLatest" class="gh-tag gh-tag--latest">Latest</span>
+            <span v-if="release.prerelease" class="gh-tag gh-tag--pre">Pre</span>
+          </div>
         </div>
         <div class="gh-cl-item__meta">
           <span class="gh-cl-meta-item">
@@ -357,9 +359,9 @@ const formatDownloads = (count) => {
 
 .gh-cl-item__left {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
   min-width: 0;
 }
 
@@ -383,6 +385,13 @@ const formatDownloads = (count) => {
 }
 
 /* ── Tags ── */
+.gh-cl-item__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
 .gh-tag {
   display: inline-flex;
   align-items: center;
@@ -393,7 +402,6 @@ const formatDownloads = (count) => {
   letter-spacing: 0.04em;
   border-radius: 4px;
   line-height: 1.3;
-  margin-top: 0.1rem;
 }
 
 .gh-tag--latest {
@@ -452,25 +460,14 @@ const formatDownloads = (count) => {
 
 .gh-cl-preview__img-wrap {
   width: 100%;
-  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--vp-c-bg-mute);
-  position: relative;
-  min-height: 100px;
 }
 
 .gh-cl-preview__img {
   display: block;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  transition: transform 0.25s ease;
-}
-
-.gh-cl-preview:hover .gh-cl-preview__img {
-  transform: scale(1.015);
+  max-height: 400px;
 }
 
 .gh-cl-preview__content {

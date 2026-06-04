@@ -33,7 +33,7 @@ The Task Scheduler is a powerful core Windows component. Because it handles ever
 
 Only modify or remove scheduled tasks that you completely recognize, such as update checkers for specific software you've installed (like Adobe, Google Chrome, or specific games). 
 
-<Card title="Warning" icon="triangle-exclamation">
+<Card title="Warning" type="warning" icon="triangle-exclamation">
 
 **DO NOT** touch scheduled tasks that you are unfamiliar with. Some entries may be related to critical system services from Microsoft or hardware drivers for your graphics, network, or audio devices. Modifying these can lead to system instability, broken features, or crashes. If you are unsure about what a specific task does, leave it enabled or search online using the task's name to find more information.
 

@@ -167,15 +167,15 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: "Features",
+      text: "Customize",
       items: [
         {
           text: "Optimize",
           link: "/docs/features/optimize",
         },
         {
-          text: "Features",
-          link: "/docs/features/features",
+          text: "Customize",
+          link: "/docs/features/customize",
         },
         {
           text: "Bloatware",

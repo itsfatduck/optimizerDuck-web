@@ -25,13 +25,13 @@ Before applying an optimization, you can review its built-in safety rating. The 
 
 To apply an optimization, simply locate the card for the tweak you wish to perform and click the **toggle switch** in the bottom-right corner. A progress dialog will appear, showing the progress of the optimization. Once the optimization is applied, the switch will turn yellow to indicate the change.
 
-<Card title="Some optimizations require an internet connection" icon="triangle-exclamation">
+<Card title="Some optimizations require an internet connection" type="warning" icon="triangle-exclamation">
 
 Certain optimizations, specifically those that download updated configurations or interact with network drivers, need an active internet connection to be successfully applied. You will see a **"Network connection required"** tag with a Wi-Fi icon below the optimization name if this is the case.
 
 </Card>
 
-<Card title="Remember to restart your computer" icon="triangle-exclamation">
+<Card title="Remember to restart your computer" type="warning" icon="triangle-exclamation">
 
 Due to the way Windows manages its registry and background services, many of these changes will not be visible immediately. After applying new optimizations, you need to restart your computer to ensure all modifications take effect.
 

@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const CACHE_KEY = `github-contributors-${props.repo}`;
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const CACHE_TTL = 10 * 60 * 1000;
 const isClient = typeof window !== "undefined";
 
 const contributors = ref([]);
@@ -22,16 +22,13 @@ function getCachedData() {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const data = JSON.parse(raw);
-    // Check TTL
     if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
       localStorage.removeItem(CACHE_KEY);
       return null;
     }
     return data;
   } catch {
-    try {
-      localStorage.removeItem(CACHE_KEY);
-    } catch {}
+    try { localStorage.removeItem(CACHE_KEY); } catch {}
     return null;
   }
 }
@@ -50,19 +47,15 @@ onMounted(async () => {
     );
     if (!res.ok) {
       if (res.status === 403) {
-        throw new Error(
-          "GitHub API rate limit exceeded. Please try again later.",
-        );
+        throw new Error("GitHub API rate limit exceeded. Please try again later.");
       }
       throw new Error("Failed to fetch contributors");
     }
     const data = await res.json();
-    // filter to only display actual users and ignore bots
     contributors.value = data.filter(
       (c) => c.type === "User" && !c.login.toLowerCase().includes("bot"),
     );
 
-    // Cache the data
     if (isClient) {
       try {
         localStorage.setItem(
@@ -80,102 +73,128 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+const formatContributions = (count) => {
+  if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
+  return String(count);
+};
 </script>
 
 <template>
-  <div v-if="loading" class="loading">
-    <Icon name="spinner" class="spinner" /> Loading contributors...
+  <div v-if="loading" class="cl-loading">
+    <svg class="cl-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+    Loading contributors...
   </div>
-  <div v-else-if="error" class="error">
-    <Icon name="triangle-exclamation" /> {{ error }}
+  <div v-else-if="error" class="cl-error">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    {{ error }}
   </div>
-  <div v-else class="contributor-grid">
+  <div v-else class="cl-grid">
     <a
       v-for="contributor in contributors"
       :key="contributor.id"
       :href="contributor.html_url"
       target="_blank"
       rel="noopener noreferrer"
-      class="contributor-card"
+      class="cl-card"
     >
-      <div class="avatar-wrapper">
+      <div class="cl-avatar">
         <img
           :src="contributor.avatar_url"
           :alt="contributor.login"
-          class="avatar-img"
+          class="cl-avatar__img"
           loading="lazy"
           decoding="async"
         />
       </div>
-      <div class="info-wrapper">
-        <h3 class="name">{{ contributor.login }}</h3>
+      <div class="cl-info">
+        <span class="cl-name">{{ contributor.login }}</span>
+        <span class="cl-commits">{{ formatContributions(contributor.contributions) }} commits</span>
       </div>
     </a>
   </div>
 </template>
 
 <style scoped>
-.contributor-grid {
+.cl-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
   margin: 1.5rem 0;
 }
 
-.contributor-card {
+.cl-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
   text-decoration: none !important;
   color: inherit !important;
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
 }
 
-.contributor-card:hover {
-  background: var(--vp-c-bg-mute);
+.cl-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
   transform: translateY(-2px);
 }
 
-.avatar-wrapper {
+.cl-avatar {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: var(--vp-c-bg-alt);
+  background: var(--vp-c-bg-alt);
+  outline: 2px solid var(--vp-c-divider);
+  outline-offset: -1px;
+  transition: outline-color 0.2s;
 }
 
-.avatar-img {
+.cl-card:hover .cl-avatar {
+  outline-color: var(--vp-c-brand-1);
+}
+
+.cl-avatar__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.info-wrapper {
+.cl-info {
   flex-grow: 1;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
-.name {
-  margin: 0 !important;
-  font-size: 0.95rem !important;
-  font-weight: 500;
+.cl-name {
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--vp-c-text-1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.cl-commits {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--vp-c-text-3);
   line-height: 1.2;
 }
 
-.loading,
-.error {
+.cl-loading,
+.cl-error {
   color: var(--vp-c-text-2);
   font-size: 0.9rem;
   margin: 1rem 0;
@@ -184,11 +203,11 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.cl-spinner {
+  animation: cl-spin 1s linear infinite;
 }
 
-.spinner {
-  animation: spin 1s linear infinite;
+@keyframes cl-spin {
+  to { transform: rotate(360deg); }
 }
 </style>

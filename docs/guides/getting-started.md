@@ -80,7 +80,7 @@ For more details, visit the [Community](/docs/community) page.
 
 Explore the guides below to optimize and manage your system effectively:
 
-- [Features](/docs/features/features) - Toggle built-in Windows behaviors such as taskbar, desktop, Explorer, and gaming options.
+- [Customize](/docs/features/customize) - Toggle built-in Windows behaviors such as taskbar, desktop, Explorer, and gaming options.
 - [Optimize](/docs/features/optimize) - Improve overall system performance.
 - [Bloatware](/docs/features/bloatware) - Remove unwanted pre-installed applications.
 - [Startup Manager](/docs/features/startup-manager) - Control and manage startup programs.
@@ -100,7 +100,7 @@ Visit the [Support Me](/docs/contribute/support-me) and [Contribute](/docs/contr
 
 Before you dive into optimizing your Windows system, please keep the following tips in mind:
 
-<Card title="Create a Restore Point" icon="triangle-exclamation">
+<Card title="Create a Restore Point" type="warning" icon="triangle-exclamation">
 
 Always create a Windows System Restore Point or a backup before applying system optimizations. This ensures you can revert changes instantly if something doesn't work as expected.
 
