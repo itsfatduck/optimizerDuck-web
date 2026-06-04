@@ -45,6 +45,7 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
+| 🇪🇸 | Spanish | Español | Community |
 
 **How to change the language:**
 
