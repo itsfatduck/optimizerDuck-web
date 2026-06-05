@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 const props = defineProps({
   repo: {
@@ -15,6 +15,17 @@ const isClient = typeof window !== "undefined";
 const contributors = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const visibleCount = ref(15);
+
+const visibleContributors = computed(() =>
+  contributors.value.slice(0, visibleCount.value),
+);
+
+const hasMore = computed(() => visibleCount.value < contributors.value.length);
+
+function loadMore() {
+  visibleCount.value += 15;
+}
 
 function getCachedData() {
   if (!isClient) return null;
@@ -89,29 +100,34 @@ const formatContributions = (count) => {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     {{ error }}
   </div>
-  <div v-else class="cl-grid">
-    <a
-      v-for="contributor in contributors"
-      :key="contributor.id"
-      :href="contributor.html_url"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="cl-card"
-    >
-      <div class="cl-avatar">
-        <img
-          :src="contributor.avatar_url"
-          :alt="contributor.login"
-          class="cl-avatar__img"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div class="cl-info">
-        <span class="cl-name">{{ contributor.login }}</span>
-        <span class="cl-commits">{{ formatContributions(contributor.contributions) }} commits</span>
-      </div>
-    </a>
+  <div v-else>
+    <div class="cl-grid">
+      <a
+        v-for="contributor in visibleContributors"
+        :key="contributor.id"
+        :href="contributor.html_url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cl-card"
+      >
+        <div class="cl-avatar">
+          <img
+            :src="contributor.avatar_url"
+            :alt="contributor.login"
+            class="cl-avatar__img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="cl-info">
+          <span class="cl-name">{{ contributor.login }}</span>
+          <span class="cl-commits">{{ formatContributions(contributor.contributions) }} commits</span>
+        </div>
+      </a>
+    </div>
+    <button v-if="hasMore" class="cl-load-more" @click="loadMore">
+      Load more ({{ contributors.length - visibleCount }} remaining)
+    </button>
   </div>
 </template>
 
@@ -205,6 +221,25 @@ const formatContributions = (count) => {
 
 .cl-spinner {
   animation: cl-spin 1s linear infinite;
+}
+
+.cl-load-more {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.55rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.cl-load-more:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
 }
 
 @keyframes cl-spin {
