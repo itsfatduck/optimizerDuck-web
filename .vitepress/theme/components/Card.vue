@@ -89,7 +89,6 @@ const renderedContent = computed(() => {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border: 1px solid var(--card-accent);
   border-radius: 6px;
   background: var(--card-accent-bg);
   color: var(--card-accent);

@@ -10,7 +10,6 @@ import ImagePreview from './components/ImagePreview.vue'
 import ContributorList from './components/ContributorList.vue'
 import SupportCard from './components/SupportCard.vue'
 import CustomBlock from './components/CustomBlock.vue'
-import LandingSection from './components/LandingSection.vue'
 import Card from './components/Card.vue'
 import CardGrid from './components/CardGrid.vue'
 import Icon from './components/Icon.vue'
@@ -28,7 +27,6 @@ export default {
     app.component('ContributorList', ContributorList)
     app.component('SupportCard', SupportCard)
     app.component('CustomBlock', CustomBlock)
-    app.component('LandingSection', LandingSection)
     app.component('Card', Card)
     app.component('CardGrid', CardGrid)
     app.component('Icon', Icon)
