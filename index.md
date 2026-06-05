@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+sidebar: true
 
 hero:
   name: optimizer<span class="duck-text">Duck</span>

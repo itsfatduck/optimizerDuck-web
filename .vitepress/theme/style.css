@@ -335,7 +335,7 @@
 
 :root {
   --vp-font-family-base: 'Montserrat', sans-serif;
-  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace;
+  --vp-font-family-mono: 'Cascadia Mono', 'JetBrains Mono', 'Fira Code', monospace;
   --vp-home-hero-name-font-family: 'Montserrat', sans-serif;
   --vp-home-hero-text-font-family: 'Montserrat', sans-serif;
   --vp-home-hero-tagline-font-family: 'Montserrat', sans-serif;
