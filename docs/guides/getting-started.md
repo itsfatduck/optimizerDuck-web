@@ -46,6 +46,8 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
 | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
+| 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
+| 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 
 **How to change the language:**
 
