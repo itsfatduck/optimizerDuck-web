@@ -1,3 +1,6 @@
+---
+title: Optimizing
+---
 # Optimizing
 
 Frequently Asked Questions about optimizing, reverting, and how it impacts your system.

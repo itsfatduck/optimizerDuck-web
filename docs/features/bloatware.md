@@ -1,3 +1,6 @@
+---
+title: Bloatware
+---
 # Bloatware
 
 Manage and remove pre-installed applications that you don't need.

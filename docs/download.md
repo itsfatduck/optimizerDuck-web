@@ -1,3 +1,6 @@
+---
+title: Download
+---
 # Download optimizerDuck
 
 Get the latest version of optimizerDuck for Windows.

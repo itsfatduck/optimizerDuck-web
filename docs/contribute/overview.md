@@ -1,3 +1,6 @@
+---
+title: Overview
+---
 # Contribute
 
 First of all, thank you for your interest in contributing to **optimizerDuck**!
@@ -14,7 +17,7 @@ There are many ways you can contribute:
 
 Every contribution, big or small, is greatly appreciated. Thank you for helping make optimizerDuck better!
 
-Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md) page on GitHub to see detailed guidelines on how to contribute in each of these areas. We look forward to your contributions! <3
+Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md) page on GitHub to see detailed guidelines on how to contribute in each of these areas. We look forward to your contributions! &lt;3
 
 <Card title="Tip" icon="lightbulb">
 
@@ -24,4 +27,4 @@ Once you've made your contribution, you'll be added to the [Contributors](/contr
 
 ## Support me
 
-If you find optimizerDuck useful and would like to support its development, please take a moment to [Support Me](./support-me). Every contribution helps keep the project alive and improving! <3
+If you find optimizerDuck useful and would like to support its development, please take a moment to [Support Me](./support-me). Every contribution helps keep the project alive and improving! &lt;3

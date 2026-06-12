@@ -1,3 +1,6 @@
+---
+title: Uninstall
+---
 # Uninstalling & Reverting
 
 Since **optimizerDuck** is a portable application, uninstalling it is incredibly simple. However, before you delete the app, you may want to revert any system changes you made.

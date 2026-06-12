@@ -1,13 +1,7 @@
-<script setup>
-import { useGitHub } from '../../.vitepress/theme/composables/useGitHub'
-import { onMounted } from 'vue'
+---
+title: Getting started
+---
 
-const { latestRelease, fetchReleases } = useGitHub()
-
-onMounted(() => {
-  fetchReleases()
-})
-</script>
 
 # Getting Started
 
@@ -67,7 +61,7 @@ English is the recommended language as it provides the most accurate and complet
 
 If you would like to contribute a translation for optimizerDuck, please check out the [Contributing Translations](https://github.com/itsfatduck/optimizerDuck/blob/master/CONTRIBUTING.md#-translations) guide for instructions on how to get involved.
 
-Every contribution is welcome and appreciated, and it helps make optimizerDuck more accessible to users around the world! <3
+Every contribution is welcome and appreciated, and it helps make optimizerDuck more accessible to users around the world! &lt;3
 
 </Card>
 

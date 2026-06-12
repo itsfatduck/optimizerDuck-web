@@ -1,3 +1,6 @@
+---
+title: Support me
+---
 # Support Me
 
 Hi, I'm [fatDuck](https://github.com/itsfatduck), the developer behind optimizerDuck.
@@ -15,8 +18,7 @@ If optimizerDuck has been helpful to you, here are a few ways you can support th
   description="Help keep optimizerDuck running and evolving. Your support makes continued updates and improvements possible." 
   icon="kofi" 
   url="https://ko-fi.com/itsfatduck"
-  ctaText="Donate on Ko-fi"
-  :highlight="true"
+  ctaText="Donate on Ko-fi" highlight="true"
 />
 
 ## Other Ways to Help

@@ -1,3 +1,6 @@
+---
+title: Disk cleanup
+---
 # Disk Cleanup
 
 Free up disk space by removing temporary files and cache.

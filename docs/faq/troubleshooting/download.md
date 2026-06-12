@@ -1,3 +1,6 @@
+---
+title: Download
+---
 # Download Issues
 
 > The download won't start or gets blocked

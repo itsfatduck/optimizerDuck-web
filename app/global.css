@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vp-c-brand-1: #d89b1d;
+  --primary: 40 76% 48%;
+  --primary-foreground: 0 0% 0%;
+  --fd-primary: 40 76% 48%;
+  --fd-primary-foreground: 0 0% 0%;
+}
+.dark {
+  --primary: 40 76% 48%;
+  --primary-foreground: 0 0% 0%;
+  --fd-primary: 40 76% 48%;
+  --fd-primary-foreground: 0 0% 0%;
+}

@@ -1,3 +1,6 @@
+---
+title: Smartscreen
+---
 # SmartScreen Warning
 
 > "Windows protected your PC"
