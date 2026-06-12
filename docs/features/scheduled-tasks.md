@@ -1,3 +1,6 @@
+---
+title: Scheduled tasks
+---
 # Scheduled Tasks
 
 View and manage Windows scheduled tasks.

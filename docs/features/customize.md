@@ -1,3 +1,6 @@
+---
+title: Customize
+---
 # Customize
 
 The **Customize** section lets you tweak how Windows looks and behaves,

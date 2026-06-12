@@ -1,3 +1,6 @@
+---
+title: How it works
+---
 # How optimizerDuck Works
 
 This guide explains what optimizerDuck actually does when you apply optimizations. Whether you're a developer or a regular user, this will help you understand the technical side.

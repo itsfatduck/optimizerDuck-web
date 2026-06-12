@@ -1,3 +1,6 @@
+---
+title: Compatibility
+---
 # Compatibility & Conflicts
 
 A common concern with optimization tools is whether they will break other software, especially games that use strict Anti-Cheat systems.

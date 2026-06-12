@@ -1,3 +1,6 @@
+---
+title: Best practices
+---
 # Best Practices
 
 optimizerDuck offers dozens of tweaks, but **you don't need to enable all of them**. In fact, checking every single box without understanding what it does is a bad idea.

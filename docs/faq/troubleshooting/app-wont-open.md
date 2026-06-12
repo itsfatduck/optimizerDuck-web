@@ -1,3 +1,6 @@
+---
+title: App wont open
+---
 # App Won't Open
 
 > The app crashes or fails to launch

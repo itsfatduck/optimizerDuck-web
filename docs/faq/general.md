@@ -1,3 +1,6 @@
+---
+title: General
+---
 # General
 
 Frequently Asked Questions and Answers about optimizerDuck in general. Let's cover the basics.

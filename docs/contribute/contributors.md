@@ -1,10 +1,13 @@
+---
+title: Contributors
+---
 # Contributors
 
 We are incredibly grateful to everyone who has contributed to **optimizerDuck**. This project is built by and for the community, and it wouldn't be possible without these amazing folks.
 
 ## Core Maintainers
 
-<ContributorList :repo="'itsfatduck/optimizerDuck'" />
+<ContributorList repo="'itsfatduck/optimizerDuck'" />
 
 ## How to become a contributor?
 

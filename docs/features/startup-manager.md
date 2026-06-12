@@ -1,3 +1,6 @@
+---
+title: Startup manager
+---
 # Startup Manager
 
 Manage the applications that automatically run when your computer starts up.

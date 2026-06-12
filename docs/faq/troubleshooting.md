@@ -1,3 +1,6 @@
+---
+title: Troubleshooting
+---
 # Troubleshooting
 
 Having trouble downloading or running optimizerDuck? Browse the topics below for solutions to common issues.

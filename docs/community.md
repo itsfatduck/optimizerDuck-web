@@ -1,3 +1,6 @@
+---
+title: Community
+---
 # Community
 
 Join the optimizerDuck community to get help, share feedback, and connect with other users.

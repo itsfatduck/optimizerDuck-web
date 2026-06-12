@@ -1,0 +1,11 @@
+{
+  "title": "Customize",
+  "pages": [
+    "optimize",
+    "customize",
+    "bloatware",
+    "startup-manager",
+    "scheduled-tasks",
+    "disk-cleanup"
+  ]
+}

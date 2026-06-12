@@ -1,3 +1,6 @@
+---
+title: Website development
+---
 # Website development
 
 This guide explains how the optimizerDuck website and documentation are built,
@@ -41,38 +44,44 @@ Run these commands from a terminal.
 2. Move into the project directory.
 3. Install dependencies with Bun or npm.
 
-::: code-group
-
-```bash [Bun]
+<Tabs items={['Bun', 'npm']}>
+<Tab value="Bun">
+```bash
 git clone https://github.com/itsfatduck/optimizerDuck-web.git
 cd optimizerDuck-web
 bun install
 ```
+</Tab>
 
-```bash [npm]
+<Tab value="npm">
+```bash
 git clone https://github.com/itsfatduck/optimizerDuck-web.git
 cd optimizerDuck-web
 npm install
 ```
+</Tab>
 
-:::
+</Tabs>
 
 ## Run the website locally
 
 After dependencies are installed, start the VitePress development server. The
 repository exposes the standard docs scripts from `package.json`.
 
-::: code-group
-
-```bash [Bun]
+<Tabs items={['Bun', 'npm']}>
+<Tab value="Bun">
+```bash
 bun run docs:dev
 ```
+</Tab>
 
-```bash [npm]
+<Tab value="npm">
+```bash
 npm run docs:dev
 ```
+</Tab>
 
-:::
+</Tabs>
 
 VitePress usually starts on `http://localhost:5173`. When you edit Markdown,
 Vue components, config files, or theme styles, the browser updates through hot
@@ -84,19 +93,22 @@ Before you submit larger changes, build the site once to catch broken imports,
 invalid frontmatter, and Markdown errors. If you want to inspect the generated
 site locally, run the preview command after the build completes.
 
-::: code-group
-
-```bash [Bun]
+<Tabs items={['Bun', 'npm']}>
+<Tab value="Bun">
+```bash
 bun run docs:build
 bun run docs:preview
 ```
+</Tab>
 
-```bash [npm]
+<Tab value="npm">
+```bash
 npm run docs:build
 npm run docs:preview
 ```
+</Tab>
 
-:::
+</Tabs>
 
 ## Understand the project structure
 

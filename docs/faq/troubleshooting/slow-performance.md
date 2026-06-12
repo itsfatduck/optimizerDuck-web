@@ -1,3 +1,6 @@
+---
+title: Slow performance
+---
 # App Running Slowly
 
 > optimizerDuck is unresponsive or slow

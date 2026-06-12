@@ -1,3 +1,6 @@
+---
+title: Optimize
+---
 # Optimize
 
 This document helps you understand how to optimize your system using optimizerDuck.
