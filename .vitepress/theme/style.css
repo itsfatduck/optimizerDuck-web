@@ -1,5 +1,3 @@
-@import '@fortawesome/fontawesome-free/css/all.min.css';
-
 /**
  * Colors: Solid
  * -------------------------------------------------------------------------- */
@@ -845,6 +843,12 @@ h6 {
   .VPNavBar.has-sidebar .curtain,
   .VPNavBar.has-sidebar .curtain::before {
     display: none !important;
+  }
+
+  /* Sidebar: start below nav so scrollbar is fully visible, not hidden behind nav */
+  .VPSidebar {
+    top: var(--vp-nav-height) !important;
+    padding-top: 0 !important;
   }
 }
 

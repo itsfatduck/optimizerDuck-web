@@ -6,7 +6,6 @@ import Icon from './Icon.vue'
 const props = defineProps({
   title: { type: String, required: true },
   icon: { type: String, default: undefined },
-  iconType: { type: String, default: 'solid' },
   content: { type: String, default: undefined },
   type: { type: String, default: 'info' },
 })
@@ -25,7 +24,7 @@ const renderedContent = computed(() => {
   <article class="card" :class="`card--${type}`">
     <p class="card__title">
       <span v-if="icon" class="card__icon">
-        <Icon :name="icon" :type="iconType" :size="16" />
+        <Icon :name="icon" :size="16" />
       </span>
       <span v-html="renderedTitle" />
     </p>

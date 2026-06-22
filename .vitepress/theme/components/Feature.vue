@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import VPImage from 'vitepress/dist/client/theme-default/components/VPImage.vue'
 import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue'
+import Icon from './Icon.vue'
 
 const props = defineProps({
   icon: { type: [String, Object], default: undefined },
@@ -17,14 +18,8 @@ const isImageObject = computed(() => {
   return typeof props.icon === 'object' && ('src' in props.icon || 'light' in props.icon || 'dark' in props.icon)
 })
 
-const isFaIcon = computed(() => {
-  return typeof props.icon === 'string' && props.icon.startsWith('fa-')
-})
-
-const faClasses = computed(() => {
-  if (typeof props.icon !== 'string') return ''
-  if (props.icon.includes(' ')) return props.icon
-  return `fas ${props.icon}`
+const isLucideIcon = computed(() => {
+  return typeof props.icon === 'string' && !props.icon.startsWith('<') && !props.icon.startsWith('http')
 })
 </script>
 
@@ -38,8 +33,8 @@ const faClasses = computed(() => {
     :tag="link ? 'a' : 'div'"
   >
     <article class="box">
-      <div v-if="isFaIcon" class="icon">
-        <i :class="faClasses" />
+      <div v-if="isLucideIcon" class="icon">
+        <Icon :name="icon" :size="24" />
       </div>
       <div v-else-if="typeof icon === 'object' && icon.wrap" class="icon">
         <VPImage

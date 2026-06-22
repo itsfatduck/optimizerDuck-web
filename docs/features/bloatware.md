@@ -11,7 +11,7 @@ These applications take up storage space and may run background processes that c
 ## Select applications to remove
 
 <ImagePreview 
-  src="/features/bloatware/selection.png" 
+  src="/features/bloatware/selection.webp" 
   caption="Select applications to remove"
 />
 
@@ -32,7 +32,7 @@ To mark an application for removal, simply check the box located next to its nam
 ## Remove
 
 <ImagePreview 
-  src="/features/bloatware/confirmation.png" 
+  src="/features/bloatware/confirmation.webp" 
   caption="Confirmation dialog"
 />
 

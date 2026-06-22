@@ -11,7 +11,7 @@ This is useful for system maintenance like backups and security updates, but man
 ## How to disable or enable a scheduled task?
 
 <ImagePreview 
-  src="/features/scheduled-tasks/tasks.png" 
+  src="/features/scheduled-tasks/tasks.webp" 
   caption="Scheduled Tasks"
 />
 

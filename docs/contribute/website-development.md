@@ -164,7 +164,7 @@ Examples already in the project include:
 - `public/guides/`
 - `public/features/`
 - `public/faq/`
-- `public/icon.png`
+- `public/icon.webp`
 - `public/favicon.ico`
 
 When you add new images, keep filenames descriptive and use lowercase with
@@ -213,7 +213,7 @@ image because it provides the lightbox experience already built into the site.
 
 ```md
 <ImagePreview
-  src="/guides/getting-started/tw.png"
+  src="/guides/getting-started/tw.webp"
   alt="Traditional Chinese interface of optimizerDuck"
   caption="Traditional Chinese interface of optimizerDuck"
 />
@@ -234,7 +234,7 @@ inside `docs/` or `index.md`.
 If you are updating images:
 
 1. Add the image file under the matching folder in `public/`.
-2. Reference it with a root-relative path such as `/features/optimize/view.png`.
+2. Reference it with a root-relative path such as `/features/optimize/view.webp`.
 3. Prefer `<ImagePreview />` for screenshots shown inside documentation pages.
 
 ### Add a new reusable component

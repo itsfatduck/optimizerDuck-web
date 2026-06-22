@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
         <div class="footer-license">
           <a v-if="footer.license" :href="footer.license.link" target="_blank" rel="noopener noreferrer"
             class="license-link">
-            <img src="/gplv3.png" alt="GPL-3.0 License" class="license-logo" loading="lazy" decoding="async" />
+            <img src="/gplv3.webp" alt="GPL-3.0 License" class="license-logo" loading="lazy" decoding="async" />
             <span class="license-text">{{ footer.license.text }}</span>
           </a>
           <span v-if="footer.copyright" class="footer-copyright">
@@ -64,13 +64,14 @@ const year = new Date().getFullYear();
 <style scoped>
 .VPFooter {
   border-top: 1px solid var(--vp-c-divider);
-  padding: 3rem 1.5rem;
+  padding: 3rem 0;
   background-color: var(--vp-c-bg-alt);
 }
 
 .footer-container {
-  max-width: var(--vp-layout-max-width);
+  max-width: 1152px;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .footer-top {

@@ -39,23 +39,13 @@ const typeLabels = {
 
 const displayTitle = computed(() => props.title || typeLabels[props.type] || 'Note')
 
-const iconType = computed(() => {
-  if (props.icon && props.icon.startsWith('fa-')) return undefined
-  return undefined
-})
-
-const resolvedIconType = computed(() => {
-  const icon = resolvedIcon.value
-  if (['lightbulb', 'star', 'spinner'].includes(icon)) return 'solid'
-  return 'solid'
-})
 </script>
 
 <template>
   <div class="cb" :class="[`cb--${type}`]" :style="color ? { '--cb-accent': color } : undefined">
     <div class="cb__header">
       <span class="cb__icon">
-        <Icon :name="resolvedIcon" :type="resolvedIconType" :size="15" />
+        <Icon :name="resolvedIcon" :size="15" />
       </span>
       <span class="cb__title">{{ displayTitle }}</span>
     </div>

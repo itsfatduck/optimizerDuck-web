@@ -13,7 +13,7 @@ Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-
 ## Apply an optimization
 
 <ImagePreview 
-  src="/features/optimize/apply.png" 
+  src="/features/optimize/apply.webp" 
   caption="Optimization items organized into grid sections"
 />
 

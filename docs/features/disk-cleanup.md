@@ -11,7 +11,7 @@ Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifie
 ## Select items to clean
 
 <ImagePreview 
-  src="/features/disk-cleanup/selection.png" 
+  src="/features/disk-cleanup/selection.webp" 
   caption="Select items to clean"
 />
 
@@ -24,7 +24,7 @@ To include a category in your cleaning process, simply check the box next to it.
 ## Cleaning up
 
 <ImagePreview 
-  src="/features/disk-cleanup/cleaned-up.png" 
+  src="/features/disk-cleanup/cleaned-up.webp" 
   caption="Disk Cleanup completed"
 />
 

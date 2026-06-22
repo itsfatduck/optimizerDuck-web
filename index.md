@@ -8,7 +8,7 @@ hero:
   text: "Windows optimization tool"
   tagline: "A simple and powerful multilingual open-source system optimizer for Windows, built by and for the community, helping you clean, tweak, and optimize your PC more easily than ever."
   image:
-    src: /icon.png
+    src: /icon.webp
     alt: optimizerDuck
   actions:
     - theme: brand
@@ -18,19 +18,19 @@ hero:
       text: Get Started
       link: /docs/guides/getting-started
 features:
-  - icon: fa-brands fa-github
+  - icon: github
     link: https://github.com/itsfatduck/optimizerDuck
     linkText: View on GitHub
     title: Open Source & Community
     details: Proudly developed on GitHub with 500+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
 
-  - icon: fa-solid fa-code
+  - icon: code
     title: Built with Modern Tech
     link: https://dotnet.microsoft.com/en-us/download
     linkText: View .NET
     details: Written in C# and powered by .NET. Focuses on performance, privacy, and simplicity with a sleek multilingual interface.
 
-  - icon: fa-solid fa-screwdriver-wrench
+  - icon: screwdriver-wrench
     link: /docs/features/optimize
     linkText: View available features
     title: Windows Optimization Suite

@@ -30,7 +30,7 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
 ## Changing Language
 
 <ImagePreview 
-  src="/guides/getting-started/tw.png" 
+  src="/guides/getting-started/tw.webp" 
   caption="Traditional Chinese interface of optimizerDuck, translated by abc0922001"
 />
 
@@ -48,6 +48,7 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
+| 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
 
 **How to change the language:**
 

@@ -11,7 +11,7 @@ The Startup Manager is a built-in tool in optimizerDuck designed to give you com
 ## Viewing startup items
 
 <ImagePreview 
-  src="/features/startup-manager/app.png" 
+  src="/features/startup-manager/app.webp" 
   caption="Startup Manager (Startup Apps)"
 />
 
@@ -36,7 +36,7 @@ If you want to re-enable it, you can simply click the **toggle switch** again.
 ## Disabling or enabling a startup scheduled task (Logon)
 
 <ImagePreview 
-  src="/features/startup-manager/schedule.png" 
+  src="/features/startup-manager/schedule.webp" 
   caption="Startup Manager (Startup Schedule)"
 />
 

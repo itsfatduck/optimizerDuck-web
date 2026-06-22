@@ -265,6 +265,7 @@ function getFooter(): FooterConfig {
         items: [
           { text: "GitHub", link: "https://github.com/itsfatduck/optimizerDuck" },
           { text: "Discord", link: "https://discord.gg/tDUBDCYw9Q" },
+          { text: "Support Me", link: "/docs/contribute/support-me" },
         ],
       },
     ],
