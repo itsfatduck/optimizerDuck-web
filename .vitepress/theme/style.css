@@ -1021,20 +1021,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+/* Reduced motion is handled via JS in Layout.vue — we remove VitePress's
+   blanket animation/transition kill so functional UI feedback survives. */
 
 /* Skip rendering off-screen doc sections for better scroll performance */
 .vp-doc>div> :nth-child(n+6) {
