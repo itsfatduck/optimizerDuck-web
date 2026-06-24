@@ -15,9 +15,43 @@ Some Antivirus applications (including Windows Defender) might flag optimization
 - This is a **false positive**. Because the app modifies the Registry and stops background services, heuristic scanners sometimes get overly suspicious.
 - You can read more about this in our [Antivirus False Positive](/docs/faq/troubleshooting/antivirus) troubleshooting guide.
 
+## Crash Logs
+
+If optimizerDuck encounters an unexpected error, crash logs are automatically saved to help with troubleshooting and diagnostics.
+
+Logs are stored locally at:
+
+```
+%localappdata%\optimizerDuck\Crashes\*.log
+```
+
+These logs contain diagnostic information about the crash and can be shared with the development team for debugging. They do **not** contain any personal data.
+
+To report a crash:
+
+1. Navigate to `%localappdata%\optimizerDuck\Crashes\`
+2. Find the most recent `.log` file
+3. Attach it to a [GitHub Issue](https://github.com/itsfatduck/optimizerDuck/issues/new/choose) or share it in [Discord](https://discord.gg/tDUBDCYw9Q)
+
+## Does optimizerDuck work offline?
+
+Yes. The core functionality of optimizerDuck works entirely offline. The app does not require an internet connection to apply optimizations, revert changes, or use built-in tools like the Startup Manager, Scheduled Tasks, Bloatware Remover, and System Dashboard.
+
+<Card title="Some optimizations require internet" type="warning" icon="triangle-exclamation">
+
+Certain optimizations, such as those that download updated configurations or interact with network drivers, may need an active internet connection. These are clearly tagged with a **"Network connection required"** badge in the app.
+
+</Card>
+
 ## Windows Updates
 
 It is highly recommended to run Windows Update **before** applying optimizations, and after updating windows, you should run pause it as well to prevent windows from updating again and resetting your optimizations.
+
+## Can I use optimizerDuck on Windows Server or other Windows editions?
+
+No. optimizerDuck is designed and tested specifically for Windows 10 (x64) and Windows 11 (x64) consumer editions (Home, Pro, Enterprise). Windows Server editions are not supported, as they use different service configurations and lack certain APIs that optimizerDuck relies on.
+
+Older versions like Windows 7 or 8 are also not supported.
 
 ## Work Environment (Office / Developers)
 

@@ -4,8 +4,6 @@ The **Customize** section lets you tweak how Windows looks and behaves,
 from desktop icons and taskbar layout to Explorer preferences and gaming
 settings, all in one place.
 
-> **Note:** This feature is currently under active development.
-
 ## Categories overview
 
 When you open the **Customize** tab, you will see a grid of category cards.
@@ -15,9 +13,9 @@ of Windows you want to change.
 | Category | What it controls |
 |---|---|
 | **Desktop** | Desktop icons (This PC, Recycle Bin, User Files, Network) and desktop behaviors |
-| **Preferences** | Taskbar behavior, File Explorer appearance, and visual preferences |
-| **Gaming** | Game mode, input settings, and display-related toggles |
-| **SystemFeatures** | System-level input, services, and power settings |
+| **Preferences** | Taskbar behavior (alignment, search mode, last active click), File Explorer appearance, dark mode, file extensions, hidden files, and visual preferences |
+| **Gaming** | Game mode, input settings, mouse acceleration, fullscreen optimizations, hardware-accelerated GPU scheduling, and display-related toggles |
+| **SystemFeatures** | Developer Mode, Allow All Trusted Apps, Long Paths, Show Battery Percentage, and Num Lock on boot |
 
 ## Inside a category
 
@@ -50,6 +48,10 @@ or a full system reboot to take effect.
 Some toggles only make sense on certain Windows versions. For example, classic
 context menu behavior is specific to Windows 11, while other taskbar options may
 behave differently across Windows 10 and Windows 11.
+
+optimizerDuck now displays **Windows10Only** and **Windows11Only** tags on
+settings that are version-specific, so you can see at a glance if a toggle
+applies to your system.
 
 </Card>
 

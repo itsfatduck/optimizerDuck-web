@@ -6,7 +6,7 @@ Manage the applications that automatically run when your computer starts up.
 
 When you log into Windows, several programs are configured to launch automatically. This is helpful for essential tools like antivirus, but many third-party applications add themselves to this list during installation. These extra programs consume CPU and RAM and increase boot time.
 
-The Startup Manager is a built-in tool in optimizerDuck designed to give you complete visibility and control over this process. It unifies all startup triggers, whether they are hidden in the system registry, placed in startup folders, or set up as logon scheduled tasks, into one easy-to-manage dashboard.
+The Startup Manager is a built-in tool that gives you visibility and control over this process. It unifies all startup triggers, whether they are hidden in the system registry, placed in startup folders, or set up as logon scheduled tasks, into one easy-to-manage dashboard.
 
 ## Viewing startup items
 
@@ -17,21 +17,21 @@ The Startup Manager is a built-in tool in optimizerDuck designed to give you com
 
 When you navigate to the **Startup Manager** tab, optimizerDuck presents a clean, unified list of every program registered to run at startup.
 
-Instead of showing confusing technical entries, the interface is designed to help you quickly identify each application. For every item, you will see its recognized name, its description, and precisely where the startup trigger is located (such as the registry or a specific folder). Most importantly, you can view the exact command that the application executes, giving you full transparency into what is happening behind the scenes.
+Instead of confusing technical entries, the interface shows each application's name, description, where the startup trigger is located (registry or folder), and the exact command it executes.
 
 The view is divided into two primary sections: **Startup Apps**, which rely on traditional startup paths, and **Scheduled Tasks (Logon)**, which rely on the Windows Task Scheduler to launch immediately when you sign in.
 
 ## Disabling or enabling a startup program
 
-Taking control of your startup items is the easiest way to improve boot times. If you spot a program that you recognize but don't need running immediately every time you turn on your computer (like a game launcher, an update daemon, or a cloud sync client), you can disable it effortlessly.
+Taking control of your startup items is the easiest way to improve boot times. If you spot a program you recognize but don't need running at every boot, you can disable it.
 
 To prevent a program from launching automatically:
 
 1. Locate the program in the list of startup items.
-2. Click the **toggle switch** located on its card to disable it.
+2. Click the **toggle switch** on the left side of its card to disable it.
 3. The switch will update visually, and the program's registry key or task will be disabled, preventing it from running during the next boot.
 
-If you want to re-enable it, you can simply click the **toggle switch** again.
+To re-enable it, click the **toggle switch** again.
 
 ## Disabling or enabling a startup scheduled task (Logon)
 

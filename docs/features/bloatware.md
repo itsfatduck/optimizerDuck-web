@@ -4,7 +4,7 @@ Manage and remove pre-installed applications that you don't need.
 
 ## What is Bloatware?
 
-When you purchase a new Windows PC or install a fresh copy of the operating system, it often comes bundled with various pre-installed applications. While some are useful, many of these apps—often called "bloatware"—are not needed by most users. Examples include promotional games, trial software, and integrated Microsoft services like Xbox features or Office hubs.
+When you purchase a new Windows PC or install a fresh copy of the operating system, it often comes bundled with various pre-installed applications. While some are useful, many of these apps, often called "bloatware", are not needed by most users. Examples include promotional games, trial software, and integrated Microsoft services like Xbox features or Office hubs.
 
 These applications take up storage space and may run background processes that consume memory and CPU. optimizerDuck helps you remove them to reclaim disk space and improve system responsiveness.
 
@@ -15,9 +15,9 @@ These applications take up storage space and may run background processes that c
   caption="Select applications to remove"
 />
 
-When you open the **Bloatware** tab, optimizerDuck thoroughly scans your system to present a comprehensive view of all pre-installed app packages. Instead of complex technical jargon, the interface presents each application with clear visual indicators. You can easily identify apps by their recognizable logo, publisher information, and the direct path to where they are installed on your drive. 
+When you open the **Bloatware** tab, optimizerDuck scans your system and lists all pre-installed app packages. Instead of technical jargon, the interface shows each application with clear visual indicators. You can easily identify apps by their recognizable logo, publisher information, and the direct path to where they are installed on your drive. 
 
-To help you make informed decisions, optimizerDuck also evaluates each application and assigns it a clear safety rating.
+optimizerDuck also evaluates each application and assigns a safety rating.
 
 <Card title="Safety levels" type="warning" icon="triangle-exclamation">
 
@@ -27,7 +27,7 @@ To help you make informed decisions, optimizerDuck also evaluates each applicati
 Even for applications marked as "Safe", it's best practice to only select the ones you are completely sure you do not use. Don't blindly remove everything just because the app allows it.
 </Card>
 
-To mark an application for removal, simply check the box located next to its name. You can select as many applications as you want in a single session.
+To mark an application for removal, check the box next to its name. You can select as many applications as you want in a single session.
 
 ## Remove
 
@@ -38,4 +38,4 @@ To mark an application for removal, simply check the box located next to its nam
 
 After going through the list and carefully checking the boxes for all the applications you no longer want, click the **"Remove"** button located in the top menu bar. 
 
-Before any changes are made to your system, optimizerDuck will display a final confirmation dialog summarizing all the applications you have scheduled for removal. This gives you a chance to double-check your selections. Once you click **"OK"**, the utility will systematically uninstall the selected packages from your computer. Some larger applications may take a few moments to completely detach from your system.
+Before making changes, optimizerDuck shows a confirmation dialog listing all applications scheduled for removal so you can double-check. Once you click **"OK"**, the utility uninstalls the selected packages. Some larger applications may take longer to remove.

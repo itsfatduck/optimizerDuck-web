@@ -4,7 +4,7 @@ This guide explains what optimizerDuck actually does when you apply optimization
 
 ## What optimizerDuck Actually Does
 
-optimizerDuck doesn't use hidden drivers or anything mysterious. It simply automates Windows built-in tools through a graphical interface. Every change can be done manually through Windows—we just make it faster and easier.
+optimizerDuck doesn't use hidden drivers or anything mysterious. It automates Windows built-in tools through a graphical interface. Every change can be done manually through Windows; we make it faster and easier.
 
 ## The Four Main Methods
 

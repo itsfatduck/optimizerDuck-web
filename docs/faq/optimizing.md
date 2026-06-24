@@ -2,6 +2,14 @@
 
 Frequently Asked Questions about optimizing, reverting, and how it impacts your system.
 
+## Does optimizerDuck actually improve performance, reduce latency, or speed up my network?
+
+It can help. Every optimization in optimizerDuck is researched from well-known tools, community guides, and hardware vendor recommendations; nothing is AI-generated, blindly added, or made up. Each tweak addresses a real setting that Windows configures conservatively by default (e.g., service host grouping, GPU power states, network throttling, process scheduling).
+
+There are no fake registry hacks here. Every change has a documented purpose and real-world impact backed by community testing and vendor documentation.
+
+The app covers over 30 tweaks across 6 categories: Performance, Privacy, GPU, Power, Bloatware & Services, and User Experience.
+
 ## How are these optimizations applied?
 
 The optimizations are not magic. We have coded services to safely modify or remove Registry keys, adjust the startup mode of Windows services, and run targeted Shell commands. Everything has been carefully coded and tested before release. 
@@ -39,7 +47,27 @@ You will notice your system feeling faster, and your games might gain some extra
 
 ## Where do these optimizations come from?
 
-Most of the optimizations included here are researched and inspired by various online sources, including Reddit, YouTube, Discord servers, WinUtil, and other optimization websites. We rigorously test them before adding them to the app.
+Most of the optimizations included here are researched from online sources including Reddit, YouTube, Discord, WinUtil, and other optimization websites. We test them before adding them to the app.
+
+## Why does Task Manager show 100% CPU after applying the power plan?
+
+This is a known Task Manager display bug triggered by non-default power plans. It incorrectly reports 100% CPU on some systems while actual load is normal.
+
+- **Visual only:** does not affect real performance or cause overheating.
+- If unwanted, toggle off the custom power plan optimization.
+
+This issue is tracked as [GitHub issue #29](https://github.com/itsfatduck/optimizerDuck/issues/29).
+
+## Will optimizations reset after Windows Update?
+
+Major Windows updates (feature updates) can reset some Registry settings and service configurations back to their defaults. This is normal Windows behavior.
+
+After a major Windows update, we recommend:
+
+1. Open optimizerDuck and check which optimizations are still applied (yellow toggles)
+2. Re-apply any that were reset
+
+Minor monthly updates typically do not affect your optimizations.
 
 ## How does this app save the changes it makes?
 
@@ -50,3 +78,5 @@ These backup files are stored locally at:
 ```bat
 %localappdata%\optimizerDuck\Revert\
 ```
+
+If you accidentally delete this folder, you can still use a System Restore point (if created) or manually reverse the changes.

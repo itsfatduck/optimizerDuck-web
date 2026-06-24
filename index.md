@@ -22,7 +22,7 @@ features:
     link: https://github.com/itsfatduck/optimizerDuck
     linkText: View on GitHub
     title: Open Source & Community
-    details: Proudly developed on GitHub with 500+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
+    details: Proudly developed on GitHub with 4.4k+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
 
   - icon: code
     title: Built with Modern Tech

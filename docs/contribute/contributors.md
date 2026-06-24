@@ -1,6 +1,6 @@
 # Contributors
 
-We are incredibly grateful to everyone who has contributed to **optimizerDuck**. This project is built by and for the community, and it wouldn't be possible without these amazing folks.
+We are grateful to everyone who has contributed to **optimizerDuck**. This project wouldn't exist without the community.
 
 ## Core Maintainers
 

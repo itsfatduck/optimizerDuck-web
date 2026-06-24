@@ -18,7 +18,7 @@ Please visit the [Contributing](https://github.com/itsfatduck/optimizerDuck/blob
 
 <Card title="Tip" icon="lightbulb">
 
-Once you've made your contribution, you'll be added to the [Contributors](/contribute/contributors) page!
+Once you've made your contribution, you'll be added to the [Contributors](/docs/contribute/contributors) page!
 
 </Card>
 

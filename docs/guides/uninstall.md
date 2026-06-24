@@ -1,6 +1,6 @@
 # Uninstalling & Reverting
 
-Since **optimizerDuck** is a portable application, uninstalling it is incredibly simple. However, before you delete the app, you may want to revert any system changes you made.
+Since **optimizerDuck** is a portable application, uninstalling it is straightforward. Before you delete the app, revert any system changes you made.
 
 ## Step 1: Revert Optimizations
 
@@ -14,7 +14,7 @@ If you want to restore your computer to its original state before using optimize
 
 <Card title="Warning" type="warning" icon="triangle-exclamation">
 
-If you delete the app and its data folder before reverting, you will lose the JSON backups of your original settings, making it harder to revert changes automatically.
+If you delete the app and its data folder before reverting, you will lose the JSON backups of your original settings. You can still revert manually, but the one-click restore won't work.
 
 </Card>
 

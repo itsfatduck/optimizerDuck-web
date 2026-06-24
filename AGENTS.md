@@ -50,7 +50,7 @@ This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGr
 
 ### When to prefer codegraph over native search
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+Use codegraph for **structural** questions: what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
 
 | Question | Tool |
 |---|---|
@@ -66,10 +66,10 @@ Use codegraph for **structural** questions — what calls what, what would break
 
 ### Rules of thumb
 
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
+- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep; that's slower, less accurate, and wastes context.
 - **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
-- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
-- **`codegraph_explore` is the heavy hitter** for unfamiliar areas — it returns full source from all relevant files in one call, but is token-heavy. If your harness supports parallel subagents (e.g., Claude Code's Task tool), spawn one for explore-class questions to keep main session context clean.
+- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context: `codegraph_context` is one call.
+- **`codegraph_explore` is the heavy hitter** for unfamiliar areas: it returns full source from all relevant files in one call, but is token-heavy. If your harness supports parallel subagents (e.g., Claude Code's Task tool), spawn one for explore-class questions to keep main session context clean.
 - **Index lag**: the file watcher debounces ~500ms behind writes; don't re-query immediately after editing a file in the same turn.
 
 ### If `.codegraph/` doesn't exist

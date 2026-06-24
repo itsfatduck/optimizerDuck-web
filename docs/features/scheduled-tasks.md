@@ -6,7 +6,7 @@ View and manage Windows scheduled tasks.
 
 Windows has a built-in scheduler that lets programs and scripts run automatically at specific times, when you log in, or after system events.
 
-This is useful for system maintenance like backups and security updates, but many third-party applications create their own scheduled tasks—to run telemetry, launch update checkers on boot, or pre-load services you didn't ask for. Managing these tasks puts you back in control.
+This is useful for system maintenance like backups and security updates, but many third-party applications create their own scheduled tasks that run telemetry, launch update checkers on boot, or pre-load services you didn't ask for. Managing these tasks puts you back in control.
 
 ## How to disable or enable a scheduled task?
 
@@ -17,15 +17,21 @@ This is useful for system maintenance like backups and security updates, but man
 
 In the **Scheduled Tasks** view, you can see all the automated processes currently configured on your system. Rather than having to dig through Windows' complex legacy "Task Scheduler" application, optimizerDuck provides a clean, modern interface showing everything you need.
 
-If you spot a task from an application you recognize but don't want running automatically behind the scenes, you can easily turn it off. To disable a task, find it in the list and click the **toggle switch** located on the center-right side of the task card. The switch will turn gray, indicating that the task will no longer trigger on its schedule. 
+If you spot a task from an application you recognize but don't want running automatically, you can turn it off. To disable a task, find it in the list and click the **toggle switch** located on the left side of the task card. The switch will turn gray, indicating that the task will no longer trigger on its schedule. 
 
-Should you ever need to restore the automated process, for example, if you realize an application requires its update checker to function properly, you can simply flip the switch back. A notification will always pop up to confirm that the changes were successfully applied to the Windows Task Scheduler.
+To restore the automated process, flip the switch back. A notification will always pop up to confirm that the changes were successfully applied to the Windows Task Scheduler.
+
+<Card title="Start and Stop actions" icon="lightbulb">
+
+When a task is disabled (toggled off), the **Start** and **Stop** action buttons on its card are automatically disabled to prevent confusion.
+
+</Card>
 
 ## How to permanently remove a scheduled task?
 
 Sometimes disabling a task isn't enough, especially if it belongs to an application you've already uninstalled but that left behind junk records. In these cases, you can delete the scheduled task entirely.
 
-To do this, locate the unwanted task and click on the **garbage can icon** positioned on the center-right of its card. Because this action removes the task configuration permanently from Windows, optimizerDuck will ask you for confirmation first. This prevents you from accidentally deleting something important. Once confirmed, a notification will verify that the task registry has been successfully cleared.
+To do this, locate the unwanted task and click on the **garbage can icon** positioned on its card. Because this action removes the task configuration permanently from Windows, optimizerDuck will ask you for confirmation first. This prevents you from accidentally deleting something important. Once confirmed, a notification will verify that the task registry has been successfully cleared.
 
 ## Be careful
 

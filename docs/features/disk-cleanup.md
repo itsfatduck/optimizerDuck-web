@@ -6,7 +6,7 @@ Free up disk space by removing temporary files and cache.
 
 As you use your computer, Windows creates temporary files for performance and caching. These files often remain on your drive long after they're needed.
 
-Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifies these files—browser caches, Windows update logs, temp files—and lets you reclaim that space.
+Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifies these files (browser caches, Windows update logs, temp files) and lets you reclaim that space.
 
 ## Select items to clean
 
@@ -15,11 +15,19 @@ Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifie
   caption="Select items to clean"
 />
 
-In the **Disk Cleanup** tab, optimizerDuck comprehensively groups different categories of junk files that can be safely removed from your system. Instead of navigating complex system folders, you are presented with a straightforward list where each category is clearly defined. 
+In the **Disk Cleanup** tab, optimizerDuck groups junk files into categories that can be safely removed. Instead of navigating complex system folders, you are presented with a straightforward list where each category is clearly defined. 
 
-For every item in the list, the interface provides a helpful description so you know exactly what kind of temporary files are being targeted. It also pre-calculates the amount of storage space you will save by clearing that specific category, along with the precise file paths, to give you complete transparency.
+For each item, the interface shows what kind of temporary files are being targeted, how much space you will save, and the exact file paths involved.
 
-To include a category in your cleaning process, simply check the box next to it. You can select multiple items to clean at once.
+Items with **no reclaimable space** are automatically disabled, so you don't waste time selecting categories that have nothing to clean.
+
+To include a category, check the box next to it. You can select multiple items to clean at once. If you want to recalculate the space usage, use the **Refresh** quick action button to re-scan the selected categories.
+
+<Card title="Refresh quick action" icon="lightbulb">
+
+If you have just cleared some files and want to see updated space estimates for the remaining categories, click the **Refresh** button to re-scan without leaving the page.
+
+</Card>
 
 ## Cleaning up
 
