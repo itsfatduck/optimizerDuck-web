@@ -2,6 +2,7 @@
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 import GitHubRelease from './components/GitHub/GitHubRelease.vue'
 import GitHubChangelog from './components/GitHub/GitHubChangelog.vue'
 import GitHubChangelogLink from './components/GitHub/GitHubChangelogLink.vue'

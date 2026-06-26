@@ -1,6 +1,10 @@
 <script setup>
 import DefaultTheme from "vitepress/theme";
 import { onMounted } from "vue";
+import {
+  NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesScreenMenu,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 onMounted(async () => {
   if (typeof window !== "undefined") {
@@ -45,5 +49,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <DefaultTheme.Layout />
+  <DefaultTheme.Layout>
+    <template #nav-bar-content-after>
+      <ClientOnly>
+        <NolebaseEnhancedReadabilitiesMenu />
+      </ClientOnly>
+    </template>
+    <template #nav-screen-content-after>
+      <ClientOnly>
+        <NolebaseEnhancedReadabilitiesScreenMenu />
+      </ClientOnly>
+    </template>
+  </DefaultTheme.Layout>
 </template>
