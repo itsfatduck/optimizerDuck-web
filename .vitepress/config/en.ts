@@ -252,20 +252,39 @@ function getFooter(): FooterConfig {
   return {
     navigation: [
       {
+        title: "Documentation",
+        items: [
+          { text: "Download", link: "/docs/download" },
+          { text: "Getting Started", link: "/docs/guides/getting-started" },
+          { text: "Changelog", link: "/docs/changelog" },
+          { text: "Best Practices", link: "/docs/guides/best-practices" },
+        ],
+      },
+      {
+        title: "Features",
+        items: [
+          { text: "Customize", link: "/docs/features/customize" },
+          { text: "Optimize", link: "/docs/features/optimize" },
+          { text: "Bloatware", link: "/docs/features/bloatware" },
+          { text: "Disk Cleanup", link: "/docs/features/disk-cleanup" },
+        ],
+      },
+      {
+        title: "Community",
+        items: [
+          { text: "GitHub", link: "https://github.com/itsfatduck/optimizerDuck" },
+          { text: "Discord", link: "https://discord.gg/tDUBDCYw9Q" },
+          { text: "Contributors", link: "/docs/contribute/contributors" },
+          { text: "Support Me", link: "/docs/contribute/support-me" },
+        ],
+      },
+      {
         title: "Legal",
         items: [
           { text: "Privacy Policy", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/PRIVACY.md" },
           { text: "Terms of Service", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/TERMS.md" },
           { text: "Disclaimer", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/DISCLAIMER.md" },
           { text: "License", link: "https://github.com/itsfatduck/optimizerDuck/blob/master/LICENSE" },
-        ],
-      },
-      {
-        title: "Links",
-        items: [
-          { text: "GitHub", link: "https://github.com/itsfatduck/optimizerDuck" },
-          { text: "Discord", link: "https://discord.gg/tDUBDCYw9Q" },
-          { text: "Support Me", link: "/docs/contribute/support-me" },
         ],
       },
     ],

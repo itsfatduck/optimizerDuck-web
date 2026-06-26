@@ -39,7 +39,7 @@ features:
 
 <div class="home-section">
   <h2 class="home-section__title">Thanks to all contributors</h2>
-  <ContributorList :repo="'itsfatduck/optimizerDuck'" />
+  <ContributorMarquee :repo="'itsfatduck/optimizerDuck'" />
 </div>
 
 <div class="home-section home-section--donation">

@@ -75,10 +75,9 @@ const year = new Date().getFullYear();
 }
 
 .footer-top {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 6rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid var(--vp-c-divider);
 }
@@ -102,10 +101,11 @@ const year = new Date().getFullYear();
 }
 
 .footer-link {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--vp-c-text-2);
   text-decoration: none;
   transition: all 0.2s ease;
+  width: fit-content;
 }
 
 .footer-link:hover {
@@ -214,14 +214,26 @@ const year = new Date().getFullYear();
   object-fit: contain;
 }
 
+@media (max-width: 960px) {
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 640px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-group {
+    text-align: left;
+  }
+
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .footer-top {
-    gap: 2rem;
   }
 }
 </style>

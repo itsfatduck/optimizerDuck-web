@@ -60,29 +60,33 @@ Yes. optimizerDuck runs as a single `.exe` file with no installation required. T
 
 ## How do I update optimizerDuck?
 
-optimizerDuck does not include an automatic update mechanism. To update:
+optimizerDuck **automatically checks for updates** every time you launch the app. It compares your current version against the latest release available on [GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases).
+
+If you are using an older version and a newer one exists, you will see a prominent notification banner right on the **Dashboard** page the moment the app opens. Just click the download link in the notification to get the latest version.
+
+To update manually, simply:
 
 1. Download the latest version from the [GitHub Releases page](https://github.com/itsfatduck/optimizerDuck/releases)
 2. Replace your existing `.exe` file with the new one
 
-Your revert backups and settings are stored separately in `%localappdata%\optimizerDuck\` and will carry over automatically.
+Your revert backups and settings are stored separately in `%localappdata%\optimizerDuck\` and will carry over automatically, so updating will not affect any of your saved configurations.
 
 ## Can I build optimizerDuck from source myself?
 
 Yes! If you prefer to build the executable yourself rather than downloading a pre-built release:
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/itsfatduck/optimizerDuck.git
    cd optimizerDuck
    ```
 2. Restore and build:
-   ```
+   ```bash
    dotnet restore optimizerDuck.slnx
    dotnet build optimizerDuck.slnx --configuration Release
    ```
 3. Run tests to verify:
-   ```
+   ```bash
    dotnet test optimizerDuck.Test/optimizerDuck.Test.csproj
    ```
 

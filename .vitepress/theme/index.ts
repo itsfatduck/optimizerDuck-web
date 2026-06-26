@@ -8,6 +8,7 @@ import GitHubChangelogLink from './components/GitHub/GitHubChangelogLink.vue'
 import DiscordWidget from './components/Discord/DiscordWidget.vue'
 import ImagePreview from './components/ImagePreview.vue'
 import ContributorList from './components/ContributorList.vue'
+import ContributorMarquee from './components/ContributorMarquee.vue'
 import SupportCard from './components/SupportCard.vue'
 import CustomBlock from './components/CustomBlock.vue'
 import Card from './components/Card.vue'
@@ -25,6 +26,7 @@ export default {
     app.component('DiscordWidget', DiscordWidget)
     app.component('ImagePreview', ImagePreview)
     app.component('ContributorList', ContributorList)
+    app.component('ContributorMarquee', ContributorMarquee)
     app.component('SupportCard', SupportCard)
     app.component('CustomBlock', CustomBlock)
     app.component('Card', Card)

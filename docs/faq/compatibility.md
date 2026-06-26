@@ -21,7 +21,7 @@ If optimizerDuck encounters an unexpected error, crash logs are automatically sa
 
 Logs are stored locally at:
 
-```
+```text
 %localappdata%\optimizerDuck\Crashes\*.log
 ```
 
@@ -45,7 +45,9 @@ Certain optimizations, such as those that download updated configurations or int
 
 ## Windows Updates
 
-It is highly recommended to run Windows Update **before** applying optimizations, and after updating windows, you should run pause it as well to prevent windows from updating again and resetting your optimizations.
+It is highly recommended to run Windows Update **before** applying optimizations, so your system is on the latest stable build. After updating, you may want to pause updates temporarily to prevent Windows from resetting your optimizations.
+
+**Note:** Windows feature updates (major version upgrades) can occasionally reset Registry values and service configurations to defaults. If this happens, simply re-apply your previous optimizations from the app.
 
 ## Can I use optimizerDuck on Windows Server or other Windows editions?
 
@@ -58,3 +60,7 @@ Older versions like Windows 7 or 8 are also not supported.
 If you are using a work computer:
 - Be careful with the **Network** and **Privacy** optimizations. Disabling critical services like the Print Spooler or Remote Desktop may break your ability to print documents or access company servers.
 - Please refer to our [Best Practices](/docs/guides/best-practices) for advice on safe optimizing.
+
+## I found a bug / want to request a feature
+
+Open an [issue](https://github.com/itsfatduck/optimizerDuck/issues) on GitHub with as much detail as possible: your Windows version, what optimizations you applied, and what went wrong. Feature requests are also welcome.

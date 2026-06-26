@@ -60,14 +60,14 @@ This issue is tracked as [GitHub issue #29](https://github.com/itsfatduck/optimi
 
 ## Will optimizations reset after Windows Update?
 
-Major Windows updates (feature updates) can reset some Registry settings and service configurations back to their defaults. This is normal Windows behavior.
+**Windows feature updates** (major version upgrades like 22H2 → 23H2) can reset certain Registry settings and service configurations back to their defaults. This is normal Windows behavior.
 
-After a major Windows update, we recommend:
+After a major Windows update, simply re-apply your previous optimizations from the app:
 
 1. Open optimizerDuck and check which optimizations are still applied (yellow toggles)
 2. Re-apply any that were reset
 
-Minor monthly updates typically do not affect your optimizations.
+Minor monthly updates typically **do not** affect your optimizations.
 
 ## How does this app save the changes it makes?
 
@@ -80,3 +80,7 @@ These backup files are stored locally at:
 ```
 
 If you accidentally delete this folder, you can still use a System Restore point (if created) or manually reverse the changes.
+
+## I found a bug / want to request a feature
+
+Open an [issue](https://github.com/itsfatduck/optimizerDuck/issues) on GitHub with as much detail as possible: your Windows version, what optimizations you applied, and what went wrong. Feature requests are also welcome.

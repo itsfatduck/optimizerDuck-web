@@ -22,3 +22,18 @@ When you first run optimizerDuck, Windows SmartScreen may display a warning that
 This warning only appears the first time you run the application. After that, Windows will remember your choice.
 
 </Card>
+
+## The app still won't open after clicking "Run anyway"?
+
+If SmartScreen lets the file through but the app still crashes or fails to launch:
+
+1. Make sure you are running as **Administrator**: right-click the `.exe` and select **Run as administrator**
+2. Download the latest version from [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest): an outdated build may be incompatible with your Windows version
+3. See the [App Won't Open](/docs/faq/troubleshooting/app-wont-open) guide for more detailed troubleshooting
+
+## Still having issues?
+
+If you continue to experience problems:
+
+- Ask for help in our [Discord community](https://discord.gg/tDUBDCYw9Q)
+- Report the issue on [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues/new/choose)

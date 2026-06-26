@@ -66,7 +66,7 @@ Changing system settings can be risky. That's why optimizerDuck automatically ba
 
 Backup files are stored here:
 
-```
+```text
 %localappdata%\optimizerDuck\Revert\
 ```
 

@@ -32,3 +32,28 @@ Here are quick steps for popular antivirus programs:
 2. Look for **Quarantine**, **Chest**, or **Threat History**
 3. Find optimizerDuck and choose **Restore** or **Allow**
 4. Add the file to the **Exclusion list** to prevent future detections
+
+### Bitdefender
+
+1. Open **Bitdefender** → **Protection** → **Advanced Threat Defense**
+2. Click **Manage exclusions**
+3. Add the optimizerDuck `.exe` file or folder to the exclusion list
+
+### Malwarebytes
+
+1. Open **Malwarebytes** → **Detection History**
+2. Find the optimizerDuck entry and select **Allow**
+3. Go to **Settings** → **General** → **Allow List** and add the optimizerDuck folder
+
+### Norton
+
+1. Open **Norton** → **Security** → **Quarantine**
+2. Find optimizerDuck and click **Restore**
+3. Add the file to the **Exception List** in **Settings** → **Antivirus** → **Exceptions**
+
+## Still having issues?
+
+If you continue to experience problems:
+
+- Ask for help in our [Discord community](https://discord.gg/tDUBDCYw9Q)
+- Report the issue on [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues/new/choose)

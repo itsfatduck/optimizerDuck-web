@@ -37,7 +37,7 @@ Some network-related optimizations may cause connectivity issues on certain conf
 
 1. Open **optimizerDuck** and disable any network-related optimizations
 2. Open **Command Prompt** as Administrator and run:
-   ```
+   ```bat
    netsh winsock reset
    netsh int ip reset
    ipconfig /flushdns
@@ -53,9 +53,34 @@ If you experience audio or display problems:
 3. Update your drivers from the manufacturer's website
 4. Restart your computer
 
+### Changes don't seem to take effect after applying
+
+If you've applied an optimization but don't notice any difference:
+
+1. **Restart your computer**: many optimizations (especially Registry and service changes) require a full reboot to take effect
+2. Open **optimizerDuck** and check that the toggle switch is still in the **on** position (yellow)
+3. If it was reverted, apply it again and restart
+4. Some tweaks are subtle by design: they reduce background resource usage rather than providing a visible change
+
+### Revert file is missing or corrupted
+
+optimizerDuck saves a JSON backup of your original settings before making any changes. These files are stored at:
+
+```text
+%localappdata%\optimizerDuck\Revert\
+```
+
+If a revert file is accidentally deleted or becomes corrupted:
+
+1. You can still revert changes **manually** by toggling the optimization off: optimizerDuck will restore Windows to its default state for that setting
+2. If you created a **System Restore Point** beforehand (recommended), use that as a fallback
+3. If neither option works, you may need to manually reverse the change by searching online for the default Windows value
+
+To avoid this in the future, always create a System Restore Point before applying new optimizations.
+
 ## Still having issues?
 
-If you cannot resolve the issue:
+If you continue to experience problems:
 
 - Ask for help in our [Discord community](https://discord.gg/tDUBDCYw9Q)
-- Report the issue on [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues/new/choose) with details about which optimizations you applied
+- Report the issue on [GitHub Issues](https://github.com/itsfatduck/optimizerDuck/issues/new/choose)
