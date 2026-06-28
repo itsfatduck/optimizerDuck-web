@@ -1,3 +1,7 @@
+---
+description: "Join the optimizerDuck community on Discord and GitHub. Get help, share feedback, report bugs, and connect with other Windows optimization users."
+---
+
 # Community
 
 Join the optimizerDuck community to get help, share feedback, and connect with other users.

@@ -1,3 +1,7 @@
+---
+description: "Best practices for safe Windows optimization with optimizerDuck. Expert tips for gamers, office users, developers, and daily PC users to optimize without breaking anything."
+---
+
 # Best Practices
 
 optimizerDuck offers dozens of tweaks, but **you don't need to enable all of them**. In fact, checking every single box without understanding what it does is a bad idea.

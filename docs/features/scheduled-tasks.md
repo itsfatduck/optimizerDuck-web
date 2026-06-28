@@ -1,3 +1,7 @@
+---
+description: "Manage Windows Scheduled Tasks with optimizerDuck. Disable or remove unnecessary automated processes from third-party apps to improve system performance."
+---
+
 # Scheduled Tasks
 
 View and manage Windows scheduled tasks.

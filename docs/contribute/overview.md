@@ -1,3 +1,7 @@
+---
+description: "Contribute to optimizerDuck — report bugs, suggest features, improve documentation, add translations, or submit code. Open source project welcomes all contributions."
+---
+
 # Contribute
 
 First of all, thank you for your interest in contributing to **optimizerDuck**!

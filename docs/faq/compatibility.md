@@ -1,3 +1,7 @@
+---
+description: "optimizerDuck compatibility guide — safe with anti-cheat systems like Vanguard and EAC, antivirus false positives, offline use, Windows Server, and work environments."
+---
+
 # Compatibility & Conflicts
 
 A common concern with optimization tools is whether they will break other software, especially games that use strict Anti-Cheat systems.

@@ -1,3 +1,7 @@
+---
+description: "Frequently asked questions about optimizerDuck — is it safe, is it free, does it collect data, which Windows versions are supported, how to update, and more."
+---
+
 # General
 
 Frequently Asked Questions and Answers about optimizerDuck in general. Let's cover the basics.

@@ -1,3 +1,7 @@
+---
+description: "Manage Windows startup programs with optimizerDuck's Startup Manager. Disable unnecessary startup apps, improve boot times, and control what runs automatically."
+---
+
 # Startup Manager
 
 Manage the applications that automatically run when your computer starts up.

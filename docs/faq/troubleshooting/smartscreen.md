@@ -1,3 +1,7 @@
+---
+description: "Fix Windows SmartScreen warning when opening optimizerDuck. Click 'More info' then 'Run anyway' to bypass the 'Windows protected your PC' message safely."
+---
+
 # SmartScreen Warning
 
 > "Windows protected your PC"

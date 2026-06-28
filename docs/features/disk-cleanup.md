@@ -1,3 +1,7 @@
+---
+description: "Free up disk space on Windows with optimizerDuck's Disk Cleanup tool. Safely remove temporary files, browser caches, Windows update logs, and system junk."
+---
+
 # Disk Cleanup
 
 Free up disk space by removing temporary files and cache.

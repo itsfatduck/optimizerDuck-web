@@ -1,4 +1,11 @@
+# robots.txt for optimizerDuck
+# https://optimizerduck.vercel.app
+
 User-agent: *
 Allow: /
 
+# Crawl rate optimization - be gentle with our server
+Crawl-delay: 10
+
+# Sitemaps
 Sitemap: https://optimizerduck.vercel.app/sitemap.xml

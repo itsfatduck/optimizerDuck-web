@@ -1,3 +1,7 @@
+---
+description: "Download optimizerDuck for Windows 10 and 11 — free, portable, open-source Windows optimization tool. Get the latest release executable with no installation required."
+---
+
 # Download optimizerDuck
 
 Get the latest version of optimizerDuck for Windows.

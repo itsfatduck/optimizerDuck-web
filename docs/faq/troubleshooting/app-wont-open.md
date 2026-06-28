@@ -1,3 +1,7 @@
+---
+description: "Fix optimizerDuck not opening or crashing on launch. Check system requirements, run as administrator, verify downloads, run SFC scan, and check Event Viewer."
+---
+
 # App Won't Open
 
 > The app crashes or fails to launch

@@ -1,3 +1,7 @@
+---
+description: "How to uninstall optimizerDuck and revert system changes. Step-by-step guide to safely undo all Windows optimizations and completely remove the portable app."
+---
+
 # Uninstalling & Reverting
 
 Since **optimizerDuck** is a portable application, uninstalling it is straightforward. Before you delete the app, revert any system changes you made.

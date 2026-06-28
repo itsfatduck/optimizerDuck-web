@@ -1,3 +1,7 @@
+---
+description: "Revert optimizerDuck system changes — use System Restore, toggle off specific optimizations, fix network/audio issues, and restore missing revert backup files."
+---
+
 # Something Broke After Optimizing
 
 > Issues after applying optimizations

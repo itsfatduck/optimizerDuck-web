@@ -1,3 +1,7 @@
+---
+description: "Get started with optimizerDuck — download, launch, change language, and start optimizing your Windows PC for better performance, privacy, and simplicity."
+---
+
 <script setup>
 import { useGitHub } from '../../.vitepress/theme/composables/useGitHub'
 import { onMounted } from 'vue'

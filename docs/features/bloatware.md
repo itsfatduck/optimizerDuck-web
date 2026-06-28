@@ -1,3 +1,7 @@
+---
+description: "Remove Windows bloatware and pre-installed apps with optimizerDuck. Free up disk space, reduce background processes, and improve system performance safely."
+---
+
 # Bloatware
 
 Manage and remove pre-installed applications that you don't need.

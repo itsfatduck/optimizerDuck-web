@@ -1,3 +1,7 @@
+---
+description: "Fix optimizerDuck download issues — browser blocks, SmartScreen warnings, manual GitHub download alternative, cache clearing, and connectivity troubleshooting."
+---
+
 # Download Issues
 
 > The download won't start or gets blocked

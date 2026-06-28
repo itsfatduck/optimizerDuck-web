@@ -1,3 +1,7 @@
+---
+description: "Support optimizerDuck development — buy me a coffee on Ko-fi, star the GitHub repository, or share with friends. Help keep this free Windows optimization tool growing."
+---
+
 # Support Me
 
 Hi, I'm [fatDuck](https://github.com/itsfatduck), the developer behind optimizerDuck.

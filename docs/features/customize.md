@@ -1,3 +1,7 @@
+---
+description: "Customize Windows appearance and behavior with optimizerDuck. Tweak desktop icons, taskbar, File Explorer, gaming settings, and system features in one place."
+---
+
 # Customize
 
 The **Customize** section lets you tweak how Windows looks and behaves,

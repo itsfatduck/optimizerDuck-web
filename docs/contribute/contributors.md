@@ -1,3 +1,7 @@
+---
+description: "Meet the optimizerDuck contributors and core maintainers. Learn how to become a contributor — translations, code, documentation, and more ways to help."
+---
+
 # Contributors
 
 We are grateful to everyone who has contributed to **optimizerDuck**. This project wouldn't exist without the community.

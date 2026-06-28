@@ -1,3 +1,7 @@
+---
+description: "Fix antivirus false positives flagging optimizerDuck. Step-by-step guide for Windows Defender, Avast, Bitdefender, Malwarebytes, Norton, and other antivirus software."
+---
+
 # Antivirus False Positive
 
 > My antivirus flagged or deleted optimizerDuck

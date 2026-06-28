@@ -1,3 +1,7 @@
+---
+description: "Frequently asked questions about Windows optimization with optimizerDuck — performance benefits, risks, FPS impact, how tweaks work, and how to revert changes."
+---
+
 # Optimizing
 
 Frequently Asked Questions about optimizing, reverting, and how it impacts your system.

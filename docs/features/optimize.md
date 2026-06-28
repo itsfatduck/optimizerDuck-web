@@ -1,3 +1,7 @@
+---
+description: "Optimize Windows performance and privacy with optimizerDuck. Apply proven tweaks for gaming, network latency, privacy, and overall system responsiveness."
+---
+
 # Optimize
 
 This document helps you understand how to optimize your system using optimizerDuck.
