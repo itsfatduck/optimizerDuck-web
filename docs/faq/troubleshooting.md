@@ -1,5 +1,5 @@
 ---
-description: "Troubleshooting guide for optimizerDuck — fix SmartScreen warnings, antivirus false positives, download issues, app crashes, slow performance, and revert problems."
+description: "Troubleshooting guide for optimizerDuck. Fix SmartScreen warnings, antivirus false positives, download problems, app crashes, slow performance, and system revert issues."
 ---
 
 # Troubleshooting

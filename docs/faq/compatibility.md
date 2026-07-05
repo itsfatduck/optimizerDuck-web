@@ -1,5 +1,5 @@
 ---
-description: "optimizerDuck compatibility guide — safe with anti-cheat systems like Vanguard and EAC, antivirus false positives, offline use, Windows Server, and work environments."
+description: "optimizerDuck compatibility guide covering anti-cheat systems like Vanguard and EAC, antivirus false positives, offline use, Windows Server, and work environments."
 ---
 
 # Compatibility & Conflicts

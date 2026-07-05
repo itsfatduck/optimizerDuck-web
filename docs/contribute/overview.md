@@ -1,5 +1,5 @@
 ---
-description: "Contribute to optimizerDuck — report bugs, suggest features, improve documentation, add translations, or submit code. Open source project welcomes all contributions."
+description: "Contribute to optimizerDuck. Report bugs, suggest features, improve documentation, add translations, or submit code. This open source project welcomes all contributions."
 ---
 
 # Contribute
@@ -26,6 +26,6 @@ Once you've made your contribution, you'll be added to the [Contributors](/docs/
 
 </Card>
 
-## Support me
+## Support
 
-If you find optimizerDuck useful and would like to support its development, please take a moment to [Support Me](./support-me). Every contribution helps keep the project alive and improving! <3
+If you find optimizerDuck useful and would like to support its development, please take a moment to [Support](./support-me). Every contribution helps! <3

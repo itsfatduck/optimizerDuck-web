@@ -1,5 +1,5 @@
 ---
-description: "Support optimizerDuck development — buy me a coffee on Ko-fi, star the GitHub repository, or share with friends. Help keep this free Windows optimization tool growing."
+description: "Support optimizerDuck development. Buy me a coffee on Ko-fi, star the GitHub repository, or share the project with friends. Every contribution helps."
 ---
 
 # Support Me
@@ -10,13 +10,13 @@ I originally built this tool to solve my own frustrations with Windows performan
 
 optimizerDuck is **100% free and open-source**, and it always will be. I dedicate my free time to building, improving, and maintaining this project so others can enjoy a smoother Windows experience too.
 
-If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
+If optimizerDuck has been helpful to you, here are a few ways you can support the project.
 
 ---
 
 <SupportCard 
   title="Buy me a coffee" 
-  description="Help keep optimizerDuck running and evolving. Your support makes continued updates and improvements possible." 
+  description="Your support helps fund continued development and maintenance." 
   icon="kofi" 
   url="https://ko-fi.com/itsfatduck"
   ctaText="Donate on Ko-fi"
@@ -45,4 +45,4 @@ If optimizerDuck has been helpful to you, here are a few ways you can support th
 
 optimizerDuck is built and maintained by a **solo developer**. Every star, every donation, and every pull request directly fuels the motivation to keep shipping new features and improvements.
 
-> _Your support makes a difference._
+> _Your support makes this project possible._

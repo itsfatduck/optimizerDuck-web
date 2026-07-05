@@ -1,5 +1,5 @@
 ---
-description: "Get started with optimizerDuck — download, launch, change language, and start optimizing your Windows PC for better performance, privacy, and simplicity."
+description: "Learn how to get started with optimizerDuck. Download the app, change the language, and start optimizing your Windows PC for better performance and privacy."
 ---
 
 <script setup>
@@ -98,12 +98,12 @@ Explore the guides below to optimize and manage your system effectively:
 
 ## Contribute
 
-If optimizerDuck has been helpful to you, here are a few ways you can support the project and help keep it growing.
+If optimizerDuck has been helpful to you, here are a few ways you can support the project.
 
 - **GitHub**: Star the repository, report bugs, or contribute on [GitHub](https://github.com/itsfatduck/optimizerDuck).
 - or, if you want to support the project financially, consider buying me a coffee or sharing the project with your friends!
 
-Visit the [Support Me](/docs/contribute/support-me) and [Contribute](/docs/contribute/overview) page to learn more.
+Visit the [Support](/docs/contribute/support-me) and [Contribute](/docs/contribute/overview) page to learn more.
 
 ## Important Best Practices
 

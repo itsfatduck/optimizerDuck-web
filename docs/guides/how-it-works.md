@@ -1,5 +1,5 @@
 ---
-description: "Learn how optimizerDuck works under the hood — Registry edits, Windows Services, Scheduled Tasks, and PowerShell commands explained for safe Windows optimization."
+description: "Learn how optimizerDuck works under the hood. Understand Registry edits, Windows Services, Scheduled Tasks, and PowerShell commands used for safe Windows optimization."
 ---
 
 # How optimizerDuck Works

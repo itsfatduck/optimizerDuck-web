@@ -1,5 +1,5 @@
 ---
-description: "Meet the optimizerDuck contributors and core maintainers. Learn how to become a contributor — translations, code, documentation, and more ways to help."
+description: "Meet the optimizerDuck contributors and core maintainers. Learn how to become a contributor through translations, code, documentation, and other ways to help."
 ---
 
 # Contributors

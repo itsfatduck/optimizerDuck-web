@@ -1,5 +1,5 @@
 ---
-description: "Fix optimizerDuck running slowly or being unresponsive — close background programs, free disk space, manage startup items, re-download, and run as administrator."
+description: "Fix a slow or unresponsive optimizerDuck. Close background programs, free up disk space, manage startup items, re-download the app, or run as administrator."
 ---
 
 # App Running Slowly

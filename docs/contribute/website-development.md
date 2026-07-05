@@ -1,5 +1,5 @@
 ---
-description: "Guide to developing the optimizerDuck website — VitePress setup, Vue components, Markdown pages, and step-by-step instructions for contributing to the docs."
+description: "Guide to developing the optimizerDuck website. Covers VitePress setup, Vue components, Markdown pages, and step-by-step instructions for contributing to the documentation."
 ---
 
 # Website development

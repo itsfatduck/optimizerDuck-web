@@ -1,5 +1,5 @@
 ---
-description: "Revert optimizerDuck system changes — use System Restore, toggle off specific optimizations, fix network/audio issues, and restore missing revert backup files."
+description: "Learn how to revert optimizerDuck system changes. Use System Restore, toggle off specific optimizations, fix network or audio issues, and restore missing backup files."
 ---
 
 # Something Broke After Optimizing
