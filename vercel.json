@@ -11,13 +11,13 @@
       ]
     },
     {
-      "source": "/(.*)\.(webp|png|jpg|jpeg|gif|ico|svg)",
+      "source": "/(.*)\\.(webp|png|jpg|jpeg|gif|ico|svg)",
       "headers": [
         { "key": "Cache-Control", "value": "max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
-      "source": "/(.*)\.(woff2?|ttf|otf|eot)",
+      "source": "/(.*)\\.(woff2?|ttf|otf|eot)",
       "headers": [
         { "key": "Cache-Control", "value": "max-age=31536000, immutable" }
       ]
