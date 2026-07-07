@@ -8,13 +8,13 @@ description: "Fix Windows SmartScreen warning when opening optimizerDuck. Click 
 
 ## What is SmartScreen?
 
-SmartScreen is a security feature in Windows that helps protect you from malicious software. It works by checking the reputation of files that you download and run, and it will block any files that it deems suspicious.
+SmartScreen is a Windows security feature that checks the reputation of files you download and run. It blocks files it finds suspicious.
 
 ## Why am I seeing this warning?
 
-When you first run optimizerDuck, Windows SmartScreen may display a warning that says **"Windows protected your PC"**. This happens because the app is not digitally signed with a paid code signing certificate.
+When you first run optimizerDuck, SmartScreen may show **"Windows protected your PC"**. This happens because the app is not signed with a paid code signing certificate.
 
-**This is safe to bypass.** optimizerDuck is open source and you can review the entire source code on [GitHub](https://github.com/itsfatduck/optimizerDuck).
+**This is safe to bypass.** optimizerDuck is open source. You can review the source code on [GitHub](https://github.com/itsfatduck/optimizerDuck).
 
 ## How to fix
 

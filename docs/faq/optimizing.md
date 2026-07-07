@@ -8,19 +8,19 @@ Frequently Asked Questions about optimizing, reverting, and how it impacts your 
 
 ## Does optimizerDuck actually improve performance, reduce latency, or speed up my network?
 
-It can help. Every optimization in optimizerDuck is researched from well-known tools, community guides, and hardware vendor recommendations; nothing is AI-generated, blindly added, or made up. Each tweak addresses a real setting that Windows configures conservatively by default (e.g., service host grouping, GPU power states, network throttling, process scheduling).
+It can help. Every optimization is researched from well-known tools, community guides, and hardware vendor recommendations. Nothing is AI-generated or made up. Each tweak addresses a real Windows setting that is set conservatively by default (service host grouping, GPU power states, network throttling, process scheduling).
 
-There are no fake registry hacks here. Every change has a documented purpose and real-world impact backed by community testing and vendor documentation.
+There are no fake registry hacks. Every change has a documented purpose backed by community testing and vendor docs.
 
-The app covers over 30 tweaks across 6 categories: Performance, Privacy, GPU, Power, Bloatware & Services, and User Experience.
+The app covers over 30 tweaks across 6 categories: Performance, Privacy, GPU, Power, Bloatware and Services, and User Experience.
 
 ## How are these optimizations applied?
 
-The optimizations are not magic. We have coded services to safely modify or remove Registry keys, adjust the startup mode of Windows services, and run targeted Shell commands. Everything has been carefully coded and tested before release. 
+The optimizations are not magic. We built services that safely modify Registry keys, adjust Windows service startup modes, and run shell commands. Everything is tested before release.
 
-Every optimization comes with a clear name and description, making it easy for you to understand exactly what it does to your system before you apply it.
+Every optimization has a clear name and description so you know exactly what it does before applying it.
 
-You can learn more about optimization [here (Wikipedia)](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
+Learn more about optimization on [Wikipedia](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
 
 ## What are the benefits of optimizing Windows?
 
@@ -34,14 +34,14 @@ Optimizing Windows can help you to:
 
 ## What are the risks of optimizing Windows?
 
-Optimizing Windows can be risky if not done correctly. Some common risks include:
+Optimizing Windows can be risky if not done correctly. Common risks include:
 
-- System instability or unexpected app behaviors
+- System instability or unexpected app behavior
 - Data loss or corrupted Windows components
-- Missing features (e.g., losing Bluetooth capabilities if you disable its service)
-- Performance issues caused by conflicts with third-party software or user modifications
+- Missing features (like losing Bluetooth if you disable its service)
+- Performance issues from conflicts with other software
 
-**Always create a restore point or backup before applying system changes.**
+**Always create a restore point or backup before applying changes.**
 
 ## Can I double my FPS with this application?
 

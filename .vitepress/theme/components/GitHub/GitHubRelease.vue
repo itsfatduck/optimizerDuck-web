@@ -5,8 +5,8 @@ const expandedRepos = ref(new Set());
 
 <script setup>
 import { computed, onMounted, nextTick, watch, onUnmounted } from "vue";
-import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
+import { createGitHubMD } from "../../utils/markdown";
 import Icon from "../Icon.vue";
 
 const props = defineProps({
@@ -38,11 +38,7 @@ const {
   fetchLatestRelease,
 } = useGitHub(props.repo);
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-});
+const renderMD = createGitHubMD(props.repo);
 
 const checkHeight = () => {
   if (contentWrapper.value) {
@@ -75,41 +71,9 @@ onUnmounted(() => {
   }
 });
 
-const parseMentions = (html) => {
-  let inSkipTag = 0;
-  const parts = html.split(/(<\/?[a-z0-9]+[^>]*>)/gi);
-  const processed = parts.map((part, index) => {
-    if (index % 2 === 0) {
-      if (inSkipTag > 0) return part;
-      return part.replace(/\B@([a-z0-9](?:-?[a-z0-9]){0,38})\b/gi, '<a href="https://github.com/$1" target="_blank" rel="noopener noreferrer" class="mention">@$1</a>');
-    } else {
-      const tagName = part.match(/^<\/?([a-z0-9]+)/i)?.[1]?.toLowerCase();
-      if (tagName === 'a' || tagName === 'code' || tagName === 'pre') {
-        if (part.startsWith('</')) {
-          inSkipTag = Math.max(0, inSkipTag - 1);
-        } else {
-          inSkipTag++;
-        }
-      }
-      return part;
-    }
-  });
-  return processed.join('');
-};
-
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
-  let html = md.render(release.value.body);
-  html = html.replace(
-    /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
-    (match, p1, src, p2) => {
-      let attrs = ` ${p1} ${p2} `;
-      if (!attrs.includes("loading=")) attrs += 'loading="lazy" ';
-      if (!attrs.includes("decoding=")) attrs += 'decoding="async" ';
-      return `<img src="${src}" ${attrs}>`;
-    },
-  );
-  return parseMentions(html);
+  return renderMD(release.value.body, "latest-release");
 });
 
 const formatSize = (bytes) => {
@@ -156,7 +120,7 @@ const closeDialog = () => {
   <div class="gh-release" v-if="release">
     <div class="gh-release__header">
       <div class="gh-release__title-row">
-        <h3 class="gh-release__title">{{ release.tag_name }}</h3>
+        <h3 class="gh-release__title">{{ release.name || release.tag_name }}</h3>
         <span v-if="release.prerelease" class="gh-tag gh-tag--pre">Pre-release</span>
       </div>
       <div class="gh-release__meta">

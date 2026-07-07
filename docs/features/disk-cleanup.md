@@ -8,9 +8,9 @@ Free up disk space by removing temporary files and cache.
 
 ## What is Disk Cleanup?
 
-As you use your computer, Windows creates temporary files for performance and caching. These files often remain on your drive long after they're needed.
+As you use your computer, Windows creates temporary files for performance and caching. These files often stay on your drive long after they are needed.
 
-Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifies these files (browser caches, Windows update logs, temp files) and lets you reclaim that space.
+Over time, this clutter can take up gigabytes of space. Disk Cleanup finds these files (browser caches, Windows update logs, temp files) and lets you reclaim that space.
 
 ## Select items to clean
 
@@ -19,13 +19,13 @@ Over time, this clutter can consume gigabytes of storage. Disk Cleanup identifie
   caption="Select items to clean"
 />
 
-In the **Disk Cleanup** tab, optimizerDuck groups junk files into categories that can be safely removed. Instead of navigating complex system folders, you are presented with a straightforward list where each category is clearly defined. 
+In the **Disk Cleanup** tab, optimizerDuck groups junk files into categories. Instead of navigating complex system folders, you get a simple list where each category is clearly explained.
 
-For each item, the interface shows what kind of temporary files are being targeted, how much space you will save, and the exact file paths involved.
+For each item, the interface shows what files are targeted, how much space you will save, and the exact file paths.
 
-Items with **no reclaimable space** are automatically disabled, so you don't waste time selecting categories that have nothing to clean.
+Items with **no reclaimable space** are disabled automatically, so you don't waste time on empty categories.
 
-To include a category, check the box next to it. You can select multiple items to clean at once. If you want to recalculate the space usage, use the **Refresh** quick action button to re-scan the selected categories.
+To select a category, check the box next to it. You can select multiple items at once. Use the **Refresh** button to re-scan space usage.
 
 <Card title="Refresh quick action" icon="lightbulb">
 
@@ -40,6 +40,6 @@ If you have just cleared some files and want to see updated space estimates for 
   caption="Disk Cleanup completed"
 />
 
-Once you have reviewed the list and selected all the categories of temporary files you wish to remove, click the **"Clean Selected"** button located in the top menu bar. 
+After reviewing the list and selecting the categories you want to clean, click the **Clean Selected** button in the top menu bar.
 
-optimizerDuck will then begin the process of safely deleting these files from your drive. The time it takes will depend on the amount of data being cleared and the speed of your storage drive. Once the cleaning process finishes successfully, the application will display a summary notification letting you know exactly how much disk space has been freed up for your personal use.
+optimizerDuck will safely delete these files from your drive. The time depends on how much data is being cleared and your drive speed. When finished, a notification will show how much space was freed up.

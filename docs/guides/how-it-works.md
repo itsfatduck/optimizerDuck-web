@@ -31,7 +31,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 
 **How optimizerDuck uses it:** We change the startup type of services. If you don't use Windows Fax and Scan, we can set that service to Manual so it only starts when you actually need it.
 
-**Why this matters:** Disabling unused services reduces background resource usage and can improve boot time.
+**Why this matters**: Disabling unused services reduces background resource usage and can improve boot time.
 
 - [Microsoft Docs: Service Control Manager](https://learn.microsoft.com/en-us/windows/win32/services/service-control-manager)
 - [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ServiceProcessService.cs)

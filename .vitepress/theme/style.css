@@ -1032,11 +1032,54 @@ html {
 
 /* GPU-accelerated page transitions between routes */
 .VPContent {
-  transition: opacity 0.15s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Fade-in entrance for main content on page load */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Only animate when user has NOT requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .VPContent .content {
+    animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Staggered fade-in for feature cards on homepage */
+  .VPFeatures .VPFeature {
+    opacity: 0;
+    animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .VPFeatures .VPFeature:nth-child(1) { animation-delay: 0.05s; }
+  .VPFeatures .VPFeature:nth-child(2) { animation-delay: 0.12s; }
+  .VPFeatures .VPFeature:nth-child(3) { animation-delay: 0.2s; }
+
+  /* Hero section entrance animation */
+  .VPHero {
+    animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
 }
 
 /* Smooth image rendering in all doc content */
 .vp-doc img {
   image-rendering: auto;
   transform: translateZ(0);
+}
+
+/* Sidebar link hover animation */
+.VPSidebar .link {
+  transition: transform 0.15s ease;
+}
+
+.VPSidebar .link:hover {
+  transform: translateX(2px);
 }

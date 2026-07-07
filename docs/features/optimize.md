@@ -8,11 +8,11 @@ This document helps you understand how to optimize your system using optimizerDu
 
 ## What is Optimization?
 
-Optimization generally refers to modifying system settings to ensure your operating system runs faster, utilizes fewer resources, and better protects your privacy. Windows ships with many default settings designed around generic use cases, data collection, or features that simply aren't relevant to every user.
+Optimization means changing system settings so your PC runs faster, uses less resources, and protects your privacy better. Windows comes with many default settings for general use, data collection, or features that not everyone needs.
 
-In optimizerDuck, "Optimization" applies to configuring network settings, disabling unnecessary telemetry, adjusting registry values for performance, and removing resource-hungry background services. These adjustments reduce latency, improve hardware efficiency, and limit background data sent to Microsoft.
+In optimizerDuck, "Optimization" covers network settings, telemetry, registry values for performance, and background services. These changes reduce latency, improve hardware efficiency, and limit background data sent to Microsoft.
 
-Learn more about optimization [here (FAQ, Optimizing)](/docs/faq/optimizing#how-are-these-optimizations-applied) or [here (Wikipedia)](<https://en.wikipedia.org/wiki/Optimization_(computer_science)>).
+Learn more: [FAQ: Optimizing](/docs/faq/optimizing#how-are-these-optimizations-applied) or [Wikipedia](<https://en.wikipedia.org/wiki/Optimization_(computer_science)>).
 
 ## Apply an optimization
 
@@ -27,7 +27,7 @@ Each card describes exactly how the tweak affects your system, and tags let you 
 
 optimizerDuck also displays **Windows10Only** and **Windows11Only** tags on optimizations that are specific to a particular version, so you can see at a glance whether a tweak applies to your system.
 
-Before applying an optimization, you can review its built-in safety rating. The tool classifies changes into three levels: **Safe**, **Caution**, and **Risky**, allowing you to implement changes with confidence based on how they interact with Windows services.
+Before applying an optimization, you can review its built-in safety rating. The tool classifies changes into three levels: **Safe**, **Caution**, and **Expert**, allowing you to implement changes with confidence based on how they interact with Windows services.
 
 To apply an optimization, locate the card for the tweak you want and click the **toggle switch** in the bottom-right corner. A progress dialog will appear, showing the progress of the optimization. Once the optimization is applied, the switch will turn yellow to indicate the change.
 

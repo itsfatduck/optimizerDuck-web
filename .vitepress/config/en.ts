@@ -95,6 +95,7 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
         { text: "Download", link: "/docs/download" },
         { text: "Changelog", link: "/docs/changelog" },
         { text: "Community", link: "/docs/community" },
+        { text: "Supporters", link: "/docs/thanks" },
       ],
     },
     {
@@ -167,7 +168,7 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: "Customize",
+      text: "Features",
       items: [
         {
           text: "Optimize",
@@ -276,6 +277,7 @@ function getFooter(): FooterConfig {
           { text: "Discord", link: "https://discord.gg/tDUBDCYw9Q" },
           { text: "Contributors", link: "/docs/contribute/contributors" },
           { text: "Support Me", link: "/docs/contribute/support-me" },
+          { text: "Supporters", link: "/docs/thanks" },
         ],
       },
       {

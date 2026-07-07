@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed, nextTick, watch } from "vue";
-import MarkdownIt from "markdown-it";
 import { useGitHub } from "../../composables/useGitHub";
+import { createGitHubMD } from "../../utils/markdown";
 import Icon from "../Icon.vue";
 
 const props = defineProps({
@@ -21,11 +21,7 @@ const {
   loadMoreReleases,
 } = useGitHub(props.repo);
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-});
+const renderMD = createGitHubMD(props.repo);
 
 const expandedReleases = ref(new Set());
 
@@ -108,61 +104,6 @@ const processedReleases = computed(() => {
     isLatest: index === 0,
   }));
 });
-
-const renderedCache = new Map();
-
-const parseMentions = (html) => {
-  let inSkipTag = 0;
-  const repo = props.repo;
-  const parts = html.split(/(<\/?[a-z0-9]+[^>]*>)/gi);
-  const processed = parts.map((part, index) => {
-    if (index % 2 === 0) {
-      if (inSkipTag > 0) return part;
-      return part
-        .replace(/\B@([a-z0-9](?:-?[a-z0-9]){0,38})\b/gi, '<a href="https://github.com/$1" target="_blank" rel="noopener noreferrer" class="mention">@$1</a>')
-        .replace(/(?<!\w|>)#(\d+)\b/g, '<a href="https://github.com/' + repo + '/issues/$1" target="_blank" rel="noopener noreferrer" class="issue-ref">#$1</a>');
-    } else {
-      const tagName = part.match(/^<\/?([a-z0-9]+)/i)?.[1]?.toLowerCase();
-      if (tagName === 'a' || tagName === 'code' || tagName === 'pre') {
-        if (part.startsWith('</')) {
-          inSkipTag = Math.max(0, inSkipTag - 1);
-        } else {
-          inSkipTag++;
-        }
-      }
-      return part;
-    }
-  });
-  return processed.join('');
-};
-
-const renderMD = (content, id) => {
-  if (!content) return "";
-  if (renderedCache.has(id)) return renderedCache.get(id);
-  // Shorten GitHub PR/compare URLs like GitHub does (PR → #N, compare → just the range)
-  let processed = content
-    .replace(
-      /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/pull\/(\d+)/g,
-      (_m, _owner, _repo, num) => `[#${num}](${_m})`,
-    )
-    .replace(
-      /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/compare\/([\w.%]+)/g,
-      (_m, _owner, _repo, range) => `[${range}](${_m})`,
-    );
-  let html = md.render(processed);
-  html = html.replace(
-    /<img([^>]*?)src=["']([^"']+?)["']([^>]*?)>/gi,
-    (match, p1, src, p2) => {
-      let attrs = ` ${p1} ${p2} `;
-      if (!attrs.includes("loading=")) attrs += 'loading="lazy" ';
-      if (!attrs.includes("decoding=")) attrs += 'decoding="async" ';
-      return `<img src="${src}" ${attrs}>`;
-    },
-  );
-  html = parseMentions(html);
-  renderedCache.set(id, html);
-  return html;
-};
 
 const handleLoadMore = async () => {
   await loadMoreReleases();
@@ -339,38 +280,40 @@ const formatSize = (bytes) => {
             </div>
           </div>
         </template>
-        <div v-else>
-          <div
-            class="gh-cl-expanded vp-doc"
-            v-html="renderMD(release.body || '', release.id)"
-          />
+        <div v-else class="gh-cl-expanded-wrap">
+          <div class="gh-cl-expanded-card">
+            <div
+              class="gh-cl-expanded vp-doc"
+              v-html="renderMD(release.body || '', release.id)"
+            />
 
-          <!-- Assets -->
-          <div v-if="release.assets?.length" class="gh-cl-assets">
-            <div class="gh-cl-assets__title">
-              <Icon name="download" type="solid" :size="14" />
-              Downloads
+            <!-- Assets -->
+            <div v-if="release.assets?.length" class="gh-cl-assets">
+              <div class="gh-cl-assets__title">
+                <Icon name="download" type="solid" :size="14" />
+                Downloads
+              </div>
+              <button
+                v-for="asset in release.assets"
+                :key="asset.id"
+                class="gh-cl-asset"
+                @click="handleDownload(asset)"
+              >
+                <div class="gh-cl-asset__icon">
+                  <Icon name="download" type="solid" :size="16" />
+                </div>
+                <div class="gh-cl-asset__info">
+                  <span class="gh-cl-asset__name">{{ asset.name }}</span>
+                  <span class="gh-cl-asset__meta">
+                    {{ formatSize(asset.size) }} &middot; {{ formatDownloads(asset.download_count) }} downloads
+                  </span>
+                </div>
+                <svg class="gh-cl-asset__arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 7h10v10" />
+                  <path d="M7 17L17 7" />
+                </svg>
+              </button>
             </div>
-            <button
-              v-for="asset in release.assets"
-              :key="asset.id"
-              class="gh-cl-asset"
-              @click="handleDownload(asset)"
-            >
-              <div class="gh-cl-asset__icon">
-                <Icon name="download" type="solid" :size="16" />
-              </div>
-              <div class="gh-cl-asset__info">
-                <span class="gh-cl-asset__name">{{ asset.name }}</span>
-                <span class="gh-cl-asset__meta">
-                  {{ formatSize(asset.size) }} &middot; {{ formatDownloads(asset.download_count) }} downloads
-                </span>
-              </div>
-              <svg class="gh-cl-asset__arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 7h10v10" />
-                <path d="M7 17L17 7" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
@@ -629,6 +572,18 @@ const formatSize = (bytes) => {
 }
 
 /* ── Expanded Body ── */
+.gh-cl-expanded-wrap {
+  margin-top: 0.5rem;
+}
+
+.gh-cl-expanded-card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow: hidden;
+}
+
 .gh-cl-expanded {
   overflow: hidden;
 }
@@ -675,10 +630,10 @@ const formatSize = (bytes) => {
 /* ── Assets Section ── */
 .gh-cl-assets {
   margin-top: 1.25rem;
-  background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   overflow: hidden;
+  background: var(--vp-c-bg);
 }
 
 .gh-cl-assets__title {

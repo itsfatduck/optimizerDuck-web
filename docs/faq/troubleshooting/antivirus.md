@@ -6,7 +6,7 @@ description: "Fix antivirus false positives flagging optimizerDuck. Step-by-step
 
 > My antivirus flagged or deleted optimizerDuck
 
-Some antivirus software may flag optimizerDuck as potentially unwanted because it modifies system settings such as Registry entries and Windows services. This is a **false positive**.
+Some antivirus software may flag optimizerDuck as unwanted because it modifies system settings like Registry entries and Windows services. This is a **false positive**.
 
 ## How to fix
 
@@ -16,7 +16,7 @@ Some antivirus software may flag optimizerDuck as potentially unwanted because i
 
 <Card title="Why does this happen?" icon="circle-info">
 
-Optimization tools often trigger false positives because they interact with system components in ways that are similar to potentially unwanted programs (PUPs). Since optimizerDuck is open source, you can verify exactly what the app does by reviewing the [source code](https://github.com/itsfatduck/optimizerDuck).
+Optimization tools often trigger false positives because they interact with system components in ways similar to unwanted programs. Since optimizerDuck is open source, you can check exactly what it does by reviewing the [source code](https://github.com/itsfatduck/optimizerDuck).
 
 </Card>
 

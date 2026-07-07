@@ -8,10 +8,10 @@ A common concern with optimization tools is whether they will break other softwa
 
 ## Anti-Cheat Systems (Vanguard, BattlEye, EAC)
 
-**optimizerDuck is entirely safe to use alongside Anti-Cheat systems.** 
+**optimizerDuck is safe to use with Anti-Cheat systems.**
 
-We do not inject DLLs into processes, we do not modify kernel memory, and we do not alter game files. The optimizations only adjust standard Windows settings (like disabling background telemetry or changing power plans). 
-- Games like *Valorant* (Vanguard), *CS2* (VAC), and *Apex Legends* (EAC) will **not** flag optimizerDuck or ban you for using it.
+We do not inject DLLs, modify kernel memory, or alter game files. The optimizations only change standard Windows settings (like disabling background telemetry or changing power plans).
+- Games like *Valorant* (Vanguard), *CS2* (VAC), and *Apex Legends* (EAC) will **not** flag or ban you for using optimizerDuck.
 
 ## Antivirus Software
 
@@ -62,8 +62,8 @@ Older versions like Windows 7 or 8 are also not supported.
 ## Work Environment (Office / Developers)
 
 If you are using a work computer:
-- Be careful with the **Network** and **Privacy** optimizations. Disabling critical services like the Print Spooler or Remote Desktop may break your ability to print documents or access company servers.
-- Please refer to our [Best Practices](/docs/guides/best-practices) for advice on safe optimizing.
+- Be careful with **Network** and **Privacy** optimizations. Disabling services like Print Spooler or Remote Desktop may break printing or access to company servers.
+- See our [Best Practices](/docs/guides/best-practices) for safe optimizing tips.
 
 ## I found a bug / want to request a feature
 

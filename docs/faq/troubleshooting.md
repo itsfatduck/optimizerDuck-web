@@ -21,15 +21,15 @@ Having trouble downloading or running optimizerDuck? Browse the topics below for
 
 ### The app fails to start or crashes on launch
 
-Make sure you are running as **Administrator**. optimizerDuck requires elevated privileges to function. If it still crashes, download the latest version from [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest); an outdated build may be incompatible with your Windows version.
+Make sure you are running as **Administrator**. optimizerDuck needs elevated privileges to work. If it still crashes, download the latest version from [Releases](https://github.com/itsfatduck/optimizerDuck/releases/latest). An old build may not work with your Windows version.
 
 ### Changes don't seem to take effect after applying
 
-Some optimizations require a **system restart** to apply fully. If a tweak doesn't appear to work after restarting, try applying it again or check the revert section to verify the change was saved.
+Some optimizations need a **system restart** to apply fully. If a tweak does not work after restarting, try applying it again or check the revert section to verify the change was saved.
 
 ### Revert file is missing or corrupted
 
-Revert files are stored in `%localappdata%\optimizerDuck\Revert\`. If a file is accidentally deleted or corrupted, you can restore it from a backup or create a **System Restore Point** beforehand as a fallback.
+Revert files are stored in `%localappdata%\optimizerDuck\Revert\`. If a file is deleted or corrupted, restore it from a backup or use a **System Restore Point** if you created one.
 
 ### Windows Update resets my settings
 

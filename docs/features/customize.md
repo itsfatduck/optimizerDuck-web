@@ -4,15 +4,12 @@ description: "Customize Windows appearance and behavior with optimizerDuck. Twea
 
 # Customize
 
-The **Customize** section lets you tweak how Windows looks and behaves,
-from desktop icons and taskbar layout to Explorer preferences and gaming
-settings, all in one place.
+The **Customize** section lets you change how Windows looks and behaves. You can adjust desktop icons, taskbar layout, Explorer preferences, and gaming settings all in one place.
 
 ## Categories overview
 
 When you open the **Customize** tab, you will see a grid of category cards.
-Each card bundles related settings so you can quickly focus on the part
-of Windows you want to change.
+Each card bundles related settings so you can quickly focus on one part of Windows.
 
 | Category | What it controls |
 |---|---|
@@ -23,27 +20,24 @@ of Windows you want to change.
 
 ## Inside a category
 
-Tap a category card to open its settings page. Each page is divided into
-**sections** so related toggles stay grouped together.
+Tap a category card to open its settings page. Each page has **sections** that group related toggles together.
 
-optimizerDuck gives you two tools to navigate the list:
+Use these tools to find settings faster:
 
 - **Search**: filter settings by name or description
 - **Sort**: reorder by name or current enabled state
 
-Every setting is presented as a card with a clear title and description.
-Flip the switch on the right to enable or disable it.
+Every setting shows a card with a title and description. Flip the switch on the right to enable or disable it.
 
 ## How to use
 
 1. Open the **Customize** tab.
-2. Pick the category that matches what you want to change.
+2. Pick the category you want to change.
 3. Use search or sort if the list is long.
-4. Find the setting you are looking for.
-5. Toggle the switch to turn it on or off.
+4. Find the setting you want.
+5. Toggle the switch on or off.
 
-Most changes apply immediately. Some may need a restart of **File Explorer**
-or a full system reboot to take effect.
+Most changes apply right away. Some may need a restart of **File Explorer** or a full reboot.
 
 ## Things to keep in mind
 

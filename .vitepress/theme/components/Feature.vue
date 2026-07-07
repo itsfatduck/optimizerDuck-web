@@ -71,11 +71,18 @@ const isLucideIcon = computed(() => {
   border-radius: 12px;
   height: 100%;
   background-color: var(--vp-c-bg-soft);
-  transition: border-color 0.25s, background-color 0.25s;
+  backface-visibility: hidden;
+  transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .VPFeature.link:hover {
   border-color: var(--vp-c-brand-1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.dark .VPFeature.link:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .box {

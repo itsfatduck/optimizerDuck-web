@@ -16,12 +16,23 @@ const hoveredId = ref<number | null>(null)
 const phase = ref<'loading' | 'static' | 'marquee'>('loading')
 const heartsMap = ref<Record<number, { id: number; x: number; delay: number }[]>>({})
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const shuffled = [...arr]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
+const shuffled = computed(() => shuffleArray(contributors.value))
+
 const marqueeItems = computed(() => {
-  if (!contributors.value.length) return []
-  return [...contributors.value, ...contributors.value]
+  if (!shuffled.value.length) return []
+  return [...shuffled.value, ...shuffled.value]
 })
 
-const staticItems = computed(() => contributors.value.slice(0, 12))
+const staticItems = computed(() => shuffled.value.slice(0, 12))
 
 function getCachedData() {
   if (!isClient) return null
@@ -46,7 +57,7 @@ onMounted(async () => {
     contributors.value = cached.contributors
     loading.value = false
     phase.value = 'static'
-    setTimeout(() => { phase.value = 'marquee' }, 2500)
+    setTimeout(() => { phase.value = 'marquee' }, 1500)
     return
   }
 
@@ -72,7 +83,7 @@ onMounted(async () => {
   } finally {
     loading.value = false
     phase.value = 'static'
-    setTimeout(() => { phase.value = 'marquee' }, 2500)
+    setTimeout(() => { phase.value = 'marquee' }, 1500)
   }
 })
 
@@ -245,29 +256,36 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   pointer-events: auto;
 }
 
+/* Fog overlay on left and right edges */
+.cm-marquee-wrapper::before,
+.cm-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cm-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--vp-c-bg), transparent);
+}
+
+.cm-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--vp-c-bg), transparent);
+}
+
 .cm-marquee-track {
   display: flex;
   gap: 1.5rem;
   width: fit-content;
   opacity: 1;
-  animation: cm-marquee 90s linear infinite;
+  animation: cm-marquee 60s linear infinite;
   transform: translateX(-50%);
   padding: 16px 0 18px;
-  /* Gradient fade on edges (narrower fade so hover shadows aren't clipped) */
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 2%,
-    black 98%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 2%,
-    black 98%,
-    transparent 100%
-  );
 }
 
 .cm-marquee-track.cm-paused {
@@ -291,6 +309,7 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   gap: 0.5rem;
   padding: 0.4rem;
   cursor: pointer;
+  backface-visibility: hidden;
   transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 12px;
   flex-shrink: 0;

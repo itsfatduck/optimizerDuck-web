@@ -8,7 +8,7 @@ Frequently Asked Questions and Answers about optimizerDuck in general. Let's cov
 
 ## What is optimizerDuck?
 
-optimizerDuck helps you optimize and clean up your Windows operating system.
+optimizerDuck helps you optimize and clean up Windows.
 
 <Card title="Disclaimer" type="warning" icon="triangle-exclamation">
 
@@ -32,9 +32,9 @@ The app does not collect any telemetry, usage data, or personal information. See
 
 Each optimization comes with a clear risk rating (Safe, Moderate, or Risky) so you know exactly what each change does before applying it. Automatic backups and one-click reverts are built into every change.
 
-## Does this app offer anything other than optimizations?
+## Does the app offer more than optimizations?
 
-Yes! The app is built with several integrated tools to make your experience easier, so you do not need to download additional software. For example, it includes a bloatware removal tool, a startup manager, and more. Feel free to download it and explore all the features.
+Yes! It comes with built-in tools like a bloatware remover, startup manager, and more. You don't need to download extra software. Download and explore all the features.
 
 ## Is optimizerDuck free?
 
@@ -42,11 +42,11 @@ Yes, optimizerDuck is 100% free and open-source. There are no hidden fees, subsc
 
 ## What versions of Windows are supported?
 
-Currently, optimizerDuck officially supports Windows 10 and Windows 11. Older versions like Windows 7 or 8 are not supported as they lack modern APIs and structures required for some features to function safely and correctly.
+optimizerDuck supports Windows 10 and Windows 11 (64-bit). Windows 7 and 8 are not supported because they lack the APIs needed for some features to work safely.
 
 ## Does optimizerDuck collect my data?
 
-No. The app contains zero telemetry, analytics, or phone-home functionality. It runs entirely offline and does not send any data anywhere. All configuration and backup data is stored locally on your machine at:
+No. The app has zero telemetry or analytics. It runs fully offline and does not send any data anywhere. All config and backup data is stored locally at:
 
 ```bat
 %localappdata%\optimizerDuck\

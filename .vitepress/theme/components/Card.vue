@@ -48,11 +48,18 @@ const renderedContent = computed(() => {
   border-radius: 0;
   overflow: hidden;
   background: var(--vp-c-bg);
-  transition: border-color 0.2s;
+  backface-visibility: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover {
   border-color: var(--card-accent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.dark .card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Type-based accent colors */

@@ -7,15 +7,15 @@ const PROD_URL = "https://optimizerduck.vercel.app";
 // Per-page default descriptions for pages without explicit frontmatter description
 const PAGE_DESCRIPTIONS: Record<string, string> = {
   "docs/download":
-    "Download optimizerDuck for Windows 10 and 11. Free, portable Windows optimization tool — no installation required. Get the latest release.",
+    "Download optimizerDuck for Windows 10 and 11. Free, portable Windows optimization tool. No installation needed. Get the latest release.",
   "docs/changelog":
     "See all optimizerDuck release notes, version history, bug fixes, and new features. Stay up to date with the latest improvements.",
   "docs/community":
     "Join the optimizerDuck community on Discord and GitHub. Get help, share feedback, report bugs, and connect with other Windows optimization users.",
   "docs/guides/getting-started":
-    "Get started with optimizerDuck — download, launch, change language, and start optimizing your Windows PC for better performance and privacy.",
+    "Get started with optimizerDuck. Download, launch, change language, and start optimizing your Windows PC for better performance and privacy.",
   "docs/guides/how-it-works":
-    "Learn how optimizerDuck works: Registry edits, Windows Services, Scheduled Tasks, and PowerShell commands explained for safe Windows optimization.",
+    "Learn how optimizerDuck works under the hood. Registry edits, Windows Services, Scheduled Tasks, and PowerShell commands explained for safe optimization.",
   "docs/guides/best-practices":
     "Best practices for Windows optimization with optimizerDuck. Safe tweaks for gamers, office users, developers, and daily PC use.",
   "docs/guides/uninstall":
@@ -33,33 +33,35 @@ const PAGE_DESCRIPTIONS: Record<string, string> = {
   "docs/features/disk-cleanup":
     "Free up disk space on Windows with optimizerDuck's Disk Cleanup tool. Remove temporary files, browser caches, and system junk safely.",
   "docs/faq/general":
-    "Frequently asked questions about optimizerDuck: Is it safe? Is it free? Does it collect data? Windows 10/11 support, portability, and more.",
+    "Frequently asked questions about optimizerDuck. Is it safe? Is it free? Does it collect data? Windows 10/11 support, portability, and more.",
   "docs/faq/optimizing":
-    "Frequently asked questions about Windows optimization with optimizerDuck — performance benefits, risks, FPS impact, and how optimizations work.",
+    "Frequently asked questions about Windows optimization with optimizerDuck. Performance benefits, risks, FPS impact, and how optimizations work.",
   "docs/faq/compatibility":
-    "optimizerDuck compatibility guide — anti-cheat systems, antivirus conflicts, offline use, Windows Server support, and work environment safety.",
+    "optimizerDuck compatibility guide. Anti-cheat systems, antivirus conflicts, offline use, Windows Server support, and work environment safety.",
   "docs/faq/troubleshooting":
-    "Troubleshooting guide for optimizerDuck — fix SmartScreen warnings, antivirus false positives, download issues, app crashes, and slow performance.",
+    "Troubleshooting guide for optimizerDuck. Fix SmartScreen warnings, antivirus false positives, download issues, app crashes, and slow performance.",
   "docs/faq/troubleshooting/antivirus":
     "Fix antivirus false positives flagging optimizerDuck. Steps for Windows Defender, Avast, Bitdefender, Malwarebytes, Norton, and others.",
   "docs/faq/troubleshooting/app-wont-open":
     "Fix optimizerDuck not opening or crashing on launch. Check system requirements, run as administrator, verify downloads, and repair system files.",
   "docs/faq/troubleshooting/download":
-    "Fix optimizerDuck download issues — browser blocks, SmartScreen warnings, manual GitHub download, cache clearing, and connectivity checks.",
+    "Fix optimizerDuck download issues. Browser blocks, SmartScreen warnings, manual GitHub download, cache clearing, and connectivity checks.",
   "docs/faq/troubleshooting/revert-changes":
-    "Revert optimizerDuck system changes — use System Restore, toggle off optimizations, fix network/audio issues, and restore missing revert files.",
+    "Revert optimizerDuck system changes. Use System Restore, toggle off optimizations, fix network or audio issues, and restore missing backup files.",
   "docs/faq/troubleshooting/slow-performance":
-    "Fix optimizerDuck running slowly or being unresponsive — close programs, free disk space, manage startup, re-download the app.",
+    "Fix optimizerDuck running slowly or being unresponsive. Close programs, free disk space, manage startup, re-download the app.",
   "docs/faq/troubleshooting/smartscreen":
-    "Fix Windows SmartScreen warning for optimizerDuck — click 'Run anyway', bypass the 'Windows protected your PC' message safely.",
+    "Fix Windows SmartScreen warning for optimizerDuck. Click Run anyway to bypass the Windows protected your PC message safely.",
   "docs/contribute/overview":
-    "Contribute to optimizerDuck — report bugs, suggest features, improve documentation, add translations, or submit code. Open source welcomes you.",
+    "Contribute to optimizerDuck. Report bugs, suggest features, improve documentation, add translations, or submit code. Open source welcomes you.",
   "docs/contribute/contributors":
     "Meet the optimizerDuck contributors and core maintainers. Learn how to become a contributor and get featured on the contributors page.",
   "docs/contribute/support-me":
-    "Support optimizerDuck development — buy me a coffee, star the GitHub repository, or share the project with friends. Every contribution helps.",
+    "Support optimizerDuck development. Buy me a coffee, star the GitHub repository, or share the project with friends. Every contribution helps.",
   "docs/contribute/website-development":
-    "Guide to developing the optimizerDuck website — VitePress setup, Vue components, Markdown pages, and how to contribute to the documentation.",
+    "Guide to developing the optimizerDuck website. VitePress setup, Vue components, Markdown pages, and how to contribute to the documentation.",
+  "docs/thanks":
+    "Meet the supporters who made optimizerDuck possible. Thank you to everyone who donated, contributed, and supported the project.",
 };
 
 export default defineConfig({
@@ -78,17 +80,19 @@ export default defineConfig({
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     [
       "link",
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
     ],
     [
       "link",
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap",
+        crossorigin: "anonymous",
       },
     ],
     ["link", { rel: "icon", href: "/favicon.ico" }],
     ["link", { rel: "apple-touch-icon", href: "/icon.png" }],
+    ["link", { rel: "preload", href: "/icon.webp", as: "image", type: "image/webp" }],
 
     // Meta - Theme & Viewport
     ["meta", { name: "theme-color", content: "#0a0a0a" }],
@@ -120,6 +124,18 @@ export default defineConfig({
         content: "telephone=no, address=no, email=no",
       },
     ],
+
+    // SEO - Keywords
+    [
+      "meta",
+      {
+        name: "keywords",
+        content: "optimizerDuck, Windows optimization, Windows cleaner, PC optimizer, debloat Windows, privacy tool, free open source, system tweaks, gaming optimization",
+      },
+    ],
+    ["meta", { name: "application-name", content: "optimizerDuck" }],
+    ["meta", { name: "apple-mobile-web-app-title", content: "optimizerDuck" }],
+    ["meta", { name: "author", content: "fatDuck" }],
 
     // SEO - Open Graph (static base values; per-page title/desc/url set in transformPageData)
     ["meta", { property: "og:type", content: "website" }],
@@ -205,6 +221,8 @@ export default defineConfig({
   sitemap: {
     hostname: PROD_URL,
     lastModified: true,
+    changefreq: 'weekly',
+    priority: 0.7,
   },
 
   // Per-page SEO: canonical URLs + dynamic OG/Twitter tags
