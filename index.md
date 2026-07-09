@@ -60,18 +60,9 @@ features:
   <h2 class="home-section__title">Special Thanks</h2>
   <p class="home-section__desc">A heartfelt thank you to everyone who has supported the project!</p>
   <div class="supporters-grid">
-    <div class="supporter-item">
-      <div class="supporter-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </div>
-      <span class="supporter-name">Stefan Monov</span>
-    </div>
-    <div class="supporter-item">
-      <div class="supporter-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </div>
-      <span class="supporter-name">Laymond</span>
-    </div>
+    <SupporterCard name="Stefan Monov" />
+    <SupporterCard name="Laymond" />
+    <SupporterCard name="Germdemonizer" />
   </div>
   <p class="supporters-cta">
     Want to be featured here?
@@ -114,37 +105,6 @@ features:
   gap: 1rem;
   flex-wrap: wrap;
   margin: 1.5rem 0;
-}
-
-.supporter-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.1rem;
-  border-radius: 100px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  backface-visibility: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.supporter-item:hover {
-  border-color: #ff5e5b;
-  box-shadow: 0 0 0 2px rgba(255, 94, 91, 0.25);
-}
-
-.supporter-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff5e5b;
-  flex-shrink: 0;
-}
-
-.supporter-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
 }
 
 .supporters-cta {

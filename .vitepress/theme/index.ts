@@ -15,6 +15,7 @@ import CustomBlock from './components/CustomBlock.vue'
 import Card from './components/Card.vue'
 import CardGrid from './components/CardGrid.vue'
 import Icon from './components/Icon.vue'
+import SupporterCard from './components/SupporterCard.vue'
 import Layout from './Layout.vue'
 
 export default {
@@ -33,5 +34,6 @@ export default {
     app.component('Card', Card)
     app.component('CardGrid', CardGrid)
     app.component('Icon', Icon)
+    app.component('SupporterCard', SupporterCard)
   }
 } satisfies Theme
