@@ -44,15 +44,15 @@ features:
 
 <div class="home-section home-section--donation">
   <h2 class="home-section__title">Support the project</h2>
-  <p class="home-section__desc">If you find optimizerDuck helpful, consider buying me a coffee!</p>
+  <p class="home-section__desc">If you find optimizerDuck helpful, consider supporting the project!</p>
   <SupportCard
-    title="Buy me a coffee"
-    description="Support the project and help make continued development possible."
+    title="Support Me"
+    description="Donate via crypto, Ko-fi, or explore other ways to support the project."
     icon="kofi"
-    url="https://ko-fi.com/itsfatduck"
-    ctaText="Donate on Ko-fi"
-    :highlight="true"
+    url="/docs/contribute/support-me"
+    ctaText="Support the project"
     :centered="true"
+    :centerIcon="true"
   />
 </div>
 
