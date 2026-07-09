@@ -104,13 +104,16 @@ const year = new Date().getFullYear();
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
   text-decoration: none;
-  transition: all 0.2s ease;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  transition: color 0.2s ease, transform 0.2s ease;
   width: fit-content;
 }
 
 .footer-link:hover {
   color: var(--vp-c-brand-1);
-  transform: translateX(4px);
+  transform: translateX(4px) translateZ(0);
 }
 
 .footer-bottom {
@@ -150,7 +153,7 @@ const year = new Date().getFullYear();
 .license-link:hover .license-logo {
   opacity: 1;
   filter: grayscale(0);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .license-text {

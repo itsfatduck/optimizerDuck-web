@@ -72,13 +72,15 @@ const isLucideIcon = computed(() => {
   height: 100%;
   background-color: var(--vp-c-bg-soft);
   backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
   transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .VPFeature.link:hover {
   border-color: var(--vp-c-brand-1);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
 }
 
 .dark .VPFeature.link:hover {

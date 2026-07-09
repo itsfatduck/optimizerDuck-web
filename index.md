@@ -24,11 +24,11 @@ features:
     title: Open Source & Community
     details: Proudly developed on GitHub with 5k+ stars. optimizerDuck is built by and for the community to help everyone clean and tweak their PC.
 
-  - icon: code
-    title: Built with Modern Tech
-    link: https://dotnet.microsoft.com/en-us/download
-    linkText: View .NET
-    details: Written in C# and powered by .NET. Focuses on performance, privacy, and simplicity with a sleek multilingual interface.
+  - icon: globe
+    title: Multi-Language Support
+    link: /docs/guides/getting-started#changing-language
+    linkText: View supported languages
+    details: Available in 12 languages with community-driven translations. Choose from English, Vietnamese, Chinese, Russian, French, Korean, Spanish, Japanese, Polish, Portuguese (Brazil), Turkish, and more.
 
   - icon: screwdriver-wrench
     link: /docs/features/optimize
@@ -47,7 +47,7 @@ features:
   <p class="home-section__desc">If you find optimizerDuck helpful, consider buying me a coffee!</p>
   <SupportCard
     title="Buy me a coffee"
-    description="Help keep optimizerDuck running and evolving. Your support makes continued updates and improvements possible."
+    description="Support the project and help make continued development possible."
     icon="kofi"
     url="https://ko-fi.com/itsfatduck"
     ctaText="Donate on Ko-fi"

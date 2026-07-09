@@ -3,6 +3,7 @@ description: "Meet the supporters who made optimizerDuck possible. A heartfelt t
 ---
 
 <script setup>
+import Card from '../.vitepress/theme/components/Card.vue'
 import SupportCard from '../.vitepress/theme/components/SupportCard.vue'
 </script>
 
@@ -14,7 +15,7 @@ Whether you donated, submitted code, translated the app, reported a bug, or simp
 
 ## Financial Supporters
 
-These generous people have donated to help keep optimizerDuck running:
+These generous people have donated to support the project:
 
 <div class="supporters-page-grid">
 
@@ -34,11 +35,9 @@ These generous people have donated to help keep optimizerDuck running:
 
 </div>
 
-<p class="sp-note">
-  Names are listed in order of support. If you donated and your name is missing,
-  <a href="https://discord.gg/tDUBDCYw9Q" target="_blank" rel="noopener">reach out on Discord</a>
-  and we will add you.
-</p>
+<Card type="info" icon="circle-info" title="Missing a supporter?" content="Names are listed in order of support. If you donated and your name is missing, please email **itsfatduck@gmail.com**, [create a GitHub issue](https://github.com/itsfatduck/optimizerDuck/issues/new), or join the [Discord server](https://discord.gg/tDUBDCYw9Q) and open a **Supporter Claim** ticket." />
+
+<Card type="info" icon="lightbulb" title="Want to help?" content="Want to support the project? Check out the [Support Me page](/docs/contribute/support-me) for ways to contribute, including crypto, Ko-fi, and more." />
 
 ## Code Contributors
 
@@ -52,11 +51,11 @@ There are many ways to support the project and get featured on this page.
 
 <div class="sp-actions">
   <SupportCard
-    title="Buy me a coffee"
-    description="Help fund continued development and maintenance."
+    title="Support Me"
+    description="Donate via crypto, Ko-fi, or explore other ways to support the project."
     icon="kofi"
-    url="https://ko-fi.com/itsfatduck"
-    ctaText="Donate on Ko-fi"
+    url="/docs/contribute/support-me"
+    ctaText="Support the project"
     :highlight="true"
   />
 
@@ -66,6 +65,14 @@ There are many ways to support the project and get featured on this page.
     icon="github"
     url="https://github.com/itsfatduck/optimizerDuck"
     ctaText="Star on GitHub"
+  />
+
+  <SupportCard
+    title="Share with Friends"
+    description="Know someone struggling with a slow PC? Share optimizerDuck and help them optimize their system."
+    icon="share"
+    url="https://github.com/itsfatduck/optimizerDuck"
+    ctaText="Share the Link"
   />
 
   <SupportCard
@@ -119,17 +126,6 @@ There are many ways to support the project and get featured on this page.
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-}
-
-.sp-note {
-  font-size: 0.85rem;
-  color: var(--vp-c-text-3);
-  margin: 1rem 0;
-}
-
-.sp-note a {
-  color: var(--vp-c-brand-1);
-  font-weight: 500;
 }
 
 .sp-actions {

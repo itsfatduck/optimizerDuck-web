@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, shallowRef, computed, onMounted } from 'vue'
 
 const props = defineProps({
   repo: { type: String, default: 'itsfatduck/optimizerDuck' }
@@ -9,7 +9,7 @@ const CACHE_KEY = `github-contributors-marquee-${props.repo}`
 const CACHE_TTL = 10 * 60 * 1000
 const isClient = typeof window !== 'undefined'
 
-const contributors = ref<any[]>([])
+const contributors = shallowRef<any[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
 const hoveredId = ref<number | null>(null)
@@ -68,7 +68,9 @@ onMounted(async () => {
       throw new Error('Failed to fetch contributors')
     }
     const data = await res.json()
-    contributors.value = data.filter((c: any) => c.type === 'User' && !c.login.toLowerCase().includes('bot'))
+    contributors.value = data
+      .filter((c: any) => c.type === 'User' && !c.login.toLowerCase().includes('bot'))
+      .map((c: any) => Object.freeze(c))
 
     if (isClient) {
       try {
@@ -91,7 +93,7 @@ function onHover(contributor: any) {
   hoveredId.value = contributor.id
   // Generate hearts for this contributor
   const hearts: { id: number; x: number; delay: number }[] = []
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 3; i++) {
     hearts.push({
       id: Date.now() + i,
       x: (Math.random() - 0.5) * 70,
@@ -220,6 +222,7 @@ function getHeartStyle(heart: { x: number; delay: number }) {
 .cm-container {
   position: relative;
   min-height: 100px;
+  contain: content;
 }
 
 /* ── Static grid ── */
@@ -283,9 +286,12 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   gap: 1.5rem;
   width: fit-content;
   opacity: 1;
-  animation: cm-marquee 60s linear infinite;
-  transform: translateX(-50%);
+  animation: cm-marquee 30s linear infinite;
+  transform: translateX(-50%) translateZ(0);
   padding: 16px 0 18px;
+  backface-visibility: hidden;
+  will-change: transform;
+  contain: content;
 }
 
 .cm-marquee-track.cm-paused {
@@ -294,10 +300,10 @@ function getHeartStyle(heart: { x: number; delay: number }) {
 
 @keyframes cm-marquee {
   0% {
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateZ(0);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
@@ -310,17 +316,19 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   padding: 0.4rem;
   cursor: pointer;
   backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
   transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 12px;
   flex-shrink: 0;
 }
 
 .cm-item--marquee:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
 }
 
 .cm-item--hovered {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
 }
 
 .cm-item--hovered .cm-name {
@@ -342,6 +350,7 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  transform: translateZ(0);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background: var(--vp-c-bg-alt);
 }

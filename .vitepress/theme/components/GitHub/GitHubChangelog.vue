@@ -473,7 +473,7 @@ const formatSize = (bytes) => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-radius: 4px;
+  border-radius: 6px;
   line-height: 1.3;
 }
 
@@ -519,16 +519,24 @@ const formatSize = (bytes) => {
   display: flex;
   flex-direction: column;
   background: var(--vp-c-bg-soft);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-preview:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px) translateZ(0);
+}
+
+.dark .gh-cl-preview:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .gh-cl-preview__img-wrap {
@@ -564,11 +572,13 @@ const formatSize = (bytes) => {
   color: var(--vp-c-text-3);
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transition: color 0.15s;
+  transform: translateZ(0);
+  transition: color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-preview:hover .gh-cl-preview__hint {
   color: var(--vp-c-brand-1);
+  transform: translateX(2px) translateZ(0);
 }
 
 /* ── Expanded Body ── */
@@ -579,7 +589,7 @@ const formatSize = (bytes) => {
 .gh-cl-expanded-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.25rem;
   overflow: hidden;
 }
@@ -605,8 +615,8 @@ const formatSize = (bytes) => {
   text-decoration: none;
   background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
   padding: 0.1rem 0.3rem;
-  border-radius: 4px;
-  transition: background 0.15s;
+  border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
 .gh-cl-expanded :deep(.mention:hover),
@@ -631,7 +641,7 @@ const formatSize = (bytes) => {
 .gh-cl-assets {
   margin-top: 1.25rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   background: var(--vp-c-bg);
 }
@@ -656,7 +666,7 @@ const formatSize = (bytes) => {
   gap: 0.75rem;
   padding: 0.7rem 1rem;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px solid var(--vp-c-divider);
   width: 100%;
   text-align: left;
@@ -732,14 +742,17 @@ const formatSize = (bytes) => {
   color: var(--vp-c-text-3);
   background: transparent;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: color 0.2s ease, border-color 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-collapse:hover {
   color: var(--vp-c-text-1);
   border-color: var(--vp-c-text-3);
+  transform: translateY(-1px) translateZ(0);
 }
 
 /* ── Load More ── */
@@ -752,21 +765,29 @@ const formatSize = (bytes) => {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.55rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  transition: border-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-load-btn:hover:not(:disabled) {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px) translateZ(0);
+}
+
+.dark .gh-cl-load-btn:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .gh-cl-load-btn:disabled {

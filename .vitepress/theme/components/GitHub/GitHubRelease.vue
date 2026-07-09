@@ -273,11 +273,25 @@ const closeDialog = () => {
 .gh-release {
   margin: 2rem 0;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   content-visibility: auto;
   contain-intrinsic-size: 0 400px;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gh-release:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px) translateZ(0);
+}
+
+.dark .gh-release:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 /* ── Header ── */
@@ -309,7 +323,7 @@ const closeDialog = () => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-radius: 4px;
+  border-radius: 6px;
   line-height: 1.4;
 }
 
@@ -348,7 +362,7 @@ const closeDialog = () => {
   font-size: 0.82rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color 0.2s ease;
 }
 
 .gh-meta-link:hover {
@@ -369,9 +383,12 @@ const closeDialog = () => {
   padding: 0.75rem 1rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-align: left;
   width: 100%;
   color: inherit;
@@ -380,7 +397,12 @@ const closeDialog = () => {
 
 .gh-asset:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px) translateZ(0);
+}
+
+.dark .gh-asset:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .dark .gh-asset {
@@ -393,7 +415,7 @@ const closeDialog = () => {
   justify-content: center;
   width: 38px;
   height: 38px;
-  border-radius: 8px;
+  border-radius: 10px;
   background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
   color: var(--vp-c-brand-1);
   flex-shrink: 0;
@@ -424,12 +446,13 @@ const closeDialog = () => {
 .gh-asset__arrow {
   color: var(--vp-c-text-3);
   flex-shrink: 0;
+  transform: translateZ(0);
   transition: transform 0.15s, color 0.15s;
 }
 
 .gh-asset:hover .gh-asset__arrow {
   color: var(--vp-c-brand-1);
-  transform: translateX(2px);
+  transform: translateX(2px) translateZ(0);
 }
 
 /* ── Release Notes ── */
@@ -443,11 +466,11 @@ const closeDialog = () => {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--vp-c-text-2);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   margin-bottom: 0.85rem;
 }
 
@@ -455,7 +478,7 @@ const closeDialog = () => {
   position: relative;
   max-height: 280px;
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .is-long.is-expanded .gh-notes__wrapper {
@@ -491,17 +514,24 @@ const closeDialog = () => {
   padding: 0.4rem 1rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-notes__expand:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px) translateZ(0);
+}
+
+.dark .gh-notes__expand:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .gh-notes__collapse {
@@ -515,14 +545,17 @@ const closeDialog = () => {
   color: var(--vp-c-text-3);
   background: transparent;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-notes__collapse:hover {
   color: var(--vp-c-text-1);
   border-color: var(--vp-c-text-3);
+  transform: translateY(-1px) translateZ(0);
 }
 
 /* ── Markdown Content ── */
@@ -542,8 +575,8 @@ const closeDialog = () => {
   text-decoration: none;
   background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
   padding: 0.1rem 0.3rem;
-  border-radius: 4px;
-  transition: background 0.15s;
+  border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
 .gh-notes__content :deep(.mention:hover) {
@@ -565,7 +598,7 @@ const closeDialog = () => {
 
 /* ── Skeleton ── */
 .gh-release--skeleton {
-  animation: gh-pulse 1.6s ease-in-out infinite;
+  animation: gh-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .gh-skel {
@@ -577,28 +610,39 @@ const closeDialog = () => {
 .gh-skel__title {
   width: 40%;
   height: 20px;
-  border-radius: 4px;
-  background: var(--vp-c-bg-mute);
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--vp-c-bg-mute) 25%, var(--vp-c-bg-soft) 50%, var(--vp-c-bg-mute) 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
 }
 
 .gh-skel__meta {
   width: 25%;
   height: 14px;
-  border-radius: 4px;
-  background: var(--vp-c-bg-mute);
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--vp-c-bg-mute) 25%, var(--vp-c-bg-soft) 50%, var(--vp-c-bg-mute) 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
 }
 
 .gh-skel__asset {
   width: 100%;
   height: 56px;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-top: 0.5rem;
-  background: var(--vp-c-bg-mute);
+  background: linear-gradient(90deg, var(--vp-c-bg-mute) 25%, var(--vp-c-bg-soft) 50%, var(--vp-c-bg-mute) 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
 }
 
 @keyframes gh-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes skel-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .gh-error {

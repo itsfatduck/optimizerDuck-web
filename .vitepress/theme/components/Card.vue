@@ -49,13 +49,15 @@ const renderedContent = computed(() => {
   overflow: hidden;
   background: var(--vp-c-bg);
   backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover {
   border-color: var(--card-accent);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .dark .card:hover {

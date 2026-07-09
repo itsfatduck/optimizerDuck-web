@@ -149,6 +149,9 @@ const formatContributions = (count) => {
   border: 1px solid var(--vp-c-divider);
   text-decoration: none !important;
   color: inherit !important;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
   transition:
     border-color 0.2s,
     box-shadow 0.2s,
@@ -158,7 +161,7 @@ const formatContributions = (count) => {
 .cl-card:hover {
   border-color: var(--vp-c-brand-1);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .cl-avatar {

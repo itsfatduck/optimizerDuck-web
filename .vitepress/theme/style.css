@@ -1006,6 +1006,24 @@ h6 {
 }
 
 
+/* ── Hero Logo Glowing Effect ── */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHero .image-src {
+    animation: hero-icon-glow 3s ease-in-out infinite;
+  }
+}
+
+@keyframes hero-icon-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(216, 155, 29, 0.3));
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(216, 155, 29, 0.65));
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
 /* Content Link Hover: Slightly reduce intensity instead of changing hue */
 .vp-doc a:not(.vp-button):hover {
   opacity: 0.8;
@@ -1024,15 +1042,9 @@ html {
 /* Reduced motion is handled via JS in Layout.vue — we remove VitePress's
    blanket animation/transition kill so functional UI feedback survives. */
 
-/* Skip rendering off-screen doc sections for better scroll performance */
-.vp-doc>div> :nth-child(n+6) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 200px;
-}
-
-/* GPU-accelerated page transitions between routes */
+/* Page transitions between routes - no transform here because it would break position:sticky on the outline */
 .VPContent {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 /* Fade-in entrance for main content on page load */
@@ -1077,9 +1089,11 @@ html {
 
 /* Sidebar link hover animation */
 .VPSidebar .link {
+  backface-visibility: hidden;
+  transform: translateZ(0);
   transition: transform 0.15s ease;
 }
 
 .VPSidebar .link:hover {
-  transform: translateX(2px);
+  transform: translateX(2px) translateZ(0);
 }

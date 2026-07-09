@@ -1,6 +1,11 @@
 ---
-description: "Support optimizerDuck development. Buy me a coffee on Ko-fi, star the GitHub repository, or share the project with friends. Every contribution helps."
+description: "Support optimizerDuck development. Buy me a coffee on Ko-fi, donate via crypto (BTC, ETH, USDT, LTC), star the GitHub repository, or share the project with friends. Every contribution helps."
 ---
+
+<script setup>
+import Card from '../../.vitepress/theme/components/Card.vue'
+import CryptoDonation from '../../.vitepress/theme/components/CryptoDonation.vue'
+</script>
 
 # Support Me
 
@@ -12,12 +17,23 @@ optimizerDuck is **100% free and open-source**, and it always will be. I dedicat
 
 If optimizerDuck has been helpful to you, here are a few ways you can support the project.
 
+
+## Crypto Donations
+
+Prefer to donate with cryptocurrency? You can send directly to the addresses below. Simply scan the QR code or copy the address to your wallet.
+
+<CryptoDonation />
+
+<Card type="warning" icon="triangle-exclamation" title="Double-check the address before sending" content="Cryptocurrency transactions are **irreversible**. Please verify the full address matches your intended destination before confirming any transfer." />
+
+<Card type="info" icon="lightbulb" title="Note" content="If you'd like to be added to the [Supporters page](/docs/thanks) or receive a **Supporter role on Discord**, please email **itsfatduck@gmail.com**, [create a GitHub issue](https://github.com/itsfatduck/optimizerDuck/issues/new), or join the [Discord server](https://discord.gg/tDUBDCYw9Q) and open a **Supporter Claim** ticket." />
+
 ---
 
-<SupportCard 
-  title="Buy me a coffee" 
-  description="Your support helps fund continued development and maintenance." 
-  icon="kofi" 
+<SupportCard
+  title="Buy me a coffee"
+  description="Your support helps make continued development possible."
+  icon="kofi"
   url="https://ko-fi.com/itsfatduck"
   ctaText="Donate on Ko-fi"
   :highlight="true"
@@ -25,18 +41,18 @@ If optimizerDuck has been helpful to you, here are a few ways you can support th
 
 ## Other Ways to Help
 
-<SupportCard 
-  title="Star the Repository" 
-  description="One click, huge impact. Starring the repo on GitHub helps optimizerDuck reach more users and boosts project visibility." 
-  icon="github" 
+<SupportCard
+  title="Star the Repository"
+  description="One click, huge impact. Starring the repo on GitHub helps optimizerDuck reach more users and boosts project visibility."
+  icon="github"
   url="https://github.com/itsfatduck/optimizerDuck"
   ctaText="Star on GitHub"
 />
 
-<SupportCard 
-  title="Share with Friends" 
-  description="Know someone struggling with a slow PC? Share optimizerDuck and help them optimize their system." 
-  icon="share" 
+<SupportCard
+  title="Share with Friends"
+  description="Know someone struggling with a slow PC? Share optimizerDuck and help them optimize their system."
+  icon="share"
   url="https://github.com/itsfatduck/optimizerDuck"
   ctaText="Share the Link"
 />

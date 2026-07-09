@@ -30,6 +30,7 @@ const lucideMap = {
   'shield-exclamation': Icons.ShieldAlert,
   wrench: Icons.Wrench,
   'screwdriver-wrench': Icons.Wrench,
+  globe: Icons.Globe,
 }
 
 const iconComponent = computed(() => lucideMap[props.name] || Icons.CircleHelp)

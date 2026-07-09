@@ -131,11 +131,12 @@ const props = defineProps({
 }
 
 .cta-arrow {
+  transform: translateZ(0);
   transition: transform 0.2s ease;
 }
 
 .cta-btn:hover .cta-arrow {
-  transform: translateX(4px);
+  transform: translateX(4px) translateZ(0);
 }
 
 /* Centered variant */

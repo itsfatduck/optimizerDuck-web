@@ -15,7 +15,6 @@ Having trouble downloading or running optimizerDuck? Browse the topics below for
 | [App Running Slowly](/docs/faq/troubleshooting/slow-performance) | optimizerDuck is unresponsive or slow                  |
 | [Something Broke](/docs/faq/troubleshooting/revert-changes)      | Issues after applying optimizations                    |
 
----
 
 ## Common Issues
 
