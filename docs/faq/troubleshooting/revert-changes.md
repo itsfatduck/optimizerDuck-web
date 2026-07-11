@@ -18,7 +18,7 @@ If you created a restore point before applying changes (as recommended), you can
 4. Follow the prompts to complete the restoration
 5. Your computer will restart automatically
 
-<Card title="Warning" icon="triangle-exclamation">
+<Card title="Create a restore point first" icon="triangle-exclamation">
 
 Always create a system restore point **before** applying optimizations. This gives you a safety net to revert any changes.
 

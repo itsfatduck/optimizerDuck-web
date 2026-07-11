@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, nextTick, watch } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed, nextTick, watch } from "vue";
 import { useGitHub } from "../../composables/useGitHub";
 import { createGitHubMD } from "../../utils/markdown";
 import Icon from "../Icon.vue";
@@ -105,16 +105,40 @@ const processedReleases = computed(() => {
   }));
 });
 
+let tocObserver = null;
+
 const handleLoadMore = async () => {
   await loadMoreReleases();
   await nextTick();
   updateVitePressTOC();
 };
 
+const cleanupTOC = () => {
+  // Disconnect IntersectionObserver
+  if (tocObserver) {
+    tocObserver.disconnect();
+    tocObserver = null;
+  }
+
+  // Restore native Vitepress outline visibility
+  const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
+  if (asideContainer) {
+    const vpOutline = asideContainer.querySelector(".VPDocAsideOutline");
+    if (vpOutline) vpOutline.style.display = "";
+
+    // Remove our custom TOC
+    const ghToc = asideContainer.querySelector(".gh-toc");
+    if (ghToc) ghToc.remove();
+  }
+};
+
 const updateVitePressTOC = () => {
   if (typeof window === "undefined") return;
 
-  const headings = document.querySelectorAll(".github-changelog h2");
+  // Clean up previous observer and TOC first
+  cleanupTOC();
+
+  const headings = document.querySelectorAll(".gh-changelog h2[id]");
   if (!headings.length) return;
 
   const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
@@ -124,7 +148,7 @@ const updateVitePressTOC = () => {
   const vpOutline = asideContainer.querySelector(".VPDocAsideOutline");
   if (vpOutline) vpOutline.style.display = "none";
 
-  // Create our own TOC that Vue won't manage/overwrite
+  // Create or reuse our custom TOC
   let ghToc = asideContainer.querySelector(".gh-toc");
   if (!ghToc) {
     ghToc = document.createElement("div");
@@ -139,26 +163,90 @@ const updateVitePressTOC = () => {
       <span id="doc-outline-aria-label" class="visually-hidden">Table of Contents</span>
       <ul class="outline-links">`;
 
+  const headingData = [];
   headings.forEach((heading) => {
     const id = heading.id;
     if (!id) return;
     const text = heading.textContent?.trim() || "";
+    headingData.push({ id, text });
     html += `<li class="outline-item"><a href="#${id}" class="outline-link">${text}</a></li>`;
   });
 
   html += `</ul></nav></div>`;
   ghToc.innerHTML = html;
 
-  // Activate link on hash change / scroll
   const links = ghToc.querySelectorAll(".outline-link");
-  const onHashChange = () => {
-    const hash = window.location.hash;
-    links.forEach((link) => {
-      link.classList.toggle("active", link.getAttribute("href") === hash);
+
+  // Set active link on scroll using IntersectionObserver
+  const visibleIds = new Set();
+  tocObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleIds.add(entry.target.id);
+        } else {
+          visibleIds.delete(entry.target.id);
+        }
+      });
+
+      // Activate the topmost visible heading
+      let activeId = null;
+      let minTop = Infinity;
+      visibleIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < minTop) {
+            minTop = rect.top;
+            activeId = id;
+          }
+        }
+      });
+
+      // If nothing is visible yet, activate the first heading above viewport
+      if (!activeId && headings.length > 0) {
+        for (const heading of headings) {
+          const rect = heading.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            activeId = heading.id;
+            break;
+          }
+        }
+        if (!activeId && headings.length > 0) {
+          activeId = headings[0].id;
+        }
+      }
+
+      links.forEach((link) => {
+        const href = link.getAttribute("href");
+        link.classList.toggle("active", href === `#${activeId}`);
+      });
+    },
+    {
+      rootMargin: "-80px 0px -60% 0px",
+      threshold: 0,
+    }
+  );
+
+  headings.forEach((heading) => tocObserver.observe(heading));
+
+  // Also sync with hash on click
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      links.forEach((l) => l.classList.remove("active"));
+      link.classList.add("active");
     });
-  };
-  window.addEventListener("hashchange", onHashChange, { once: true });
-  onHashChange();
+  });
+
+  // Set initial active state after paint to let layout settle
+  requestAnimationFrame(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      links.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === hash);
+      });
+    }
+  });
 };
 
 watch(releases, async () => {
@@ -168,6 +256,10 @@ watch(releases, async () => {
 
 onMounted(() => {
   fetchChangelog();
+});
+
+onBeforeUnmount(() => {
+  cleanupTOC();
 });
 
 const toggleRelease = (id) => {
@@ -420,6 +512,13 @@ const formatSize = (bytes) => {
 .gh-cl-item {
   content-visibility: auto;
   contain-intrinsic-size: 0 300px;
+  padding-top: 2rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.gh-cl-item:first-child {
+  padding-top: 0;
+  border-top: none;
 }
 
 .gh-cl-item__header {

@@ -43,7 +43,7 @@ The Task Scheduler handles everything from system backups to driver operations. 
 
 Only modify tasks you recognize, like update checkers for apps you installed (Adobe, Chrome, games).
 
-<Card title="Warning" type="warning" icon="triangle-exclamation">
+<Card title="Only touch what you know" type="warning" icon="triangle-exclamation">
 
 **DO NOT** touch tasks you are not familiar with. Some may be related to critical system services or hardware drivers. Changing these can cause instability or crashes. If unsure, leave it enabled or search online for the task name.
 

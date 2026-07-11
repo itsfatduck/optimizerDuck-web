@@ -154,6 +154,10 @@ function getSidebar(): DefaultTheme.SidebarItem[] {
           link: "/docs/guides/getting-started",
         },
         {
+          text: "Why Optimize Windows",
+          link: "/docs/guides/why-optimize-windows",
+        },
+        {
           text: "How it Works",
           link: "/docs/guides/how-it-works",
         },
@@ -257,6 +261,7 @@ function getFooter(): FooterConfig {
         items: [
           { text: "Download", link: "/docs/download" },
           { text: "Getting Started", link: "/docs/guides/getting-started" },
+          { text: "Why Optimize Windows", link: "/docs/guides/why-optimize-windows" },
           { text: "Changelog", link: "/docs/changelog" },
           { text: "Best Practices", link: "/docs/guides/best-practices" },
         ],

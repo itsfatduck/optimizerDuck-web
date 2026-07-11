@@ -17,6 +17,9 @@ hero:
     - theme: alt
       text: Get Started
       link: /docs/guides/getting-started
+    - theme: alt
+      text: Why Optimize Windows?
+      link: /docs/guides/why-optimize-windows
 features:
   - icon: github
     link: https://github.com/itsfatduck/optimizerDuck
@@ -28,7 +31,7 @@ features:
     title: Multi-Language Support
     link: /docs/guides/getting-started#changing-language
     linkText: View supported languages
-    details: Available in 12 languages with community-driven translations. Choose from English, Vietnamese, Chinese, Russian, French, Korean, Spanish, Japanese, Polish, Portuguese (Brazil), Turkish, and more.
+    details: Available in 14+ languages with community-driven translations. Choose from English, Vietnamese, Chinese, Russian, French, German, Hebrew, Korean, Spanish, Japanese, Polish, Portuguese (Brazil), Turkish, and more.
 
   - icon: screwdriver-wrench
     link: /docs/features/optimize

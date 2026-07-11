@@ -6,6 +6,12 @@ description: "Frequently asked questions about Windows optimization with optimiz
 
 Frequently Asked Questions about optimizing, reverting, and how it impacts your system.
 
+<Card title="New to optimization?" icon="lightbulb">
+
+New to Windows optimization? Read our [Why Optimize Windows](/docs/guides/why-optimize-windows) guide for a simple explanation of how optimization works and why it matters.
+
+</Card>
+
 ## Does optimizerDuck actually improve performance, reduce latency, or speed up my network?
 
 It can help. Every optimization is researched from well-known tools, community guides, and hardware vendor recommendations. Nothing is AI-generated or made up. Each tweak addresses a real Windows setting that is set conservatively by default (service host grouping, GPU power states, network throttling, process scheduling).

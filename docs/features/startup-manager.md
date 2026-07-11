@@ -46,7 +46,7 @@ Some apps bypass normal startup lists by creating a Task Scheduler entry set to 
 
 Managing these works the same way. Review the task details and use the toggle switch to enable or disable them.
 
-<Card title="Tip" icon="lightbulb">
+<Card title="Disabling is not removing" icon="lightbulb">
 
 Disabling a startup program or scheduled task does not uninstall, delete, or break it. You are simply stopping it from opening automatically. You can always open the program manually from your Start menu or desktop shortcut whenever you actually need to use it.
 
@@ -59,7 +59,7 @@ Knowing what to turn off can be intimidating, but as a general rule of thumb, yo
 - **Safe to disable:** Cloud storage sync clients (if you don't need instant syncing), chat applications like Discord, Skype, or Microsoft Teams, media players, game launchers, and software update checkers.
 - **Keep enabled:** Security and antivirus software, necessary hardware drivers (such as your audio control panel, graphics card companion software, or mouse/keyboard software), and crucial system utilities.
 
-<Card title="Warning" type="warning" icon="triangle-exclamation">
+<Card title="Research before disabling" type="warning" icon="triangle-exclamation">
 
 Always be cautious when disabling startup items you do not immediately recognize. Some generic-sounding processes might actually be related to critical system services or important driver functionality. If you are ever unsure what an item does, the safest course of action is to leave it enabled or search online using the program's provided name and command line for more context.
 

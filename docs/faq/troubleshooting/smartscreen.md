@@ -21,7 +21,7 @@ When you first run optimizerDuck, SmartScreen may show **"Windows protected your
 1. Click **"More info"** on the SmartScreen popup
 2. Click **"Run anyway"**
 
-<Card title="Tip" icon="lightbulb">
+<Card title="Remembers your choice" icon="lightbulb">
 
 This warning only appears the first time you run the application. After that, Windows will remember your choice.
 

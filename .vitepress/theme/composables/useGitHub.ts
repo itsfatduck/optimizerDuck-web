@@ -4,6 +4,7 @@ const CACHE_KEY_LATEST = "github-latest-release-cache";
 const CACHE_KEY_CHANGELOG = "github-changelog-cache";
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache
 const PER_PAGE = 5;
+const FETCH_TIMEOUT = 15000; // 15 seconds timeout
 const isClient = typeof window !== "undefined";
 
 function getCachedItem(key: string) {
@@ -38,6 +39,12 @@ function setCachedItem(key: string, value: any) {
   } catch {}
 }
 
+function fetchWithTimeout(url: string, timeoutMs: number = FETCH_TIMEOUT): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 const latestRelease = ref<any>(getCachedItem(CACHE_KEY_LATEST));
 const releases = ref<any[]>(getCachedItem(CACHE_KEY_CHANGELOG) || []);
 
@@ -54,7 +61,7 @@ const hasMore = ref(true);
 const loadingMore = ref(false);
 
 export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
-  
+
   const fetchLatestRelease = () => {
     // If we have cached data, resolve immediately
     if (latestRelease.value) {
@@ -65,11 +72,14 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
     loadingLatest.value = true;
     errorLatest.value = null;
 
-    fetchLatestPromise.value = fetch(`https://api.github.com/repos/${repo}/releases/latest`)
+    fetchLatestPromise.value = fetchWithTimeout(`https://api.github.com/repos/${repo}/releases/latest`)
       .then((res) => {
         if (!res.ok) {
           if (res.status === 403) {
             throw new Error("GitHub API rate limit exceeded. Please try again later.");
+          }
+          if (res.status === 404) {
+            throw new Error("Release not found.");
           }
           throw new Error("Failed to fetch latest release");
         }
@@ -81,7 +91,11 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
         errorLatest.value = null;
       })
       .catch((err) => {
-        errorLatest.value = err.message;
+        if (err.name === "AbortError") {
+          errorLatest.value = "Request timed out. Please check your connection and try again.";
+        } else {
+          errorLatest.value = err.message || "An unexpected error occurred.";
+        }
       })
       .finally(() => {
         loadingLatest.value = false;
@@ -101,7 +115,7 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
     loadingChangelog.value = true;
     errorChangelog.value = null;
 
-    fetchChangelogPromise.value = fetch(
+    fetchChangelogPromise.value = fetchWithTimeout(
       `https://api.github.com/repos/${repo}/releases?per_page=${PER_PAGE}&page=1`
     )
       .then((res) => {
@@ -127,7 +141,11 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
         }
       })
       .catch((err) => {
-        errorChangelog.value = err.message;
+        if (err.name === "AbortError") {
+          errorChangelog.value = "Request timed out. Please check your connection and try again.";
+        } else {
+          errorChangelog.value = err.message || "An unexpected error occurred.";
+        }
       })
       .finally(() => {
         loadingChangelog.value = false;
@@ -144,7 +162,7 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
     const nextPage = currentPage.value + 1;
 
     try {
-      const res = await fetch(
+      const res = await fetchWithTimeout(
         `https://api.github.com/repos/${repo}/releases?per_page=${PER_PAGE}&page=${nextPage}`
       );
       if (!res.ok) throw new Error("Failed to fetch more releases");
@@ -154,7 +172,11 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
       currentPage.value = nextPage;
       hasMore.value = more.length >= PER_PAGE;
     } catch (err: any) {
-      errorChangelog.value = err.message;
+      if (err.name === "AbortError") {
+        errorChangelog.value = "Request timed out. Please check your connection and try again.";
+      } else {
+        errorChangelog.value = err.message || "An unexpected error occurred.";
+      }
     } finally {
       loadingMore.value = false;
     }

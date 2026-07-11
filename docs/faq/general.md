@@ -6,6 +6,12 @@ description: "Frequently asked questions about optimizerDuck. Find answers about
 
 Frequently Asked Questions and Answers about optimizerDuck in general. Let's cover the basics.
 
+<Card title="New to optimization?" icon="lightbulb">
+
+Not sure if you need to optimize Windows? Check out our [Why Optimize Windows](/docs/guides/why-optimize-windows) guide for a clear, beginner-friendly explanation.
+
+</Card>
+
 ## What is optimizerDuck?
 
 optimizerDuck helps you optimize and clean up Windows.

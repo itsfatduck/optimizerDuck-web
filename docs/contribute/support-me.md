@@ -26,7 +26,7 @@ Prefer to donate with cryptocurrency? You can send directly to the addresses bel
 
 <Card type="warning" icon="triangle-exclamation" title="Double-check the address before sending" content="Cryptocurrency transactions are **irreversible**. Please verify the full address matches your intended destination before confirming any transfer." />
 
-<Card type="info" icon="lightbulb" title="Note" content="If you'd like to be added to the [Supporters page](/docs/thanks) or receive a **Supporter role on Discord**, please email **itsfatduck@gmail.com**, [create a GitHub issue](https://github.com/itsfatduck/optimizerDuck/issues/new), or join the [Discord server](https://discord.gg/tDUBDCYw9Q) and open a **Supporter Claim** ticket." />
+<Card type="info" icon="lightbulb" title="Get recognized for your support" content="If you'd like to be added to the [Supporters page](/docs/thanks) or receive a **Supporter role on Discord**, please email **itsfatduck@gmail.com**, [create a GitHub issue](https://github.com/itsfatduck/optimizerDuck/issues/new), or join the [Discord server](https://discord.gg/tDUBDCYw9Q) and open a **Supporter Claim** ticket." />
 
 ---
 

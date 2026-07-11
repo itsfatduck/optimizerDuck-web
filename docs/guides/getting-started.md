@@ -17,6 +17,24 @@ onMounted(() => {
 
 Welcome to **optimizerDuck**, a free, open-source Windows optimization tool built for performance, privacy, and simplicity. This guide will help you download, launch, and configure the application to suit your preferences.
 
+## Why Optimize Windows?
+
+Before we get started, you might be wondering: why does Windows need optimization at all?
+
+Windows is a great operating system. But it is designed for everyone. That means it comes with many background services, telemetry, pre-installed apps, and scheduled tasks that keep running even if you never use them. These consume your CPU, RAM, disk, and network.
+
+At the same time, many settings that can improve performance and reduce latency are not enabled by default. Windows prioritizes stability and compatibility over speed.
+
+Optimization is about reducing unnecessary overhead. It helps your PC spend more of its resources on what actually matters. Whether you are gaming, programming, creating content, or just browsing the web, a well-optimized Windows feels faster and more responsive.
+
+<Card title="Hardware vs Software" icon="lightbulb">
+
+Hardware upgrades give your PC more power. Optimization makes sure that power is not wasted.
+
+[Read the full guide &rarr;](/docs/guides/why-optimize-windows)
+
+</Card>
+
 ## Download & Execution
 
 optimizerDuck is a portable application, which means **no installation is required**!
@@ -48,6 +66,8 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 | 🇨🇳 | Simplified Chinese | 简体中文 | [wcxu21](https://github.com/wcxu21) |
 | 🇷🇺 | Russian | Русский | [Foodhead](https://github.com/Foodhead) |
 | 🇫🇷 | French | Français | [Robocnop](https://github.com/Robocnop) |
+| 🇩🇪 | German | Deutsch | [pixeldepartment](https://github.com/pixeldepartment) |
+| 🇮🇱 | Hebrew | עברית | [yosef-chai](https://github.com/yosef-chai) |
 | 🇰🇷 | Korean | 한국어 | [klfnn](https://github.com/klfnn) |
 | 🇪🇸 | Spanish | Español | [thexxtt](https://github.com/thexxtt) |
 | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
