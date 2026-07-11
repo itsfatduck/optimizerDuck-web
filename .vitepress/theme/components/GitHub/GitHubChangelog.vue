@@ -254,8 +254,14 @@ watch(releases, async () => {
   updateVitePressTOC();
 });
 
-onMounted(() => {
-  fetchChangelog();
+onMounted(async () => {
+  // Fetch the changelog. If data is already cached (from previous visit),
+  // this resolves immediately — no unnecessary network request.
+  // If not cached, it starts a fresh fetch and awaits the response.
+  await fetchChangelog();
+
+  await nextTick();
+  updateVitePressTOC();
 });
 
 onBeforeUnmount(() => {
@@ -510,8 +516,6 @@ const formatSize = (bytes) => {
 
 /* ── Release Item ── */
 .gh-cl-item {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 300px;
   padding-top: 2rem;
   border-top: 1px solid var(--vp-c-divider);
 }

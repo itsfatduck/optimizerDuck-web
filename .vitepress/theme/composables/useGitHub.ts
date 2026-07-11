@@ -45,8 +45,14 @@ function fetchWithTimeout(url: string, timeoutMs: number = FETCH_TIMEOUT): Promi
   return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
 }
 
-const latestRelease = ref<any>(getCachedItem(CACHE_KEY_LATEST));
-const releases = ref<any[]>(getCachedItem(CACHE_KEY_CHANGELOG) || []);
+// NOTE: Intentionally NOT restoring from cache here at module level.
+// Doing so would cause a hydration mismatch: SSR has `isClient=false` so
+// `getCachedItem` returns null (renders skeleton), but client restores
+// cached data (wants real content) — Vue discards SSR HTML and flashes.
+// Instead, cache restore happens synchronously inside fetchLatestRelease()
+// and fetchChangelog(), which run during onMounted (after hydration settles).
+const latestRelease = ref<any>(null);
+const releases = ref<any[]>([]);
 
 const loadingLatest = ref(false);
 const loadingChangelog = ref(false);
@@ -63,10 +69,17 @@ const loadingMore = ref(false);
 export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
 
   const fetchLatestRelease = () => {
-    // If we have cached data, resolve immediately
-    if (latestRelease.value) {
-      return Promise.resolve();
+    // Synchronous cache restore — runs during onMounted (after hydration settles),
+    // avoiding the hydration mismatch that module-level cache restore would cause.
+    if (!latestRelease.value) {
+      const cached = getCachedItem(CACHE_KEY_LATEST);
+      if (cached) {
+        latestRelease.value = cached;
+        errorLatest.value = null;
+        return Promise.resolve();
+      }
     }
+
     if (fetchLatestPromise.value) return fetchLatestPromise.value;
 
     loadingLatest.value = true;
@@ -106,10 +119,17 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
   };
 
   const fetchChangelog = () => {
-    // If we have cached data, resolve immediately
-    if (releases.value.length > 0) {
-      return Promise.resolve();
+    // Synchronous cache restore — runs during onMounted (after hydration settles),
+    // avoiding the hydration mismatch that module-level cache restore would cause.
+    if (releases.value.length === 0) {
+      const cached = getCachedItem(CACHE_KEY_CHANGELOG);
+      if (cached && cached.length > 0) {
+        releases.value = cached;
+        errorChangelog.value = null;
+        return Promise.resolve();
+      }
     }
+
     if (fetchChangelogPromise.value) return fetchChangelogPromise.value;
 
     loadingChangelog.value = true;

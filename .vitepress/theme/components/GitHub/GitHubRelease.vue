@@ -55,7 +55,11 @@ watch(
 );
 
 onMounted(async () => {
+  // Fetch the latest release. If data is already cached (from previous visit),
+  // this resolves immediately — no unnecessary network request.
+  // If not cached, it starts a fresh fetch and awaits the response.
   await fetchLatestRelease();
+
   await nextTick();
   checkHeight();
 
@@ -276,8 +280,6 @@ const closeDialog = () => {
   border-radius: 12px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  content-visibility: auto;
-  contain-intrinsic-size: 0 400px;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   transform: translateZ(0);
