@@ -22,6 +22,7 @@ These generous people have donated to support the project:
   <SupporterCard name="Stefan Monov" />
   <SupporterCard name="Laymond" />
   <SupporterCard name="Germdemonizer" />
+  <SupporterCard name="ElderGeek" />
 
 </div>
 

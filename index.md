@@ -66,6 +66,7 @@ features:
     <SupporterCard name="Stefan Monov" />
     <SupporterCard name="Laymond" />
     <SupporterCard name="Germdemonizer" />
+    <SupporterCard name="ElderGeek" />
   </div>
   <p class="supporters-cta">
     Want to be featured here?
