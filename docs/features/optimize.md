@@ -12,7 +12,7 @@ Optimization means changing system settings so your PC runs faster, uses less re
 
 In optimizerDuck, "Optimization" covers network settings, telemetry, registry values for performance, and background services. These changes reduce latency, improve hardware efficiency, and limit background data sent to Microsoft.
 
-Learn more: [FAQ: Optimizing](/docs/faq/optimizing#how-are-these-optimizations-applied) or [Wikipedia](<https://en.wikipedia.org/wiki/Optimization_(computer_science)>).
+Learn more: [FAQ: Optimizing](/docs/faq/optimizing#how-are-these-optimizations-applied) or [Wikipedia](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
 
 ## Apply an optimization
 

@@ -74,7 +74,7 @@ export const config = {
       },
       footer: getFooter(),
       editLink: {
-        pattern: "https://github.com/itsfatduck/optimizerduck-web/edit/main/:path",
+        pattern: "https://github.com/itsfatduck/optimizerDuck-web/edit/main/:path",
         text: "Suggest improvements",
       },
       lastUpdated: {

@@ -73,7 +73,7 @@ optimizerDuck natively supports multiple languages to provide a better user expe
 | 🇯🇵 | Japanese | 日本語 | [zerofrip](https://github.com/zerofrip) |
 | 🇵🇱 | Polish | Polski | [dudus2000](https://github.com/dudus2000) |
 | 🇧🇷 | Portuguese (Brazil) | Português (Brasil) | [mhanelia](https://github.com/mhanelia) |
-| 🇹🇷 | Turkish | Türkçe | [amhunter1](https://github.com/amhunter1) |
+| 🇹🇷 | Turkish | Türkçe | [melut42](https://github.com/melut42) |
 | 🇸🇦 | Arabic | العربية | [s5xx5s](https://github.com/s5xx5s) |
 | 🇮🇩 | Indonesian | Bahasa Indonesia | [nekowawolf](https://github.com/nekowawolf) |
 | 🇮🇹 | Italian | Italiano | [bandrea83](https://github.com/bandrea83) |

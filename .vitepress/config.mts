@@ -91,7 +91,7 @@ export default defineConfig({
       },
     ],
     ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["link", { rel: "apple-touch-icon", href: "/icon.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/icon.webp" }],
     ["link", { rel: "preload", href: "/icon.webp", as: "image", type: "image/webp" }],
 
     // Meta - Theme & Viewport
@@ -140,14 +140,14 @@ export default defineConfig({
     // SEO - Open Graph (static base values; per-page title/desc/url set in transformPageData)
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:site_name", content: "optimizerDuck" }],
-    ["meta", { property: "og:image", content: `${PROD_URL}/icon.png` }],
+    ["meta", { property: "og:image", content: `${PROD_URL}/icon.webp` }],
     ["meta", { property: "og:image:width", content: "256" }],
     ["meta", { property: "og:image:height", content: "256" }],
     ["meta", { property: "og:locale", content: "en_US" }],
 
     // SEO - Twitter Card (static base values; per-page title/desc set in transformPageData)
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:image", content: `${PROD_URL}/icon.png` }],
+    ["meta", { name: "twitter:image", content: `${PROD_URL}/icon.webp` }],
 
     // SEO - Structured Data (JSON-LD) - Organization + SoftwareApplication
     [
@@ -161,7 +161,7 @@ export default defineConfig({
             "@id": `${PROD_URL}/#organization`,
             name: "optimizerDuck",
             url: PROD_URL,
-            logo: `${PROD_URL}/icon.png`,
+            logo: `${PROD_URL}/icon.webp`,
             sameAs: [
               "https://github.com/itsfatduck/optimizerDuck",
               "https://discord.gg/tDUBDCYw9Q",
@@ -176,7 +176,7 @@ export default defineConfig({
             description:
               "Free, open-source Windows optimization tool for performance, privacy, and simplicity.",
             url: PROD_URL,
-            image: `${PROD_URL}/icon.png`,
+            image: `${PROD_URL}/icon.webp`,
             downloadUrl: "https://github.com/itsfatduck/optimizerDuck/releases/latest",
             softwareHelp: {
               "@id": `${PROD_URL}/docs/guides/getting-started`,
@@ -304,7 +304,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "/icon.png",
+    logo: "/icon.webp",
     siteTitle: 'optimizer<span class="duck-text">Duck</span>',
 
     socialLinks: [
