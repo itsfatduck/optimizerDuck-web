@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { getCache, setCache } from "../utils/cache";
 
 const props = defineProps({
   repo: {
@@ -10,7 +11,6 @@ const props = defineProps({
 
 const CACHE_KEY = `github-contributors-${props.repo}`;
 const CACHE_TTL = 10 * 60 * 1000;
-const isClient = typeof window !== "undefined";
 
 const contributors = ref([]);
 const loading = ref(true);
@@ -27,23 +27,10 @@ function loadMore() {
   visibleCount.value += 15;
 }
 
+// ponytail: TTL-localStorage helpers moved to utils/cache.
 function getCachedData() {
-  if (!isClient) return null;
-  try {
-    const raw = localStorage.getItem(CACHE_KEY);
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
-      localStorage.removeItem(CACHE_KEY);
-      return null;
-    }
-    return data;
-  } catch {
-    try { localStorage.removeItem(CACHE_KEY); } catch {}
-    return null;
-  }
+  return getCache(CACHE_KEY, CACHE_TTL);
 }
-
 onMounted(async () => {
   const cached = getCachedData();
   if (cached) {
@@ -67,17 +54,7 @@ onMounted(async () => {
       (c) => c.type === "User" && !c.login.toLowerCase().includes("bot"),
     );
 
-    if (isClient) {
-      try {
-        localStorage.setItem(
-          CACHE_KEY,
-          JSON.stringify({
-            contributors: contributors.value,
-            timestamp: Date.now(),
-          }),
-        );
-      } catch {}
-    }
+    setCache(CACHE_KEY, { contributors: contributors.value });
   } catch (err) {
     error.value = err.message;
   } finally {

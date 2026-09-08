@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { getCache, setCache } from '../../utils/cache'
 
 const props = defineProps({
     guildId: {
@@ -10,38 +11,11 @@ const props = defineProps({
 
 const CACHE_KEY = `discord-widget-${props.guildId}`
 const CACHE_TTL = 10 * 60 * 1000 // 10 minutes cache
-const isClient = typeof window !== 'undefined'
 
-const getCachedWidget = () => {
-    if (!isClient) return null
-    try {
-        const raw = localStorage.getItem(CACHE_KEY)
-        if (!raw) return null
-        const data = JSON.parse(raw)
-        if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
-            localStorage.removeItem(CACHE_KEY)
-            return null
-        }
-        return data
-    } catch {
-        try { localStorage.removeItem(CACHE_KEY) } catch {}
-        return null
-    }
-}
+// ponytail: TTL-localStorage helpers moved to utils/cache.
+const getCachedWidget = () => getCache(CACHE_KEY, CACHE_TTL)
 
-const setCachedWidget = (widget, guild) => {
-    if (!isClient) return
-    try {
-        localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({
-                widget,
-                guild,
-                timestamp: Date.now()
-            })
-        )
-    } catch {}
-}
+const setCachedWidget = (widget, guild) => setCache(CACHE_KEY, { widget, guild })
 
 const cached = getCachedWidget()
 const widgetData = ref(cached ? cached.widget : null)

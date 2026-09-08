@@ -1,42 +1,20 @@
 import { ref, computed } from "vue";
+import { getCache, setCache } from "../utils/cache";
 
 const CACHE_KEY_LATEST = "github-latest-release-cache";
 const CACHE_KEY_CHANGELOG = "github-changelog-cache";
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache
 const PER_PAGE = 5;
 const FETCH_TIMEOUT = 15000; // 15 seconds timeout
-const isClient = typeof window !== "undefined";
 
+// ponytail: TTL-localStorage helpers moved to utils/cache (shared with
+// ContributorList, ContributorMarquee, DiscordWidget).
 function getCachedItem(key: string) {
-  if (!isClient) return null;
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
-      localStorage.removeItem(key);
-      return null;
-    }
-    return data.value;
-  } catch {
-    try {
-      localStorage.removeItem(key);
-    } catch {}
-    return null;
-  }
+  return getCache<any>(key, CACHE_TTL);
 }
 
 function setCachedItem(key: string, value: any) {
-  if (!isClient) return;
-  try {
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        value,
-        timestamp: Date.now(),
-      })
-    );
-  } catch {}
+  setCache(key, value);
 }
 
 function fetchWithTimeout(url: string, timeoutMs: number = FETCH_TIMEOUT): Promise<Response> {

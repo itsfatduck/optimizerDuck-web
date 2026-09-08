@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, shallowRef, computed, onMounted } from 'vue'
+import { getCache, setCache } from '../utils/cache'
 
 const props = defineProps({
   repo: { type: String, default: 'itsfatduck/optimizerDuck' }
@@ -7,7 +8,6 @@ const props = defineProps({
 
 const CACHE_KEY = `github-contributors-marquee-${props.repo}`
 const CACHE_TTL = 10 * 60 * 1000
-const isClient = typeof window !== 'undefined'
 
 const contributors = shallowRef<any[]>([])
 const loading = ref(true)
@@ -34,21 +34,9 @@ const marqueeItems = computed(() => {
 
 const staticItems = computed(() => shuffled.value.slice(0, 12))
 
+// ponytail: TTL-localStorage helpers moved to utils/cache.
 function getCachedData() {
-  if (!isClient) return null
-  try {
-    const raw = localStorage.getItem(CACHE_KEY)
-    if (!raw) return null
-    const data = JSON.parse(raw)
-    if (data.timestamp && Date.now() - data.timestamp > CACHE_TTL) {
-      localStorage.removeItem(CACHE_KEY)
-      return null
-    }
-    return data
-  } catch {
-    try { localStorage.removeItem(CACHE_KEY) } catch {}
-    return null
-  }
+  return getCache(CACHE_KEY, CACHE_TTL)
 }
 
 onMounted(async () => {
@@ -72,14 +60,7 @@ onMounted(async () => {
       .filter((c: any) => c.type === 'User' && !c.login.toLowerCase().includes('bot'))
       .map((c: any) => Object.freeze(c))
 
-    if (isClient) {
-      try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
-          contributors: contributors.value,
-          timestamp: Date.now()
-        }))
-      } catch {}
-    }
+    setCache(CACHE_KEY, { contributors: contributors.value })
   } catch (err: any) {
     error.value = err.message
   } finally {

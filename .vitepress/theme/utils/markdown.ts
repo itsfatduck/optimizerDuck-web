@@ -77,23 +77,42 @@ function shortenGitHubUrls(content: string): string {
     );
 }
 
+// ponytail: one shared render cache for all renderer instances. Components
+// remount on every SPA navigation and previously each rebuilt its own empty
+// cache, re-rendering the same release bodies. Key includes a content hash
+// so edited release bodies still re-render. Capped to bound memory.
+const renderCache = new Map<string, string>();
+const RENDER_CACHE_LIMIT = 100;
+
+function hashContent(content: string): number {
+  let hash = 5381;
+  for (let i = 0; i < content.length; i++) {
+    hash = ((hash << 5) + hash + content.charCodeAt(i)) | 0;
+  }
+  return hash;
+}
+
 /**
  * Create a cached markdown renderer for GitHub release/changelog content.
  * Returns (content: string, id: string | number) => HTML string.
  */
 export function createGitHubMD(repo: string) {
-  const cache = new Map<string | number, string>();
-
   return function renderMD(content: string, id: string | number): string {
     if (!content) return "";
-    if (cache.has(id)) return cache.get(id)!;
+    const key = `${repo}:${id}:${hashContent(content)}`;
+    const hit = renderCache.get(key);
+    if (hit !== undefined) return hit;
 
     let processed = shortenGitHubUrls(content);
     let html = getParser().render(processed);
     html = enhanceImages(html);
     html = parseMentions(html, repo);
 
-    cache.set(id, html);
+    if (renderCache.size >= RENDER_CACHE_LIMIT) {
+      const oldest = renderCache.keys().next();
+      if (!oldest.done) renderCache.delete(oldest.value);
+    }
+    renderCache.set(key, html);
     return html;
   };
 }
