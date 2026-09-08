@@ -82,13 +82,22 @@ export default defineConfig({
       "link",
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
     ],
+    // Fonts: single static request, only weights actually used (400/500/600/700), no italics.
+    // Non-blocking load via media=print swap + noscript fallback.
     [
       "link",
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap",
-        crossorigin: "anonymous",
+        href:
+          "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+        media: "print",
+        onload: "this.media='all'",
       },
+    ],
+    [
+      "noscript",
+      {},
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">',
     ],
     ["link", { rel: "icon", href: "/favicon.ico" }],
     ["link", { rel: "apple-touch-icon", href: "/icon.webp" }],

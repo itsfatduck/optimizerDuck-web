@@ -49,36 +49,57 @@ const guildInfo = ref(cached ? cached.guild : null)
 const loading = ref(cached ? false : true)
 const error = ref(null)
 
-const fetchWidget = async () => {
-    if (cached) return
-    try {
-        // Fetch basic widget data
-        const widgetResponse = await fetch(`https://discord.com/api/guilds/${props.guildId}/widget.json`)
-        if (!widgetResponse.ok) throw new Error('Failed to fetch Discord widget data')
-        const data = await widgetResponse.json()
-        widgetData.value = data
+// ponytail: 2 fetches (widget + invite) share one in-flight promise per guild across
+// all component instances; invite is skipped when the server icon is already cached.
+const inflightWidgets = new Map()
 
-        // Extract invite code to get more guild info (like the icon)
-        let guildData = null
-        if (data.instant_invite) {
-            const inviteCode = data.instant_invite.split('/').pop()
-            const inviteResponse = await fetch(`https://discord.com/api/v9/invites/${inviteCode}`)
-            if (inviteResponse.ok) {
-                guildData = await inviteResponse.json()
-                guildInfo.value = guildData
-            }
+function getInviteCode(invite) {
+  if (!invite) return null
+  const code = invite.split('/').filter(Boolean).pop()
+  return code || null
+}
+
+const fetchWidget = () => {
+  if (cached) return Promise.resolve()
+  const key = props.guildId
+  const existing = inflightWidgets.get(key)
+  if (existing) return existing
+  const task = (async () => {
+    try {
+      const widgetResponse = await fetch(`https://discord.com/api/guilds/${props.guildId}/widget.json`)
+      if (!widgetResponse.ok) throw new Error('Failed to fetch Discord widget data')
+      const data = await widgetResponse.json()
+      widgetData.value = data
+
+      let guildData = guildInfo.value
+      const inviteCode = getInviteCode(data.instant_invite)
+      // Skip the invite lookup when we already know the server icon (VitePress
+      // navigations remount this component on every page).
+      const cachedIcon = cached && cached.guild && cached.guild.guild && cached.guild.guild.icon
+      if (inviteCode && !cachedIcon) {
+        const inviteResponse = await fetch(`https://discord.com/api/v9/invites/${inviteCode}`)
+        if (inviteResponse.ok) {
+          guildData = await inviteResponse.json()
+          guildInfo.value = guildData
         }
-        setCachedWidget(data, guildData)
+      }
+      setCachedWidget(data, guildData)
     } catch (err) {
-        error.value = err.message
+      error.value = (err && err.message) || 'Failed to fetch Discord widget data'
     } finally {
-        loading.value = false
+      loading.value = false
     }
+  })().finally(() => {
+    if (inflightWidgets.get(key) === task) inflightWidgets.delete(key)
+  })
+  inflightWidgets.set(key, task)
+  return task
 }
 
 const serverIconUrl = computed(() => {
-    if (guildInfo.value?.guild?.icon) {
-        return `https://cdn.discordapp.com/icons/${props.guildId}/${guildInfo.value.guild.icon}.png?size=128`
+    const guild = guildInfo.value && guildInfo.value.guild
+    if (guild && guild.icon) {
+      return `https://cdn.discordapp.com/icons/${props.guildId}/${guild.icon}.png?size=128`
     }
     return null
 })

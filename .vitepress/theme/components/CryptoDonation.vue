@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import QRCode from 'qrcode'
+// ponytail: qrcode lib lazy-imported on visibility so /support-me visitors don't pay
+// for it on every other page's bundle.
 
 const cryptos = [
   {
@@ -65,11 +66,11 @@ onUnmounted(() => {
 })
 
 async function generateQRCodes() {
+  const { default: QRCode } = await import('qrcode')
   const batchSize = 2 // generate 2 at a time to avoid frame drops
 
   for (let i = 0; i < cryptos.length; i += batchSize) {
     const batch = cryptos.slice(i, i + batchSize)
-
     await Promise.all(
       batch.map(async (crypto) => {
         if (qrLoaded.value[crypto.id]) return

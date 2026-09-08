@@ -6,17 +6,35 @@ import {
   NolebaseEnhancedReadabilitiesScreenMenu,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
-onMounted(async () => {
-  if (typeof window !== "undefined") {
-    // Inject Vercel Analytics
-    const { inject: injectAnalytics } = await import("@vercel/analytics");
-    injectAnalytics();
-
-    // Inject Vercel Speed Insights
-    const { injectSpeedInsights } = await import("@vercel/speed-insights");
-    injectSpeedInsights();
+// Analytics + Speed Insights: idle-deferred so they never compete with LCP on load.
+function injectVercelVitals() {
+  let done = false;
+  const run = async () => {
+    if (done) return;
+    done = true;
+    try {
+      const { inject: injectAnalytics } = await import("@vercel/analytics");
+      injectAnalytics();
+    } catch {
+      /* analytics blocked or offline, skip */
+    }
+    try {
+      const { injectSpeedInsights } = await import("@vercel/speed-insights");
+      injectSpeedInsights();
+    } catch {
+      /* speed insights blocked or offline, skip */
+    }
+  };
+  if (typeof window === "undefined") return;
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(run, { timeout: 8000 });
+  } else {
+    setTimeout(run, 4000);
   }
+}
 
+onMounted(() => {
+  injectVercelVitals();
   // Restore animations on Windows with "Show animations" disabled.
   // Debloat tools often turn this off → browser sees prefers-reduced-motion: reduce →
   // VitePress default base.css kills ALL transitions/animations with !important.
