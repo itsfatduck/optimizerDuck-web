@@ -1021,12 +1021,12 @@ h6 {
 
 @keyframes hero-icon-glow {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(216, 155, 29, 0.3));
+    filter: drop-shadow(0 0 6px rgba(216, 155, 29, 0.22));
     transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 25px rgba(216, 155, 29, 0.65));
-    transform: translate(-50%, -50%) scale(1.05);
+    filter: drop-shadow(0 0 14px rgba(216, 155, 29, 0.38));
+    transform: translate(-50%, -50%) scale(1.02);
   }
 }
 
