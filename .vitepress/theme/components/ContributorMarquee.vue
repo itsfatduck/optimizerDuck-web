@@ -270,7 +270,6 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   animation: cm-marquee 30s linear infinite;
   transform: translateX(-50%) translateZ(0);
   padding: 16px 0 18px;
-  backface-visibility: hidden;
   will-change: transform;
   contain: content;
 }
@@ -296,20 +295,17 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   gap: 0.5rem;
   padding: 0.4rem;
   cursor: pointer;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
   transition: transform 0.3s ease, filter 0.3s ease;
   border-radius: 12px;
   flex-shrink: 0;
 }
 
 .cm-item--marquee:hover {
-  transform: translateY(-4px) translateZ(0);
+  transform: translateY(-4px);
 }
 
 .cm-item--hovered {
-  transform: translateY(-4px) translateZ(0);
+  transform: translateY(-4px);
 }
 
 .cm-item--hovered .cm-name {
@@ -331,7 +327,6 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  transform: translateZ(0);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   background: var(--vp-c-bg-alt);
 }

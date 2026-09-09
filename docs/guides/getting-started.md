@@ -27,11 +27,9 @@ At the same time, many settings that can improve performance and reduce latency 
 
 Optimization is about reducing unnecessary overhead. It helps your PC spend more of its resources on what actually matters. Whether you are gaming, programming, creating content, or just browsing the web, a well-optimized Windows feels faster and more responsive.
 
-<Card title="Hardware vs Software" icon="lightbulb">
+<Card title="Hardware vs Software" icon="lightbulb" link="/docs/guides/why-optimize-windows" linkText="Read the full guide">
 
 Hardware upgrades give your PC more power. Optimization makes sure that power is not wasted.
-
-[Read the full guide &rarr;](/docs/guides/why-optimize-windows)
 
 </Card>
 

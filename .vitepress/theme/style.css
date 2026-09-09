@@ -1090,16 +1090,13 @@ html {
 /* Smooth image rendering in all doc content */
 .vp-doc img {
   image-rendering: auto;
-  transform: translateZ(0);
 }
 
 /* Sidebar link hover animation */
 .VPSidebar .link {
-  backface-visibility: hidden;
-  transform: translateZ(0);
   transition: transform 0.15s ease;
 }
 
 .VPSidebar .link:hover {
-  transform: translateX(2px) translateZ(0);
+  transform: translateX(2px);
 }

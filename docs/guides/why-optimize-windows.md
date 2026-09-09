@@ -30,11 +30,9 @@ Windows sends diagnostic data to Microsoft by default. This includes information
 
 Disabling telemetry does not break Windows. It just stops your PC from sending data you may not want to share.
 
-<Card title="Stop telemetry now" icon="lightbulb">
+<Card title="Stop telemetry now" icon="lightbulb" link="/docs/features/optimize" linkText="Go to Optimize feature">
 
 Open the **Optimize** tab and look for the **Privacy** category. You will find toggles to disable telemetry, advertising ID, location tracking, Cortana, Copilot, and more. Each toggle has a clear description and a safety rating.
-
-[Go to Optimize feature &rarr;](/docs/features/optimize)
 
 </Card>
 
@@ -42,11 +40,9 @@ Open the **Optimize** tab and look for the **Privacy** category. You will find t
 
 New Windows installations come with many apps you may never use. Xbox, OneDrive, Clipchamp, News, Weather, Teams, and more. These apps run in the background. They check for updates. They appear in your Start Menu. They use RAM and disk space.
 
-<Card title="Remove bloatware now" icon="lightbulb">
+<Card title="Remove bloatware now" icon="lightbulb" link="/docs/features/bloatware" linkText="Go to Bloatware feature">
 
 Open the **Bloatware** tab. optimizerDuck scans your system and lists all removable AppX packages with safety ratings (Safe, Caution). Check the apps you want to remove and click **Remove**. No need to search through Settings or PowerShell.
-
-[Go to Bloatware feature &rarr;](/docs/features/bloatware)
 
 </Card>
 
@@ -61,11 +57,9 @@ Windows runs over 200 services. Many are needed. But some are not. For example:
 
 Every running service uses a small amount of RAM and CPU. Disabling the ones you do not need adds up.
 
-<Card title="Tweak services now" icon="lightbulb">
+<Card title="Tweak services now" icon="lightbulb" link="/docs/features/optimize" linkText="Go to Optimize feature">
 
 Open the **Optimize** tab and look for the **Bloatware & Services** category. optimizerDuck lets you fine-tune the startup type for over 200 Windows services. You can set unused services to Manual so they only start when needed.
-
-[Go to Optimize feature &rarr;](/docs/features/optimize)
 
 </Card>
 
@@ -73,11 +67,9 @@ Open the **Optimize** tab and look for the **Bloatware & Services** category. op
 
 Windows and third-party apps create scheduled tasks. These run at specific times or when you log in. They check for updates, run maintenance, or collect data. Each one adds a small delay to startup and uses CPU time.
 
-<Card title="Clean up tasks now" icon="lightbulb">
+<Card title="Clean up tasks now" icon="lightbulb" link="/docs/features/scheduled-tasks" linkText="Go to Scheduled Tasks feature">
 
 Open the **Scheduled Tasks** tab. You will see all automated processes in a clean list. Use the toggle switch to disable tasks you don't need, or use the trash icon to permanently remove tasks from uninstalled apps.
-
-[Go to Scheduled Tasks feature &rarr;](/docs/features/scheduled-tasks)
 
 </Card>
 
@@ -93,11 +85,11 @@ Windows also hides many useful settings that can improve performance. Here are s
 
 These are just a few examples. optimizerDuck brings over 30 such tweaks together in one place. Each one has a clear description, so you know what it does before applying it.
 
-<Card title="Unlock hidden settings now" icon="lightbulb">
+<Card title="Unlock hidden settings now" icon="lightbulb" link="/docs/features/optimize" linkText="Go to Optimize feature">
 
 Open the **Optimize** tab to find tweaks for GPU power states, power plans, network throttling, and more. Open the **Customize** tab to disable animations, adjust taskbar behavior, and toggle visual effects. All in one place, no Registry digging required.
 
-[Go to Optimize feature &rarr;](/docs/features/optimize) | [Go to Customize feature &rarr;](/docs/features/customize)
+<a href="/docs/features/customize" class="card__link"><span>Go to Customize feature</span><Icon name="arrow-right" :size="14" class="card__link-icon" /></a>
 
 </Card>
 
@@ -129,14 +121,14 @@ The best time to optimize is after a fresh Windows installation. Here is the rec
 
 Following this order helps prevent Windows or driver updates from overwriting your optimizations later.
 
-<Card title="Finish setup now" icon="lightbulb">
+<Card title="Finish setup now" icon="lightbulb" link="/docs/features/disk-cleanup" linkText="Go to Disk Cleanup">
 
 After installing your software and drivers, use optimizerDuck's built-in tools to finish the job:
 - **Bloatware**: Remove pre-installed apps you don't need
 - **Disk Cleanup**: Clear temp files, cache, and Windows Update leftovers
 - **Startup Manager**: Disable programs that slow down your boot
 
-[Go to Disk Cleanup &rarr;](/docs/features/disk-cleanup) | [Go to Startup Manager &rarr;](/docs/features/startup-manager)
+<a href="/docs/features/startup-manager" class="card__link"><span>Go to Startup Manager</span><Icon name="arrow-right" :size="14" class="card__link-icon" /></a>
 
 </Card>
 

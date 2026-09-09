@@ -24,7 +24,6 @@ defineProps<{
   border-radius: 100px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  backface-visibility: hidden;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
