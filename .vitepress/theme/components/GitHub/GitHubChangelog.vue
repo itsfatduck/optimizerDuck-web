@@ -163,15 +163,17 @@ const updateVitePressTOC = () => {
       <span id="doc-outline-aria-label" class="visually-hidden">Table of Contents</span>
       <ul class="outline-links">`;
 
+  const escapeHtml = (s) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
   const headingData = [];
   headings.forEach((heading) => {
     const id = heading.id;
     if (!id) return;
     const text = heading.textContent?.trim() || "";
     headingData.push({ id, text });
-    html += `<li class="outline-item"><a href="#${id}" class="outline-link">${text}</a></li>`;
+    html += `<li class="outline-item"><a href="#${encodeURIComponent(id)}" class="outline-link">${escapeHtml(text)}</a></li>`;
   });
-
   html += `</ul></nav></div>`;
   ghToc.innerHTML = html;
 
@@ -307,10 +309,28 @@ const handleDownload = (asset) => {
   }
 };
 
+const dialogCloseBtn = ref(null);
+
 const closeDialog = () => {
   showDialog.value = false;
   selectedAsset.value = null;
 };
+
+const onDialogKeydown = (e) => {
+  if (e.key === "Escape") closeDialog();
+};
+
+watch(showDialog, async (open) => {
+  if (open) {
+    await nextTick();
+    dialogCloseBtn.value?.focus?.();
+    window.addEventListener("keydown", onDialogKeydown);
+  } else {
+    window.removeEventListener("keydown", onDialogKeydown);
+  }
+});
+
+onBeforeUnmount(() => window.removeEventListener("keydown", onDialogKeydown));
 
 const formatSize = (bytes) => {
   if (bytes === 0) return "0 Bytes";
@@ -347,12 +367,12 @@ const formatSize = (bytes) => {
         </div>
         <div class="gh-cl-item__meta">
           <span class="gh-cl-meta-item">
-            <Icon name="calendar" type="regular" :size="12" />
+            <Icon name="calendar" :size="12" />
             {{ new Date(release.published_at).toLocaleDateString() }}
           </span>
           <span class="gh-cl-meta-sep" />
           <span class="gh-cl-meta-item">
-            <Icon name="arrow-down" type="solid" :size="11" />
+            <Icon name="arrow-down" :size="11" />
             {{ formatDownloads(getReleaseDownloads(release)) }}
           </span>
         </div>
@@ -360,7 +380,7 @@ const formatSize = (bytes) => {
 
       <div class="gh-cl-item__body">
         <template v-if="!isExpanded(release.id)">
-          <div class="gh-cl-preview" @click="toggleRelease(release.id)">
+          <div class="gh-cl-preview" role="button" tabindex="0" :aria-expanded="isExpanded(release.id)" :aria-label="'Expand release notes for ' + (release.name || release.tag_name)" @click="toggleRelease(release.id)" @keydown.enter.prevent="toggleRelease(release.id)" @keydown.space.prevent="toggleRelease(release.id)">
             <div v-if="release.preview.hasImage" class="gh-cl-preview__img-wrap">
               <img
                 :src="release.preview.imageUrl"
@@ -372,7 +392,7 @@ const formatSize = (bytes) => {
             <div v-if="release.preview.snippet" class="gh-cl-preview__content">
               <p class="gh-cl-preview__text">{{ release.preview.snippet }}</p>
               <span class="gh-cl-preview__hint">
-                <Icon name="chevron-down" type="solid" :size="11" />
+                <Icon name="chevron-down" :size="11" />
                 Expand
               </span>
             </div>
@@ -388,7 +408,7 @@ const formatSize = (bytes) => {
             <!-- Assets -->
             <div v-if="release.assets?.length" class="gh-cl-assets">
               <div class="gh-cl-assets__title">
-                <Icon name="download" type="solid" :size="14" />
+                <Icon name="download" :size="14" />
                 Downloads
               </div>
               <button
@@ -398,7 +418,7 @@ const formatSize = (bytes) => {
                 @click="handleDownload(asset)"
               >
                 <div class="gh-cl-asset__icon">
-                  <Icon name="download" type="solid" :size="16" />
+                  <Icon name="download" :size="16" />
                 </div>
                 <div class="gh-cl-asset__info">
                   <span class="gh-cl-asset__name">{{ asset.name }}</span>
@@ -421,7 +441,7 @@ const formatSize = (bytes) => {
         class="gh-cl-collapse"
         @click="toggleRelease(release.id)"
       >
-        <Icon name="chevron-up" type="solid" :size="12" />
+        <Icon name="chevron-up" :size="12" />
         <span>Show less</span>
       </button>
     </div>
@@ -433,18 +453,18 @@ const formatSize = (bytes) => {
         @click="handleLoadMore"
       >
         <template v-if="loadingMore">
-          <Icon name="spinner" type="solid" :size="13" />
+          <Icon name="spinner" :size="13" />
           <span>Loading...</span>
         </template>
         <template v-else>
-          <Icon name="plus" type="solid" :size="13" />
+          <Icon name="plus" :size="13" />
           <span>Load more releases</span>
         </template>
       </button>
     </div>
   </div>
   <div v-else-if="loading || (!releases.length && !error)" class="gh-cl-loading">
-    <Icon name="spinner" type="solid" :size="16" />
+    <Icon name="spinner" :size="16" />
     Loading changelog...
   </div>
   <div v-else-if="error" class="gh-cl-error">{{ error }}</div>
@@ -453,16 +473,16 @@ const formatSize = (bytes) => {
   <Teleport to="body">
     <Transition name="dialog">
       <div v-if="showDialog" class="gh-dialog-backdrop" @click.self="closeDialog">
-        <div class="gh-dialog">
-          <button class="gh-dialog__close" @click="closeDialog" aria-label="Close">
-            <Icon name="xmark" type="solid" :size="16" />
+        <div class="gh-dialog" role="dialog" aria-modal="true" aria-labelledby="gh-dialog-title">
+          <button ref="dialogCloseBtn" class="gh-dialog__close" @click="closeDialog" aria-label="Close dialog">
+            <Icon name="xmark" :size="16" />
           </button>
 
           <div class="gh-dialog__body">
             <div class="gh-dialog__icon">
-              <Icon name="download" type="solid" :size="28" />
+              <Icon name="download" :size="28" />
             </div>
-            <h3 class="gh-dialog__title">Thank you for downloading</h3>
+            <h3 id="gh-dialog-title" class="gh-dialog__title">Thank you for downloading</h3>
             <p class="gh-dialog__desc">
               Click
               <a v-if="selectedAsset" :href="selectedAsset.browser_download_url" class="gh-dialog__link">here</a>
@@ -475,30 +495,30 @@ const formatSize = (bytes) => {
           <div class="gh-dialog__actions">
             <a href="/docs/guides/getting-started" class="gh-action" @click="closeDialog">
               <div class="gh-action__icon">
-                <Icon name="book" type="solid" :size="18" />
+                <Icon name="book" :size="18" />
               </div>
               <div class="gh-action__text">
                 <span class="gh-action__title">Documentation</span>
                 <span class="gh-action__desc">Learn how to get started</span>
               </div>
-              <Icon name="chevron-right" type="solid" :size="14" class="gh-action__arrow" />
+              <Icon name="chevron-right" :size="14" class="gh-action__arrow" />
             </a>
 
             <a href="https://discord.gg/tDUBDCYw9Q" target="_blank" rel="noopener" class="gh-action" @click="closeDialog">
               <div class="gh-action__icon gh-action__icon--discord">
-                <Icon name="discord" type="brands" :size="18" />
+                <Icon name="discord" :size="18" />
               </div>
               <div class="gh-action__text">
                 <span class="gh-action__title">Discord</span>
                 <span class="gh-action__desc">Join the community</span>
               </div>
-              <Icon name="chevron-right" type="solid" :size="14" class="gh-action__arrow" />
+              <Icon name="chevron-right" :size="14" class="gh-action__arrow" />
             </a>
           </div>
 
           <a href="/docs/faq/troubleshooting" class="gh-dialog__help" @click="closeDialog">
             Having issues?
-            <Icon name="chevron-right" type="solid" :size="10" />
+            <Icon name="chevron-right" :size="10" />
           </a>
         </div>
       </div>
@@ -543,6 +563,8 @@ const formatSize = (bytes) => {
 
 .gh-cl-item__title {
   margin: 0;
+  padding-top: 0;
+  border-top: none;
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--vp-c-text-1);
@@ -626,16 +648,18 @@ const formatSize = (bytes) => {
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
   cursor: pointer;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-preview:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px) translateZ(0);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.gh-cl-preview:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 
 .dark .gh-cl-preview:hover {
@@ -646,12 +670,15 @@ const formatSize = (bytes) => {
   width: 100%;
   overflow: hidden;
   background: var(--vp-c-bg-mute);
+  aspect-ratio: 16 / 9;
 }
 
 .gh-cl-preview__img {
   display: block;
   width: 100%;
+  height: 100%;
   max-height: 400px;
+  object-fit: cover;
 }
 
 .gh-cl-preview__content {
@@ -675,13 +702,12 @@ const formatSize = (bytes) => {
   color: var(--vp-c-text-3);
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transform: translateZ(0);
   transition: color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-preview:hover .gh-cl-preview__hint {
   color: var(--vp-c-brand-1);
-  transform: translateX(2px) translateZ(0);
+  transform: translateX(2px);
 }
 
 /* ── Expanded Body ── */
@@ -708,7 +734,6 @@ const formatSize = (bytes) => {
   margin: 1rem 0;
   background: var(--vp-c-bg-mute);
   min-height: 60px;
-  transform: translateZ(0);
 }
 
 .gh-cl-expanded :deep(.mention),
@@ -769,7 +794,7 @@ const formatSize = (bytes) => {
   gap: 0.75rem;
   padding: 0.7rem 1rem;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px solid var(--vp-c-divider);
   width: 100%;
   text-align: left;
@@ -786,9 +811,6 @@ const formatSize = (bytes) => {
   border-bottom: none;
 }
 
-.gh-cl-asset:hover {
-  background: color-mix(in srgb, var(--vp-c-brand-1) 6%, transparent);
-}
 
 .gh-cl-asset__icon {
   flex-shrink: 0;
@@ -847,15 +869,13 @@ const formatSize = (bytes) => {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   cursor: pointer;
-  backface-visibility: hidden;
-  transform: translateZ(0);
   transition: color 0.2s ease, border-color 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gh-cl-collapse:hover {
   color: var(--vp-c-text-1);
   border-color: var(--vp-c-text-3);
-  transform: translateY(-1px) translateZ(0);
+  transform: translateY(-1px);
 }
 
 /* ── Load More ── */
@@ -876,9 +896,6 @@ const formatSize = (bytes) => {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   cursor: pointer;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
   transition: border-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -886,7 +903,7 @@ const formatSize = (bytes) => {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px) translateZ(0);
+  transform: translateY(-1px);
 }
 
 .dark .gh-cl-load-btn:hover:not(:disabled) {
@@ -924,9 +941,9 @@ const formatSize = (bytes) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--vp-backdrop-bg-color, rgba(0, 0, 0, 0.5));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--vp-backdrop-bg-color, rgba(0, 0, 0, 0.45));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 1rem;
 }
 
@@ -1125,6 +1142,11 @@ const formatSize = (bytes) => {
   .gh-cl-item__header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .gh-cl-item__title {
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
   }
 
   .gh-cl-item__meta {

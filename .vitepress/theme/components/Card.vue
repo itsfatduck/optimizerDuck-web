@@ -8,6 +8,9 @@ const props = defineProps({
   icon: { type: String, default: undefined },
   content: { type: String, default: undefined },
   type: { type: String, default: 'info' },
+  link: { type: String, default: undefined },
+  linkText: { type: String, default: undefined },
+  linkHref: { type: String, default: undefined },
 })
 
 const md = new MarkdownIt({ html: true, linkify: true, typographer: true })
@@ -22,16 +25,20 @@ const renderedContent = computed(() => {
 
 <template>
   <article class="card" :class="`card--${type}`">
-    <p class="card__title">
+    <h3 class="card__title">
       <span v-if="icon" class="card__icon">
         <Icon :name="icon" :size="16" />
       </span>
       <span v-html="renderedTitle" />
-    </p>
+    </h3>
     <div v-if="content" class="card__body vp-doc" v-html="renderedContent" />
     <div v-else class="card__body vp-doc">
       <slot />
     </div>
+    <a v-if="link || linkHref" :href="linkHref || link" class="card__link">
+      <span>{{ linkText || 'Learn more' }}</span>
+      <Icon name="arrow-up-right" :size="14" class="card__link-icon" />
+    </a>
   </article>
 </template>
 
@@ -45,24 +52,11 @@ const renderedContent = computed(() => {
   gap: clamp(0.5rem, 0.125rem + 1vw, 0.75rem);
   padding: clamp(0.85rem, 0.125rem + 2vw, 1.5rem);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 0;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--vp-c-bg);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card:hover {
-  border-color: var(--card-accent);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px) translateZ(0);
-}
-
-.dark .card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
 
 /* Type-based accent colors */
 .card--info {
@@ -116,5 +110,37 @@ const renderedContent = computed(() => {
 
 .card__body :deep(p:last-child) {
   margin-bottom: 0;
+}
+
+.card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-accent);
+  text-decoration: none;
+  width: fit-content;
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.card__link:hover {
+  opacity: 0.75;
+  color: var(--card-accent);
+}
+
+.card__link-icon {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card__link:hover .card__link-icon {
+  transform: translate(2px, -2px);
+}
+
+.card__link:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 3px;
 }
 </style>

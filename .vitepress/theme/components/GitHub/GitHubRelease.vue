@@ -4,7 +4,7 @@ const expandedRepos = ref(new Set());
 </script>
 
 <script setup>
-import { computed, onMounted, nextTick, watch, onUnmounted } from "vue";
+import { computed, onMounted, onUnmounted, watch, nextTick } from "vue";
 import { useGitHub } from "../../composables/useGitHub";
 import { createGitHubMD } from "../../utils/markdown";
 import Icon from "../Icon.vue";
@@ -16,21 +16,6 @@ const props = defineProps({
   },
 });
 
-const isExpanded = computed({
-  get: () => expandedRepos.value.has(props.repo),
-  set: (val) => {
-    if (val) expandedRepos.value.add(props.repo);
-    else expandedRepos.value.delete(props.repo);
-  },
-});
-
-const isLong = ref(false);
-const contentWrapper = ref(null);
-let resizeObserver = null;
-
-const showDialog = ref(false);
-const selectedAsset = ref(null);
-
 const {
   latestRelease: release,
   loadingLatest: loading,
@@ -40,40 +25,24 @@ const {
 
 const renderMD = createGitHubMD(props.repo);
 
-const checkHeight = () => {
-  if (contentWrapper.value) {
-    isLong.value = contentWrapper.value.scrollHeight > 280;
-  }
-};
+onMounted(() => {
+  fetchLatestRelease();
+});
 
-watch(
-  () => release.value,
-  async () => {
-    await nextTick();
-    checkHeight();
+const isExpanded = computed({
+  get: () => expandedRepos.value.has(props.repo),
+  set: (val) => {
+    if (val) expandedRepos.value.add(props.repo);
+    else expandedRepos.value.delete(props.repo);
   },
-);
-
-onMounted(async () => {
-  // Fetch the latest release. If data is already cached (from previous visit),
-  // this resolves immediately — no unnecessary network request.
-  // If not cached, it starts a fresh fetch and awaits the response.
-  await fetchLatestRelease();
-
-  await nextTick();
-  checkHeight();
-
-  if (typeof ResizeObserver !== "undefined" && contentWrapper.value) {
-    resizeObserver = new ResizeObserver(checkHeight);
-    resizeObserver.observe(contentWrapper.value);
-  }
 });
 
-onUnmounted(() => {
-  if (resizeObserver) {
-    resizeObserver.disconnect();
-  }
-});
+// Collapse long release notes. Estimated from raw body length instead of
+// measuring the DOM: measuring feeds back into layout (observer loops,
+// late images shift heights) and forces a full-height first paint.
+// ~1000 chars ≈ 280px of body text at doc measure.
+const isLong = computed(() => (release.value?.body?.length || 0) > 1000);
+
 
 const renderedBody = computed(() => {
   if (!release.value?.body) return "";
@@ -114,10 +83,29 @@ const handleDownload = (asset) => {
   }
 };
 
+const showDialog = ref(false);
+const selectedAsset = ref(null);
+const dialogCloseBtn = ref(null);
 const closeDialog = () => {
   showDialog.value = false;
   selectedAsset.value = null;
 };
+
+const onDialogKeydown = (e) => {
+  if (e.key === "Escape") closeDialog();
+};
+
+watch(showDialog, async (open) => {
+  if (open) {
+    await nextTick();
+    dialogCloseBtn.value?.focus?.();
+    window.addEventListener("keydown", onDialogKeydown);
+  } else {
+    window.removeEventListener("keydown", onDialogKeydown);
+  }
+});
+
+onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
 </script>
 
 <template>
@@ -129,12 +117,12 @@ const closeDialog = () => {
       </div>
       <div class="gh-release__meta">
         <span class="gh-meta-item">
-          <Icon name="calendar" type="regular" :size="13" />
+          <Icon name="calendar" :size="13" />
           {{ new Date(release.published_at).toLocaleDateString() }}
         </span>
         <span class="gh-meta-sep" />
         <span class="gh-meta-item">
-          <Icon name="arrow-down" type="solid" :size="12" />
+          <Icon name="arrow-down" :size="12" />
           {{ formatDownloads(totalDownloads) }}
         </span>
         <span class="gh-meta-sep" />
@@ -144,9 +132,9 @@ const closeDialog = () => {
           rel="noopener"
           class="gh-meta-link"
         >
-          <Icon name="github" type="brands" :size="14" />
+          <Icon name="github" :size="14" />
           <span>GitHub</span>
-          <Icon name="arrow-up-right-from-square" type="solid" :size="10" />
+          <Icon name="arrow-up-right-from-square" :size="10" />
         </a>
       </div>
     </div>
@@ -159,7 +147,7 @@ const closeDialog = () => {
         @click="handleDownload(asset)"
       >
         <div class="gh-asset__icon">
-          <Icon name="download" type="solid" :size="18" />
+          <Icon name="download" :size="18" />
         </div>
         <div class="gh-asset__info">
           <span class="gh-asset__name">{{ asset.name }}</span>
@@ -167,7 +155,7 @@ const closeDialog = () => {
             {{ formatSize(asset.size) }} &middot; {{ formatDownloads(asset.download_count) }} downloads
           </span>
         </div>
-        <Icon name="chevron-right" type="solid" :size="14" class="gh-asset__arrow" />
+        <Icon name="chevron-right" :size="14" class="gh-asset__arrow" />
       </button>
     </div>
 
@@ -177,19 +165,18 @@ const closeDialog = () => {
       :class="{ 'is-expanded': isExpanded, 'is-long': isLong }"
     >
       <div class="gh-notes__label">
-        <Icon name="file-lines" type="regular" :size="14" />
+        <Icon name="file-lines" :size="14" />
         Release Notes
       </div>
-      <div class="gh-notes__wrapper" ref="contentWrapper">
+      <div class="gh-notes__wrapper">
         <div class="gh-notes__content vp-doc" v-html="renderedBody" />
         <div
           v-if="isLong && !isExpanded"
           class="gh-notes__fade"
-          @click="isExpanded = true"
         >
-          <button class="gh-notes__expand">
+          <button class="gh-notes__expand" @click="isExpanded = true" :aria-expanded="false">
             <span>Show more</span>
-            <Icon name="chevron-down" type="solid" :size="12" />
+            <Icon name="chevron-down" :size="12" />
           </button>
         </div>
       </div>
@@ -198,7 +185,7 @@ const closeDialog = () => {
         class="gh-notes__collapse"
         @click="isExpanded = false"
       >
-        <Icon name="chevron-up" type="solid" :size="12" />
+        <Icon name="chevron-up" :size="12" />
         <span>Show less</span>
       </button>
     </div>
@@ -219,16 +206,16 @@ const closeDialog = () => {
   <Teleport to="body">
     <Transition name="dialog">
       <div v-if="showDialog" class="gh-dialog-backdrop" @click.self="closeDialog">
-        <div class="gh-dialog">
-          <button class="gh-dialog__close" @click="closeDialog" aria-label="Close">
-            <Icon name="xmark" type="solid" :size="16" />
+        <div class="gh-dialog" role="dialog" aria-modal="true" aria-labelledby="gh-dialog-title">
+          <button ref="dialogCloseBtn" class="gh-dialog__close" @click="closeDialog" aria-label="Close dialog">
+            <Icon name="xmark" :size="16" />
           </button>
 
           <div class="gh-dialog__body">
             <div class="gh-dialog__icon">
-              <Icon name="download" type="solid" :size="28" />
+              <Icon name="download" :size="28" />
             </div>
-            <h3 class="gh-dialog__title">Thank you for downloading</h3>
+            <h3 id="gh-dialog-title" class="gh-dialog__title">Thank you for downloading</h3>
             <p class="gh-dialog__desc">
               Click
               <a v-if="selectedAsset" :href="selectedAsset.browser_download_url" class="gh-dialog__link">here</a>
@@ -241,30 +228,30 @@ const closeDialog = () => {
           <div class="gh-dialog__actions">
             <a href="/docs/guides/getting-started" class="gh-action" @click="closeDialog">
               <div class="gh-action__icon">
-                <Icon name="book" type="solid" :size="18" />
+                <Icon name="book" :size="18" />
               </div>
               <div class="gh-action__text">
                 <span class="gh-action__title">Documentation</span>
                 <span class="gh-action__desc">Learn how to get started</span>
               </div>
-              <Icon name="chevron-right" type="solid" :size="14" class="gh-action__arrow" />
+              <Icon name="chevron-right" :size="14" class="gh-action__arrow" />
             </a>
 
             <a href="https://discord.gg/tDUBDCYw9Q" target="_blank" rel="noopener" class="gh-action">
               <div class="gh-action__icon gh-action__icon--discord">
-                <Icon name="discord" type="brands" :size="18" />
+                <Icon name="discord" :size="18" />
               </div>
               <div class="gh-action__text">
                 <span class="gh-action__title">Discord</span>
                 <span class="gh-action__desc">Join the community</span>
               </div>
-              <Icon name="chevron-right" type="solid" :size="14" class="gh-action__arrow" />
+              <Icon name="chevron-right" :size="14" class="gh-action__arrow" />
             </a>
           </div>
 
           <a href="/docs/faq/troubleshooting" class="gh-dialog__help" @click="closeDialog">
             Having issues?
-            <Icon name="chevron-right" type="solid" :size="10" />
+            <Icon name="chevron-right" :size="10" />
           </a>
         </div>
       </div>
@@ -277,24 +264,11 @@ const closeDialog = () => {
 .gh-release {
   margin: 2rem 0;
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gh-release:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px) translateZ(0);
-}
-
-.dark .gh-release:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-}
 
 /* ── Header ── */
 .gh-release__header {
@@ -364,12 +338,8 @@ const closeDialog = () => {
   font-size: 0.82rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
-.gh-meta-link:hover {
-  color: var(--vp-c-text-1);
-}
 
 /* ── Asset Buttons ── */
 .gh-release__assets {
@@ -387,9 +357,6 @@ const closeDialog = () => {
   border: 1px solid var(--vp-c-divider);
   border-radius: 10px;
   cursor: pointer;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-align: left;
   width: 100%;
@@ -400,7 +367,7 @@ const closeDialog = () => {
 .gh-asset:hover {
   border-color: var(--vp-c-brand-1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px) translateZ(0);
+  transform: translateY(-1px);
 }
 
 .dark .gh-asset:hover {
@@ -448,13 +415,12 @@ const closeDialog = () => {
 .gh-asset__arrow {
   color: var(--vp-c-text-3);
   flex-shrink: 0;
-  transform: translateZ(0);
   transition: transform 0.15s, color 0.15s;
 }
 
 .gh-asset:hover .gh-asset__arrow {
   color: var(--vp-c-brand-1);
-  transform: translateX(2px) translateZ(0);
+  transform: translateX(2px);
 }
 
 /* ── Release Notes ── */
@@ -478,21 +444,20 @@ const closeDialog = () => {
 
 .gh-notes__wrapper {
   position: relative;
-  max-height: 280px;
+  display: grid;
+  grid-template-rows: 1fr;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.is-long.is-expanded .gh-notes__wrapper {
-  max-height: none;
-}
-
-.gh-release__notes:not(.is-long) .gh-notes__wrapper {
-  max-height: none;
+.gh-release__notes.is-long:not(.is-expanded) .gh-notes__wrapper {
+  grid-template-rows: minmax(0, 280px);
 }
 
 .gh-notes__content {
   contain: content;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .gh-notes__fade {
@@ -503,38 +468,29 @@ const closeDialog = () => {
   height: 100px;
   background: linear-gradient(transparent, var(--vp-c-bg-soft) 85%);
   display: flex;
-  align-items: flex-end;
   justify-content: center;
+  align-items: flex-end;
   padding-bottom: 0.25rem;
-  cursor: pointer;
+  pointer-events: none;
 }
 
+.gh-notes__fade .gh-notes__expand {
+  pointer-events: auto;
+}
 .gh-notes__expand {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.4rem 1rem;
+  padding: 0.25rem 0.75rem;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  font-size: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   cursor: pointer;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gh-notes__expand:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px) translateZ(0);
-}
-
-.dark .gh-notes__expand:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
 
 .gh-notes__collapse {
   display: inline-flex;
@@ -549,28 +505,20 @@ const closeDialog = () => {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   cursor: pointer;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  transition: color 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gh-notes__collapse:hover {
-  color: var(--vp-c-text-1);
-  border-color: var(--vp-c-text-3);
-  transform: translateY(-1px) translateZ(0);
-}
 
 /* ── Markdown Content ── */
 .gh-notes__content :deep(img) {
   max-width: 100%;
   height: auto;
-  border-radius: 6px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
   margin: 1rem 0;
   background: var(--vp-c-bg-mute);
   min-height: 60px;
-  transform: translateZ(0);
 }
-
 .gh-notes__content :deep(.mention) {
   color: var(--vp-c-brand-1);
   font-weight: 600;
@@ -578,12 +526,8 @@ const closeDialog = () => {
   background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
   padding: 0.1rem 0.3rem;
   border-radius: 6px;
-  transition: background 0.2s ease;
 }
 
-.gh-notes__content :deep(.mention:hover) {
-  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
-}
 
 .gh-notes__content :deep(h1),
 .gh-notes__content :deep(h2),
@@ -662,10 +606,9 @@ const closeDialog = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--vp-backdrop-bg-color, rgba(0, 0, 0, 0.5));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 1rem;
+  background: var(--vp-backdrop-bg-color, rgba(0, 0, 0, 0.45));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .gh-dialog {
@@ -693,13 +636,8 @@ const closeDialog = () => {
   background: transparent;
   color: var(--vp-c-text-3);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
 }
 
-.gh-dialog__close:hover {
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-1);
-}
 
 .gh-dialog__body {
   text-align: center;
@@ -738,9 +676,6 @@ const closeDialog = () => {
   font-weight: 500;
 }
 
-.gh-dialog__link:hover {
-  color: var(--vp-c-brand-2);
-}
 
 .gh-dialog__divider {
   height: 1px;
@@ -764,14 +699,9 @@ const closeDialog = () => {
   background: var(--vp-c-bg-soft);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s, box-shadow 0.15s;
   cursor: pointer;
 }
 
-.gh-action:hover {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
-}
 
 .gh-action__icon {
   display: flex;
@@ -812,13 +742,8 @@ const closeDialog = () => {
 .gh-action__arrow {
   color: var(--vp-c-text-3);
   flex-shrink: 0;
-  transition: transform 0.15s, color 0.15s;
 }
 
-.gh-action:hover .gh-action__arrow {
-  color: var(--vp-c-brand-1);
-  transform: translateX(2px);
-}
 
 .gh-dialog__help {
   display: flex;
@@ -829,12 +754,8 @@ const closeDialog = () => {
   font-size: 0.78rem;
   color: var(--vp-c-text-3);
   text-decoration: none;
-  transition: color 0.15s;
 }
 
-.gh-dialog__help:hover {
-  color: var(--vp-c-brand-1);
-}
 
 /* ── Dialog Transitions ── */
 .dialog-enter-active { transition: opacity 0.2s ease; }

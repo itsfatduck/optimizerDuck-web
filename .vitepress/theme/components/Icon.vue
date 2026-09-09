@@ -9,9 +9,11 @@ const props = defineProps({
 
 const lucideMap = {
   calendar: Icons.Calendar,
-  'arrow-down': Icons.ArrowDown,
   code: Icons.Code,
   'arrow-up-right-from-square': Icons.ExternalLink,
+  'arrow-down': Icons.ArrowDown,
+  'arrow-right': Icons.ArrowRight,
+  'arrow-up-right': Icons.ArrowUpRight,
   download: Icons.Download,
   'chevron-right': Icons.ChevronRight,
   'file-lines': Icons.FileText,
