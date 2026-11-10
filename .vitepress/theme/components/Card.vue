@@ -47,9 +47,11 @@ const renderedContent = computed(() => {
   --card-accent: var(--vp-c-brand-1);
   --card-accent-bg: var(--vp-c-brand-soft);
 
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin: 16px 0;
   padding: 20px 24px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
@@ -62,6 +64,7 @@ const renderedContent = computed(() => {
 }
 
 .card:hover {
+  z-index: 1;
   border-color: var(--card-accent);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }

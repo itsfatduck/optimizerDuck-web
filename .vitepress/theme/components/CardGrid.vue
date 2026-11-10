@@ -18,7 +18,7 @@ defineProps({
 }
 
 .card-grid > :deep(*) {
-  margin-top: 0 !important;
+  margin: 0 !important;
 }
 
 @media (min-width: 800px) {
