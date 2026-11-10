@@ -4,13 +4,13 @@ description: "Optimize Windows performance and privacy with optimizerDuck. Apply
 
 # Optimize
 
-This document helps you understand how to optimize your system using optimizerDuck.
+Here is how to optimize your Windows system using optimizerDuck.
 
 ## What is Optimization?
 
 Optimization means changing system settings so your PC runs faster, uses less resources, and protects your privacy better. Windows comes with many default settings for general use, data collection, or features that not everyone needs.
 
-In optimizerDuck, "Optimization" covers network settings, telemetry, registry values for performance, and background services. These changes reduce latency, improve hardware efficiency, and limit background data sent to Microsoft.
+In optimizerDuck, "Optimization" covers network settings, privacy, registry tweaks, and background services. Turning on these tweaks reduces lag, frees up CPU and RAM, and stops Windows from sending background diagnostic data.
 
 Learn more: [FAQ: Optimizing](/docs/faq/optimizing#how-are-these-optimizations-applied) or [Wikipedia](https://en.wikipedia.org/wiki/Optimization_(computer_science)).
 
@@ -27,9 +27,9 @@ Each card describes exactly how the tweak affects your system, and tags let you 
 
 optimizerDuck also displays **Windows10Only** and **Windows11Only** tags on optimizations that are specific to a particular version, so you can see at a glance whether a tweak applies to your system.
 
-Before applying an optimization, you can review its built-in safety rating. The tool classifies changes into three levels: **Safe**, **Caution**, and **Expert**, allowing you to implement changes with confidence based on how they interact with Windows services.
+Every tweak has a clear safety rating: **Safe**, **Caution**, or **Expert**. This helps you know what is safe to turn on, even if you are not a tech expert.
 
-To apply an optimization, locate the card for the tweak you want and click the **toggle switch** in the bottom-right corner. A progress dialog will appear, showing the progress of the optimization. Once the optimization is applied, the switch will turn yellow to indicate the change.
+To turn on a tweak, just click its **toggle switch**. A quick progress dialog will appear. Once finished, the switch turns yellow. That's it!
 
 <Card title="Some optimizations require an internet connection" type="warning" icon="triangle-exclamation">
 
@@ -39,12 +39,10 @@ Certain optimizations, specifically those that download updated configurations o
 
 <Card title="Remember to restart your computer" type="warning" icon="triangle-exclamation">
 
-Due to the way Windows manages its registry and background services, many of these changes will not be visible immediately. After applying new optimizations, you need to restart your computer to ensure all modifications take effect.
+Windows needs a restart to apply changes to the registry and background services. After applying your tweaks, simply restart your PC to see the difference.
 
 </Card>
 
 ## Revert an optimization
 
-Each optimization has a different risk profile, so optimizerDuck ensures that none of these changes are permanent.
-
-If you experience issues or decide you don't like how a setting behaves after applying it, revert it. Open the module again, find the optimization card, and click the **toggle switch** to turn it off. This action restores your system to the state it was in right before you applied the optimization.
+Don't worry, none of these changes are permanent! If you run into any issues or simply change your mind, you can undo it right away. Just open the app, find the tweak, and click the toggle switch to turn it off. optimizerDuck will restore your original settings immediately.

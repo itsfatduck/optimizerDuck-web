@@ -35,10 +35,7 @@ function injectVercelVitals() {
 
 onMounted(() => {
   injectVercelVitals();
-  // Restore animations on Windows with "Show animations" disabled.
-  // Debloat tools often turn this off → browser sees prefers-reduced-motion: reduce →
-  // VitePress default base.css kills ALL transitions/animations with !important.
-  // We find and remove that rule so functional UI transitions keep working.
+  // Restore functional transitions when OS-level reduced motion triggers VitePress's base.css universal 0s duration kill.
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     for (let s = 0; s < document.styleSheets.length; s++) {
       const sheet = document.styleSheets[s];
@@ -49,8 +46,6 @@ onMounted(() => {
           if (!(rule instanceof CSSMediaRule)) continue;
           const cond = rule.conditionText?.replace(/\s/g, "").toLowerCase();
           if (cond !== "(prefers-reduced-motion:reduce)") continue;
-          // Found a prefers-reduced-motion media rule. Check if it has a universal
-          // selector subrule with transition-duration: 0s (VitePress's aggressive kill).
           const innerRules = rule.cssRules || [];
           for (let j = 0; j < innerRules.length; j++) {
             const inner = innerRules[j];

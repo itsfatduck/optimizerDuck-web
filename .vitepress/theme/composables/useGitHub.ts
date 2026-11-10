@@ -3,12 +3,10 @@ import { getCache, setCache } from "../utils/cache";
 
 const CACHE_KEY_LATEST = "github-latest-release-cache";
 const CACHE_KEY_CHANGELOG = "github-changelog-cache";
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache
+const CACHE_TTL = 10 * 60 * 1000;
 const PER_PAGE = 5;
-const FETCH_TIMEOUT = 15000; // 15 seconds timeout
+const FETCH_TIMEOUT = 15000;
 
-// ponytail: TTL-localStorage helpers moved to utils/cache (shared with
-// ContributorList, ContributorMarquee, DiscordWidget).
 function getCachedItem(key: string) {
   return getCache<any>(key, CACHE_TTL);
 }
@@ -23,12 +21,7 @@ function fetchWithTimeout(url: string, timeoutMs: number = FETCH_TIMEOUT): Promi
   return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
 }
 
-// NOTE: Intentionally NOT restoring from cache here at module level.
-// Doing so would cause a hydration mismatch: SSR has `isClient=false` so
-// `getCachedItem` returns null (renders skeleton), but client restores
-// cached data (wants real content) — Vue discards SSR HTML and flashes.
-// Instead, cache restore happens synchronously inside fetchLatestRelease()
-// and fetchChangelog(), which run during onMounted (after hydration settles).
+// Cache restore happens inside fetchLatestRelease and fetchChangelog during onMounted to avoid SSR hydration mismatch.
 const latestRelease = ref<any>(null);
 const releases = ref<any[]>([]);
 
@@ -47,8 +40,6 @@ const loadingMore = ref(false);
 export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
 
   const fetchLatestRelease = () => {
-    // Synchronous cache restore — runs during onMounted (after hydration settles),
-    // avoiding the hydration mismatch that module-level cache restore would cause.
     if (!latestRelease.value) {
       const cached = getCachedItem(CACHE_KEY_LATEST);
       if (cached) {
@@ -97,8 +88,6 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
   };
 
   const fetchChangelog = () => {
-    // Synchronous cache restore — runs during onMounted (after hydration settles),
-    // avoiding the hydration mismatch that module-level cache restore would cause.
     if (releases.value.length === 0) {
       const cached = getCachedItem(CACHE_KEY_CHANGELOG);
       if (cached && cached.length > 0) {
@@ -132,7 +121,7 @@ export function useGitHub(repo: string = "itsfatduck/optimizerDuck") {
         currentPage.value = 1;
         errorChangelog.value = null;
 
-        // Intelligent Cross-Caching: If latestRelease is not cached, populate it using the first release in the array
+        // Populate latestRelease from first release if not yet cached
         if (data.length > 0 && !latestRelease.value) {
           latestRelease.value = data[0];
           setCachedItem(CACHE_KEY_LATEST, data[0]);

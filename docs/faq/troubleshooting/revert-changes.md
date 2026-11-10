@@ -6,7 +6,7 @@ description: "Learn how to revert optimizerDuck system changes. Use System Resto
 
 > Issues after applying optimizations
 
-If you experience problems after using optimizerDuck to apply optimizations, don't panic. There are several ways to revert the changes.
+If you experience any issues after applying optimizations, don't worry! It is very easy to revert changes back to normal.
 
 ## Use System Restore
 

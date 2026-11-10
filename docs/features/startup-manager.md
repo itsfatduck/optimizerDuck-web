@@ -54,13 +54,13 @@ Disabling a startup program or scheduled task does not uninstall, delete, or bre
 
 ## What should I disable?
 
-Knowing what to turn off can be intimidating, but as a general rule of thumb, you only need a few essential services running continuously.
+Not sure what to turn off? Don't worry! Here is a simple guideline:
 
 - **Safe to disable:** Cloud storage sync clients (if you don't need instant syncing), chat applications like Discord, Skype, or Microsoft Teams, media players, game launchers, and software update checkers.
 - **Keep enabled:** Security and antivirus software, necessary hardware drivers (such as your audio control panel, graphics card companion software, or mouse/keyboard software), and crucial system utilities.
 
 <Card title="Research before disabling" type="warning" icon="triangle-exclamation">
 
-Always be cautious when disabling startup items you do not immediately recognize. Some generic-sounding processes might actually be related to critical system services or important driver functionality. If you are ever unsure what an item does, the safest course of action is to leave it enabled or search online using the program's provided name and command line for more context.
+If you see a program you don't recognize, it is best to leave it on. Some system drivers and audio utilities have generic names. When in doubt, search the name online first before turning it off.
 
 </Card>

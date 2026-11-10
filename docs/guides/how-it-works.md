@@ -4,7 +4,7 @@ description: "Learn how optimizerDuck works under the hood. Understand Registry 
 
 # How optimizerDuck Works
 
-This guide explains what optimizerDuck actually does when you apply optimizations. Whether you're a developer or a regular user, this will help you understand the technical side.
+This guide explains what optimizerDuck actually does when you apply optimizations. Whether you are a casual user or a tech enthusiast, here is a simple look at how optimizerDuck works under the hood.
 
 ## What optimizerDuck Actually Does
 
@@ -80,7 +80,7 @@ Backup files are stored here:
 - optimizerDuck reads the backup file and restores the original value
 - Your system returns to its previous state
 
-You can safely try different optimizations. If something doesn't work as expected, just revert it.
+You can safely try different optimizations. If something doesn't work as expected, just click to revert it. That's it!
 
 ## Open Source
 

@@ -89,8 +89,6 @@ These are just a few examples. optimizerDuck brings over 30 such tweaks together
 
 Open the **Optimize** tab to find tweaks for GPU power states, power plans, network throttling, and more. Open the **Customize** tab to disable animations, adjust taskbar behavior, and toggle visual effects. All in one place, no Registry digging required.
 
-<a href="/docs/features/customize" class="card__link"><span>Go to Customize feature</span><Icon name="arrow-right" :size="14" class="card__link-icon" /></a>
-
 </Card>
 
 ## Hardware Upgrades vs Software Optimization
@@ -127,8 +125,6 @@ After installing your software and drivers, use optimizerDuck's built-in tools t
 - **Bloatware**: Remove pre-installed apps you don't need
 - **Disk Cleanup**: Clear temp files, cache, and Windows Update leftovers
 - **Startup Manager**: Disable programs that slow down your boot
-
-<a href="/docs/features/startup-manager" class="card__link"><span>Go to Startup Manager</span><Icon name="arrow-right" :size="14" class="card__link-icon" /></a>
 
 </Card>
 

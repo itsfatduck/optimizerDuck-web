@@ -21,9 +21,9 @@ This is useful for maintenance like backups and updates. But many third-party ap
 
 In the **Scheduled Tasks** view, you can see all automated processes on your system. Instead of using the complex Windows Task Scheduler app, optimizerDuck shows everything you need in a clean interface.
 
-To disable a task, find it in the list and click the **toggle switch** on the left side. The switch will turn gray, meaning the task will no longer run on its schedule.
+To turn off a task, find it in the list and click the **toggle switch** on the left. The switch turns gray, and the task stops running on its schedule.
 
-To restore the task, flip the switch back. A notification will confirm the change was applied.
+To turn it back on, just flip the switch again. That's it!
 
 <Card title="Start and Stop actions" icon="lightbulb">
 
@@ -35,7 +35,7 @@ When a task is disabled (toggled off), the **Start** and **Stop** action buttons
 
 Sometimes disabling a task is not enough, especially if it belongs to an app you already uninstalled. In these cases, you can delete the task entirely.
 
-Find the task and click the **trash icon** on its card. Because this removes the task permanently, optimizerDuck will ask for confirmation first. Once confirmed, a notification will show that the task was cleared.
+Find the task and click the **trash icon** on its card. optimizerDuck will ask for confirmation first. Click confirm, and the task is permanently removed.
 
 ## Be careful
 
@@ -45,6 +45,6 @@ Only modify tasks you recognize, like update checkers for apps you installed (Ad
 
 <Card title="Only touch what you know" type="warning" icon="triangle-exclamation">
 
-**DO NOT** touch tasks you are not familiar with. Some may be related to critical system services or hardware drivers. Changing these can cause instability or crashes. If unsure, leave it enabled or search online for the task name.
+Only modify tasks you recognize, such as update checkers for apps you installed (like Chrome, Spotify, or games). If you are not sure what a task does, leave it alone to keep your system safe.
 
 </Card>

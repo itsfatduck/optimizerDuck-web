@@ -4,12 +4,12 @@ description: "Best practices for safe Windows optimization with optimizerDuck. E
 
 # Best Practices
 
-optimizerDuck offers dozens of tweaks, but **you don't need to enable all of them**. In fact, checking every single box without understanding what it does is a bad idea.
+optimizerDuck offers dozens of tweaks, but **you don't need to turn on all of them**! In fact, checking every single box without knowing what it does is never recommended.
 
 Here are our recommended best practices to ensure you get the best performance without breaking your system.
 
 ## 1. Always Create a Restore Point
-We cannot stress this enough. Before your first optimization session, create a Windows System Restore point. If anything goes wrong, you can roll back Windows in minutes.
+Before you begin, always create a Windows System Restore point. If anything goes wrong, you can roll back Windows in just a few minutes.
 
 ## 2. Don't Check Everything Blindly
 Read the description of the optimization before clicking it. 
@@ -36,4 +36,4 @@ If you use your PC for study, work, or casual browsing:
 - Focus strictly on cleaning up Disk Space and disabling consumer Bloatware.
 
 ## 4. Don't Forget to Restart
-Most Registry and Service changes require a full system restart to take effect properly. If you've applied 10 tweaks and feel no difference, save your work and reboot your PC.
+Most registry and service changes need a full restart to take effect. If you applied several tweaks and don't feel a difference yet, save your work and reboot your PC. That's usually all it takes!

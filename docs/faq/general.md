@@ -40,7 +40,7 @@ Each optimization comes with a clear risk rating (Safe, Moderate, or Risky) so y
 
 ## Does the app offer more than optimizations?
 
-Yes! It comes with built-in tools like a bloatware remover, startup manager, and more. You don't need to download extra software. Download and explore all the features.
+Yes! It includes built-in tools like a bloatware remover, startup manager, and disk cleaner. You don't need to install any extra software.
 
 ## Is optimizerDuck free?
 
@@ -70,9 +70,9 @@ Yes. optimizerDuck runs as a single `.exe` file with no installation required. T
 
 ## How do I update optimizerDuck?
 
-optimizerDuck **automatically checks for updates** every time you launch the app. It compares your current version against the latest release available on [GitHub Releases](https://github.com/itsfatduck/optimizerDuck/releases).
+optimizerDuck **automatically checks for updates** whenever you open the app. It checks for new releases on GitHub.
 
-If you are using an older version and a newer one exists, you will see a prominent notification banner right on the **Dashboard** page the moment the app opens. Just click the download link in the notification to get the latest version.
+If a newer version is available, a friendly notification banner will appear on the **Dashboard**. Just click the download link in the banner to get the latest update. That's it!
 
 To update manually, simply:
 

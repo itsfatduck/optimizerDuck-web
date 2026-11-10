@@ -4,6 +4,6 @@ description: "See all optimizerDuck release notes, version history, bug fixes, a
 
 # Changelog
 
-Every release, all in one timeline — new features, fixes, and improvements, pulled live from GitHub so this page is never out of date.
+See what's new in optimizerDuck. Here you can find release notes, new features, and bug fixes.
 
 <GitHubChangelog repo="itsfatduck/optimizerDuck" />

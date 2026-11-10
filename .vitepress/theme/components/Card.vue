@@ -56,9 +56,6 @@ const renderedContent = computed(() => {
   overflow: hidden;
   background: var(--vp-c-bg);
 }
-
-
-/* Type-based accent colors */
 .card--info {
   --card-accent: var(--vp-c-success-1);
   --card-accent-bg: var(--vp-c-success-soft);

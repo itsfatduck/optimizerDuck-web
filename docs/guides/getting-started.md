@@ -25,7 +25,7 @@ Windows is a great operating system. But it is designed for everyone. That means
 
 At the same time, many settings that can improve performance and reduce latency are not enabled by default. Windows prioritizes stability and compatibility over speed.
 
-Optimization is about reducing unnecessary overhead. It helps your PC spend more of its resources on what actually matters. Whether you are gaming, programming, creating content, or just browsing the web, a well-optimized Windows feels faster and more responsive.
+Optimization is about reducing unnecessary overhead. It helps your PC spend more of its resources on what actually matters. Whether you play games, work, or browse the web, a well-optimized Windows feels noticeably faster and smoother.
 
 <Card title="Hardware vs Software" icon="lightbulb" link="/docs/guides/why-optimize-windows" linkText="Read the full guide">
 
@@ -43,7 +43,7 @@ optimizerDuck is a portable application, which means **no installation is requir
 
 <Card title="Run as Administrator" icon="lightbulb">
 
-For optimizerDuck to apply system-level optimizations effectively, it natively requests administrative privileges when required. You can also right-click the `.exe` file and select **Run as administrator** if you face any issues.
+For optimizerDuck to apply system-level optimizations, it automatically asks for administrator permission when needed. You can also right-click the `.exe` file and select **Run as administrator** if you face any issues.
 
 </Card>
 
@@ -54,7 +54,7 @@ For optimizerDuck to apply system-level optimizations effectively, it natively r
   caption="Traditional Chinese interface of optimizerDuck, translated by abc0922001"
 />
 
-optimizerDuck natively supports multiple languages to provide a better user experience globally.
+optimizerDuck supports multiple languages so anyone around the world can use it easily.
 
 | | Language | Native Name | Translator |
 |------|----------|-------------|------------|
@@ -108,7 +108,7 @@ For more details, visit the [Community](/docs/community) page.
 
 ## Get Started with Optimization
 
-Explore the guides below to optimize and manage your system effectively:
+Here are the main features you can explore:
 
 - [Customize](/docs/features/customize) - Toggle built-in Windows behaviors such as taskbar, desktop, Explorer, and gaming options.
 - [Optimize](/docs/features/optimize) - Improve overall system performance.

@@ -45,7 +45,6 @@ function open() {
   lightboxScale.value = 1
   touchDeltaY.value = 0
   document.body.style.overflow = 'hidden'
-  // Re-check dark mode on open
   isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
@@ -65,7 +64,7 @@ function onLightboxImgLoad() {
 /* ── Touch / Swipe to close ── */
 
 function onTouchStart(e) {
-  if (lightboxScale.value > 1) return // don't swipe while zoomed
+  if (lightboxScale.value > 1) return
   touchStartY.value = e.touches[0].clientY
   touchDeltaY.value = 0
   isSwiping.value = true
@@ -107,7 +106,6 @@ function onWheel(e) {
 
 <template>
   <div class="image-preview-root">
-    <!-- ─── Thumbnail ─── -->
     <div
       class="thumb-frame"
       :style="{ maxWidth }"
@@ -119,7 +117,6 @@ function onWheel(e) {
       @keydown.space.prevent="open"
     >
       <div class="thumb-aspect">
-        <!-- Loading skeleton -->
         <div v-if="!loaded" class="thumb-skeleton" />
 
         <img
@@ -131,8 +128,6 @@ function onWheel(e) {
           decoding="async"
           @load="onThumbnailLoad"
         />
-
-        <!-- Hover zoom icon -->
         <div class="thumb-hover">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="thumb-zoom-icon">
             <circle cx="11" cy="11" r="8" />
@@ -146,8 +141,6 @@ function onWheel(e) {
 
       <p v-if="caption" class="thumb-caption">{{ caption }}</p>
     </div>
-
-    <!-- ─── Lightbox ─── -->
     <Teleport to="body">
       <Transition name="lightbox">
         <div
@@ -160,11 +153,9 @@ function onWheel(e) {
           @touchend.passive="onTouchEnd"
           @wheel.passive="onWheel"
         >
-          <!-- Top bar -->
           <div class="lightbox-topbar">
             <span class="lightbox-filename">{{ alt }}</span>
             <div class="lightbox-actions">
-              <!-- Download -->
               <a
                 :href="src"
                 :download="alt || 'image'"
@@ -179,7 +170,6 @@ function onWheel(e) {
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
               </a>
-              <!-- Close -->
               <button class="lightbox-btn lightbox-btn--close" @click="close" aria-label="Close (Esc)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -188,10 +178,7 @@ function onWheel(e) {
               </button>
             </div>
           </div>
-
-          <!-- Image area -->
           <div class="lightbox-body">
-            <!-- Loading spinner -->
             <div v-if="!lightboxImgLoaded" class="lightbox-spinner">
               <div class="spinner-ring" />
             </div>
@@ -206,8 +193,6 @@ function onWheel(e) {
               @load="onLightboxImgLoad"
             />
           </div>
-
-          <!-- Caption -->
           <div v-if="caption" class="lightbox-footer">
             <span class="lightbox-caption">{{ caption }}</span>
             <span class="lightbox-hint">Scroll to zoom &middot; Swipe to close</span>

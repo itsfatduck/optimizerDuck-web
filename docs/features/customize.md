@@ -4,7 +4,7 @@ description: "Customize Windows appearance and behavior with optimizerDuck. Twea
 
 # Customize
 
-The **Customize** section lets you change how Windows looks and behaves. You can adjust desktop icons, taskbar layout, Explorer preferences, and gaming settings all in one place.
+The **Customize** tab lets you easily change how Windows looks and feels. You can adjust your desktop icons, taskbar, File Explorer, and gaming settings all in one convenient place.
 
 ## Categories overview
 
@@ -55,9 +55,7 @@ applies to your system.
 
 <Card title="Most changes are reversible" icon="lightbulb">
 
-Unlike one-way tweaks, these switches are built around enabling and disabling
-the same Windows behavior. If you do not like the result, return to the same
-card and toggle it back.
+Every switch can be turned on or off anytime. If you don't like a change, just flip the switch back. That's it!
 
 </Card>
 

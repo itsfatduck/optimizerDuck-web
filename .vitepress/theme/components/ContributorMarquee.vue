@@ -34,7 +34,6 @@ const marqueeItems = computed(() => {
 
 const staticItems = computed(() => shuffled.value.slice(0, 12))
 
-// ponytail: TTL-localStorage helpers moved to utils/cache.
 function getCachedData() {
   return getCache(CACHE_KEY, CACHE_TTL)
 }
@@ -72,7 +71,6 @@ onMounted(async () => {
 
 function onHover(contributor: any) {
   hoveredId.value = contributor.id
-  // Generate hearts for this contributor
   const hearts: { id: number; x: number; delay: number }[] = []
   for (let i = 0; i < 3; i++) {
     hearts.push({
@@ -99,21 +97,15 @@ function getHeartStyle(heart: { x: number; delay: number }) {
 
 <template>
   <div class="cm-section">
-    <!-- Loading -->
     <div v-if="phase === 'loading'" class="cm-loading">
       <svg class="cm-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
       Loading contributors...
     </div>
-
-    <!-- Error -->
     <div v-else-if="error" class="cm-error">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       {{ error }}
     </div>
-
-    <!-- Contributors loaded -->
     <div v-else class="cm-container">
-      <!-- STATIC phase: centered grid -->
       <div class="cm-static" :class="{ 'cm-hidden': phase !== 'static' }">
         <div
           v-for="contributor in staticItems"
@@ -132,8 +124,6 @@ function getHeartStyle(heart: { x: number; delay: number }) {
           <span class="cm-name">{{ contributor.login }}</span>
         </div>
       </div>
-
-      <!-- MARQUEE phase: infinite scroll -->
       <div class="cm-marquee-wrapper" :class="{ 'cm-visible': phase === 'marquee' }">
         <div
           class="cm-marquee-track"
@@ -155,7 +145,6 @@ function getHeartStyle(heart: { x: number; delay: number }) {
                 loading="lazy"
                 decoding="async"
               />
-              <!-- Hearts on hover -->
               <div v-if="heartsMap[contributor.id]" class="cm-hearts" :key="'hearts-' + index">
                 <span
                   v-for="heart in heartsMap[contributor.id]"

@@ -5,8 +5,6 @@ interface CacheEntry<T> {
   timestamp: number;
 }
 
-// ponytail: 4 copies of this TTL-localStorage logic lived in useGitHub,
-// ContributorList, ContributorMarquee and DiscordWidget. One copy here.
 export function getCache<T>(key: string, ttlMs: number): T | null {
   if (!isClient) return null;
   try {

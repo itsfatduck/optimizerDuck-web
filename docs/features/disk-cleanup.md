@@ -40,6 +40,6 @@ If you have just cleared some files and want to see updated space estimates for 
   caption="Disk Cleanup completed"
 />
 
-After reviewing the list and selecting the categories you want to clean, click the **Clean Selected** button in the top menu bar.
+Select the categories you want to clean and click **Clean Selected** in the top menu bar.
 
-optimizerDuck will safely delete these files from your drive. The time depends on how much data is being cleared and your drive speed. When finished, a notification will show how much space was freed up.
+optimizerDuck will safely delete the junk files. When finished, you will see a notification showing how much disk space was freed up. Easy and clean!

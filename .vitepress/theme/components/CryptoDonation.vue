@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-// ponytail: qrcode lib lazy-imported on visibility so /support-me visitors don't pay
-// for it on every other page's bundle.
 
 const cryptos = [
   {
@@ -45,7 +43,6 @@ const copiedStates = ref<Record<string, boolean>>({})
 let observer: IntersectionObserver | null = null
 
 onMounted(() => {
-  // Only generate QR codes when component scrolls into view (perf optimization)
   observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
@@ -58,7 +55,7 @@ onMounted(() => {
 
   const el = document.querySelector('.crypto-donate')
   if (el) observer.observe(el)
-  else generateQRCodes() // fallback: generate immediately
+  else generateQRCodes()
 })
 
 onUnmounted(() => {
@@ -67,7 +64,7 @@ onUnmounted(() => {
 
 async function generateQRCodes() {
   const { default: QRCode } = await import('qrcode')
-  const batchSize = 2 // generate 2 at a time to avoid frame drops
+  const batchSize = 2
 
   for (let i = 0; i < cryptos.length; i += batchSize) {
     const batch = cryptos.slice(i, i + batchSize)
@@ -90,8 +87,6 @@ async function generateQRCodes() {
         }
       })
     )
-
-    // Yield to main thread between batches
     await new Promise((r) => setTimeout(r, 0))
   }
 }
@@ -139,22 +134,17 @@ async function copyAddress(id: string, address: string) {
         :style="{ '--card-color': crypto.color }"
       >
         <div class="cd-card-inner">
-          <!-- Header: Icon + Name + Network Badge -->
           <div class="cd-header">
             <div class="cd-icon-wrapper" :style="{ background: crypto.color + '14', color: crypto.color }">
-              <!-- Bitcoin (BTC) -->
               <svg v-if="crypto.id === 'btc'" viewBox="0 0 24 24" class="cd-icon-svg" fill="currentColor">
                 <path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127-1.32-.33-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45-.35 1.407s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.257 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.524 2.75 2.084v.006z"/>
               </svg>
-              <!-- Ethereum (ETH) -->
               <svg v-else-if="crypto.id === 'eth'" viewBox="0 0 24 24" class="cd-icon-svg" fill="currentColor">
                 <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/>
               </svg>
-              <!-- Tether (USDT) -->
               <svg v-else-if="crypto.id === 'usdt'" viewBox="0 0 24 24" class="cd-icon-svg" fill="currentColor">
                 <path d="M18.7538 10.5176c0 .6251-2.2379 1.1483-5.2381 1.2812l.0028.0007c-.0848.0064-.5233.0325-1.5012.0325-.7778 0-1.33-.0233-1.5237-.0325-3.0059-.1322-5.2495-.6555-5.2495-1.2819s2.2436-1.149 5.2495-1.2834v2.0442c.1965.0142.7594.0474 1.5372.0474.9334 0 1.4008-.0389 1.4849-.0466V9.2356c2.9994.1337 5.2381.657 5.2381 1.282zm5.19.5466L12.1248 22.389a.1803.1803 0 0 1-.2496 0L.0562 11.0635a.1781.1781 0 0 1-.0382-.2079l4.3762-9.1921a.1767.1767 0 0 1 .1626-.1026h14.8878a.1768.1768 0 0 1 .1612.1032l4.3762 9.1922a.1782.1782 0 0 1-.0382.2079zm-4.478-.4038c0-.8068-2.5515-1.4799-5.9473-1.6369V7.195h4.186V4.4055H6.3076V7.195h4.1852v1.8286c-3.4018.1562-5.9601.83-5.9601 1.6376 0 .8075 2.5583 1.4806 5.9601 1.6376v5.8618h3.025v-5.8639c3.394-.1563 5.948-.8295 5.948-1.6363z"/>
               </svg>
-              <!-- Litecoin (LTC) -->
               <svg v-else-if="crypto.id === 'ltc'" viewBox="0 0 24 24" class="cd-icon-svg" fill="currentColor">
                 <path d="M12 0a12 12 0 1012 12A12 12 0 0012 0zm-.2617 3.6777h2.584a.3425.3425 0 01.33.4356l-2.0312 6.918 1.9062-.582-.4082 1.3847-1.9238.5605-1.248 4.213h6.6757a.3425.3425 0 01.3282.4374l-.582 2a.4586.4586 0 01-.4395.3301H6.7324l1.7227-5.8223-1.9063.5801.42-1.3613 1.9101-.58 2.4219-8.1798a.4557.4557 0 01.4375-.334z"/>
               </svg>
@@ -176,8 +166,6 @@ async function copyAddress(id: string, address: string) {
               </span>
             </div>
           </div>
-
-          <!-- QR Code with download -->
           <div class="cd-qr-section">
             <div class="cd-qr-frame">
               <img
@@ -205,8 +193,6 @@ async function copyAddress(id: string, address: string) {
               </svg>
             </button>
           </div>
-
-          <!-- Address - simple copyable field -->
           <div class="cd-address-section">
             <div class="cd-address-label">Address</div>
             <div class="cd-address-row">

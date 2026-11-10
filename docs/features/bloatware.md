@@ -42,4 +42,4 @@ To mark an app for removal, check the box next to its name. You can select multi
 
 After selecting the apps you want to remove, click the **Remove** button in the top menu bar.
 
-A confirmation dialog will show the list of apps scheduled for removal. Review it, then click **OK** to confirm. Larger apps may take longer to remove.
+A confirmation box will list your selected apps. Click **OK**, and optimizerDuck will remove them for you. That's all there is to it!

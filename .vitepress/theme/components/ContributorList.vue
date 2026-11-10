@@ -27,7 +27,6 @@ function loadMore() {
   visibleCount.value += 15;
 }
 
-// ponytail: TTL-localStorage helpers moved to utils/cache.
 function getCachedData() {
   return getCache(CACHE_KEY, CACHE_TTL);
 }

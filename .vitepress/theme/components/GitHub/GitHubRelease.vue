@@ -190,8 +190,6 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
       </button>
     </div>
   </div>
-
-  <!-- Skeleton -->
   <div v-else-if="loading || (!release && !error)" class="gh-release gh-release--skeleton">
     <div class="gh-skel">
       <div class="gh-skel__title" />
@@ -201,8 +199,6 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   </div>
 
   <div v-else-if="error" class="gh-error">{{ error }}</div>
-
-  <!-- Download Dialog -->
   <Teleport to="body">
     <Transition name="dialog">
       <div v-if="showDialog" class="gh-dialog-backdrop" @click.self="closeDialog">

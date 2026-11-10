@@ -51,9 +51,9 @@ Optimizing Windows can be risky if not done correctly. Common risks include:
 
 ## Can I double my FPS with this application?
 
-It is highly unlikely, but not entirely impossible. The optimizations provided here primarily help your system by freeing up resources, reducing latency, and eliminating stutters.
+Probably not double, but your games will feel noticeably smoother! Optimization helps by freeing up CPU and RAM, reducing latency, and stopping random stutters.
 
-You will notice your system feeling faster, and your games might gain some extra FPS because they can utilize more system resources. However, the most reliable way to significantly increase FPS is by upgrading your hardware, improving cooling, or overclocking. Applying software optimizations alone will rarely double your FPS.
+You will notice your system feeling faster, and games may gain extra, more stable FPS because your PC isn't wasting resources on background tasks. Just remember: software tweaks cannot replace hardware upgrades like a faster graphics card or CPU.
 
 ## Where do these optimizations come from?
 

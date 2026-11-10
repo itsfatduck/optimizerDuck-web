@@ -10,9 +10,8 @@ const props = defineProps({
 })
 
 const CACHE_KEY = `discord-widget-${props.guildId}`
-const CACHE_TTL = 10 * 60 * 1000 // 10 minutes cache
+const CACHE_TTL = 10 * 60 * 1000
 
-// ponytail: TTL-localStorage helpers moved to utils/cache.
 const getCachedWidget = () => getCache(CACHE_KEY, CACHE_TTL)
 
 const setCachedWidget = (widget, guild) => setCache(CACHE_KEY, { widget, guild })
@@ -23,7 +22,6 @@ const guildInfo = ref(cached ? cached.guild : null)
 const loading = ref(cached ? false : true)
 const error = ref(null)
 
-// ponytail: 2 fetches (widget + invite) share one in-flight promise per guild across
 // all component instances; invite is skipped when the server icon is already cached.
 const inflightWidgets = new Map()
 
@@ -47,8 +45,6 @@ const fetchWidget = () => {
 
       let guildData = guildInfo.value
       const inviteCode = getInviteCode(data.instant_invite)
-      // Skip the invite lookup when we already know the server icon (VitePress
-      // navigations remount this component on every page).
       const cachedIcon = cached && cached.guild && cached.guild.guild && cached.guild.guild.icon
       if (inviteCode && !cachedIcon) {
         const inviteResponse = await fetch(`https://discord.com/api/v9/invites/${inviteCode}`)
@@ -279,8 +275,6 @@ onMounted(() => {
     color: var(--vp-c-text-2);
     font-weight: 600;
 }
-
-/* Loading state */
 .loading {
     height: 120px;
     display: flex;

@@ -77,10 +77,6 @@ function shortenGitHubUrls(content: string): string {
     );
 }
 
-// ponytail: one shared render cache for all renderer instances. Components
-// remount on every SPA navigation and previously each rebuilt its own empty
-// cache, re-rendering the same release bodies. Key includes a content hash
-// so edited release bodies still re-render. Capped to bound memory.
 const renderCache = new Map<string, string>();
 const RENDER_CACHE_LIMIT = 100;
 

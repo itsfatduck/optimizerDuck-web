@@ -114,19 +114,14 @@ const handleLoadMore = async () => {
 };
 
 const cleanupTOC = () => {
-  // Disconnect IntersectionObserver
   if (tocObserver) {
     tocObserver.disconnect();
     tocObserver = null;
   }
-
-  // Restore native Vitepress outline visibility
   const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
   if (asideContainer) {
     const vpOutline = asideContainer.querySelector(".VPDocAsideOutline");
     if (vpOutline) vpOutline.style.display = "";
-
-    // Remove our custom TOC
     const ghToc = asideContainer.querySelector(".gh-toc");
     if (ghToc) ghToc.remove();
   }
@@ -134,8 +129,6 @@ const cleanupTOC = () => {
 
 const updateVitePressTOC = () => {
   if (typeof window === "undefined") return;
-
-  // Clean up previous observer and TOC first
   cleanupTOC();
 
   const headings = document.querySelectorAll(".gh-changelog h2[id]");
@@ -144,11 +137,9 @@ const updateVitePressTOC = () => {
   const asideContainer = document.querySelector(".aside-container") || document.querySelector(".aside-content");
   if (!asideContainer) return;
 
-  // Hide VitePress's native outline — it only sees static h2, not our dynamic ones
+  // Hide native outline; it does not track dynamic h2 headings.
   const vpOutline = asideContainer.querySelector(".VPDocAsideOutline");
   if (vpOutline) vpOutline.style.display = "none";
-
-  // Create or reuse our custom TOC
   let ghToc = asideContainer.querySelector(".gh-toc");
   if (!ghToc) {
     ghToc = document.createElement("div");
@@ -178,8 +169,6 @@ const updateVitePressTOC = () => {
   ghToc.innerHTML = html;
 
   const links = ghToc.querySelectorAll(".outline-link");
-
-  // Set active link on scroll using IntersectionObserver
   const visibleIds = new Set();
   tocObserver = new IntersectionObserver(
     (entries) => {
@@ -190,8 +179,6 @@ const updateVitePressTOC = () => {
           visibleIds.delete(entry.target.id);
         }
       });
-
-      // Activate the topmost visible heading
       let activeId = null;
       let minTop = Infinity;
       visibleIds.forEach((id) => {
@@ -204,8 +191,6 @@ const updateVitePressTOC = () => {
           }
         }
       });
-
-      // If nothing is visible yet, activate the first heading above viewport
       if (!activeId && headings.length > 0) {
         for (const heading of headings) {
           const rect = heading.getBoundingClientRect();
@@ -231,16 +216,12 @@ const updateVitePressTOC = () => {
   );
 
   headings.forEach((heading) => tocObserver.observe(heading));
-
-  // Also sync with hash on click
   links.forEach((link) => {
     link.addEventListener("click", () => {
       links.forEach((l) => l.classList.remove("active"));
       link.classList.add("active");
     });
   });
-
-  // Set initial active state after paint to let layout settle
   requestAnimationFrame(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -257,9 +238,6 @@ watch(releases, async () => {
 });
 
 onMounted(async () => {
-  // Fetch the changelog. If data is already cached (from previous visit),
-  // this resolves immediately — no unnecessary network request.
-  // If not cached, it starts a fresh fetch and awaits the response.
   await fetchChangelog();
 
   await nextTick();
@@ -404,8 +382,6 @@ const formatSize = (bytes) => {
               class="gh-cl-expanded vp-doc"
               v-html="renderMD(release.body || '', release.id)"
             />
-
-            <!-- Assets -->
             <div v-if="release.assets?.length" class="gh-cl-assets">
               <div class="gh-cl-assets__title">
                 <Icon name="download" :size="14" />
@@ -468,8 +444,6 @@ const formatSize = (bytes) => {
     Loading changelog...
   </div>
   <div v-else-if="error" class="gh-cl-error">{{ error }}</div>
-
-  <!-- Download Dialog -->
   <Teleport to="body">
     <Transition name="dialog">
       <div v-if="showDialog" class="gh-dialog-backdrop" @click.self="closeDialog">

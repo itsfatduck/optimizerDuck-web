@@ -6,7 +6,7 @@ description: "Fix optimizerDuck not opening or crashing on launch. Check system 
 
 > The app crashes or fails to launch
 
-If optimizerDuck fails to start, try the following solutions.
+If optimizerDuck fails to start, don't worry! Try these simple solutions to get it running:
 
 ## Check system requirements
 

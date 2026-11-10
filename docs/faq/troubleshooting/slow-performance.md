@@ -6,7 +6,7 @@ description: "Fix a slow or unresponsive optimizerDuck. Close background program
 
 > optimizerDuck is unresponsive or slow
 
-If optimizerDuck takes a long time to load or respond, try the following.
+If optimizerDuck feels slow or unresponsive, here are a few quick tips to help:
 
 ## Close unnecessary programs
 
