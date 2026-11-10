@@ -23,7 +23,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 **Why this matters:** Most Windows optimizations work through registry edits. We only modify well-documented keys that have been tested.
 
 - [Microsoft Docs: Registry](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry)
-- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/RegistryService.cs)
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/System/Primitives/RegistryService.cs)
 
 ### 2. Windows Services
 
@@ -34,7 +34,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 **Why this matters**: Disabling unused services reduces background resource usage and can improve boot time.
 
 - [Microsoft Docs: Service Control Manager](https://learn.microsoft.com/en-us/windows/win32/services/service-control-manager)
-- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ServiceProcessService.cs)
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/System/Primitives/ServiceProcessService.cs)
 
 ### 3. Scheduled Tasks
 
@@ -45,7 +45,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 **Why this matters:** Fewer background tasks means less CPU usage and faster startup.
 
 - [Microsoft Docs: Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
-- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ScheduledTaskService.cs)
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/System/Primitives/ScheduledTaskService.cs)
 
 ### 4. PowerShell and CMD Commands
 
@@ -56,7 +56,7 @@ optimizerDuck interacts with Windows using four different approaches. Here's how
 **Why this matters:** Some Windows features can only be controlled through command-line tools. We handle the technical parts so you don't have to.
 
 - [Microsoft Docs: PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview)
-- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/Optimization/Providers/ShellService.cs)
+- [View Source Code](https://github.com/itsfatduck/optimizerDuck/blob/master/optimizerDuck/Services/System/Primitives/ShellService.cs)
 
 ## The Revert System
 
