@@ -19,17 +19,24 @@ defineProps<{
 .sp-card {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 100px;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sp-card:hover {
   border-color: #ff5e5b;
-  box-shadow: 0 0 0 2px rgba(255, 94, 91, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .sp-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sp-card-icon {

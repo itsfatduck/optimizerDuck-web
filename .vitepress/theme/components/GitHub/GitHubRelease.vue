@@ -291,10 +291,10 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   display: inline-flex;
   align-items: center;
   padding: 0.15rem 0.5rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
   border-radius: 6px;
   line-height: 1.4;
 }
@@ -317,6 +317,7 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   gap: 0.35rem;
   color: var(--vp-c-text-2);
   font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .gh-meta-sep {
@@ -353,7 +354,10 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   border: 1px solid var(--vp-c-divider);
   border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   text-align: left;
   width: 100%;
   color: inherit;
@@ -363,7 +367,7 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
 .gh-asset:hover {
   border-color: var(--vp-c-brand-1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px);
+  transform: translateY(-1px) translateZ(0);
 }
 
 .dark .gh-asset:hover {
@@ -406,6 +410,7 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
 .gh-asset__meta {
   font-size: 0.78rem;
   color: var(--vp-c-text-3);
+  font-variant-numeric: tabular-nums;
 }
 
 .gh-asset__arrow {
@@ -430,11 +435,11 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--vp-c-text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none;
+  letter-spacing: normal;
   margin-bottom: 0.85rem;
 }
 
@@ -616,6 +621,9 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--vp-shadow-4);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gh-dialog__close {

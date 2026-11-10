@@ -49,12 +49,25 @@ const renderedContent = computed(() => {
 
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 0.125rem + 1vw, 0.75rem);
-  padding: clamp(0.85rem, 0.125rem + 2vw, 1.5rem);
+  gap: 12px;
+  padding: 20px 24px;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--vp-c-bg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover {
+  border-color: var(--card-accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.dark .card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 .card--info {
   --card-accent: var(--vp-c-success-1);
@@ -88,7 +101,7 @@ const renderedContent = computed(() => {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--card-accent-bg);
   color: var(--card-accent);
   flex-shrink: 0;
@@ -129,7 +142,7 @@ const renderedContent = computed(() => {
 }
 
 .card__link-icon {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card__link:hover .card__link-icon {

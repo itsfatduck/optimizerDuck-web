@@ -14,7 +14,6 @@ const loading = ref(true)
 const error = ref<string | null>(null)
 const hoveredId = ref<number | null>(null)
 const phase = ref<'loading' | 'static' | 'marquee'>('loading')
-const heartsMap = ref<Record<number, { id: number; x: number; delay: number }[]>>({})
 
 function shuffleArray<T>(arr: T[]): T[] {
   const shuffled = [...arr]
@@ -71,28 +70,13 @@ onMounted(async () => {
 
 function onHover(contributor: any) {
   hoveredId.value = contributor.id
-  const hearts: { id: number; x: number; delay: number }[] = []
-  for (let i = 0; i < 3; i++) {
-    hearts.push({
-      id: Date.now() + i,
-      x: (Math.random() - 0.5) * 70,
-      delay: Math.random() * 0.4
-    })
-  }
-  heartsMap.value[contributor.id] = hearts
 }
 
 function onLeave() {
   hoveredId.value = null
-  heartsMap.value = {}
 }
 
-function getHeartStyle(heart: { x: number; delay: number }) {
-  return {
-    '--x': `${heart.x}px`,
-    '--delay': `${heart.delay}s`
-  }
-}
+
 </script>
 
 <template>
@@ -145,14 +129,6 @@ function getHeartStyle(heart: { x: number; delay: number }) {
                 loading="lazy"
                 decoding="async"
               />
-              <div v-if="heartsMap[contributor.id]" class="cm-hearts" :key="'hearts-' + index">
-                <span
-                  v-for="heart in heartsMap[contributor.id]"
-                  :key="heart.id"
-                  class="cm-heart"
-                  :style="getHeartStyle(heart)"
-                >❤️</span>
-              </div>
             </div>
             <span class="cm-name">{{ contributor.login }}</span>
           </div>
@@ -284,22 +260,21 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   gap: 0.5rem;
   padding: 0.4rem;
   cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: 12px;
   flex-shrink: 0;
 }
 
-.cm-item--marquee:hover {
-  transform: translateY(-4px);
-}
-
+.cm-item--marquee:hover,
 .cm-item--hovered {
-  transform: translateY(-4px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .cm-item--hovered .cm-name {
   color: var(--vp-c-text-1);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .cm-avatar-wrapper {
@@ -321,9 +296,7 @@ function getHeartStyle(heart: { x: number; delay: number }) {
 }
 
 .cm-item--hovered .cm-avatar {
-  box-shadow:
-    0 0 0 3px var(--vp-c-brand-1),
-    0 0 10px color-mix(in srgb, var(--vp-c-brand-1) 35%, transparent);
+  box-shadow: 0 0 0 2px var(--vp-c-brand-1);
 }
 
 .cm-name {
@@ -334,42 +307,10 @@ function getHeartStyle(heart: { x: number; delay: number }) {
   max-width: 72px;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.3s ease, font-weight 0.3s ease;
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   text-align: center;
   line-height: 1.2;
 }
 
-/* ── Dropping Hearts ── */
-.cm-hearts {
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 10;
-}
 
-.cm-heart {
-  position: absolute;
-  font-size: 18px;
-  opacity: 0;
-  animation: cm-heart-drop 1s ease-out forwards;
-  animation-delay: var(--delay);
-  transform: translateX(var(--x)) translateY(0);
-}
-
-@keyframes cm-heart-drop {
-  0% {
-    opacity: 1;
-    transform: translateX(var(--x)) translateY(0) scale(0.5);
-  }
-  30% {
-    opacity: 1;
-    transform: translateX(var(--x)) translateY(-8px) scale(1.15);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(var(--x)) translateY(32px) scale(0.6);
-  }
-}
 </style>

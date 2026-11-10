@@ -568,10 +568,10 @@ const formatSize = (bytes) => {
   display: inline-flex;
   align-items: center;
   padding: 0.2rem 0.5rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
   border-radius: 6px;
   line-height: 1.3;
 }
@@ -603,6 +603,7 @@ const formatSize = (bytes) => {
   gap: 0.3rem;
   font-size: 0.78rem;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .gh-cl-meta-sep {
@@ -622,13 +623,16 @@ const formatSize = (bytes) => {
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
   cursor: pointer;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gh-cl-preview:hover {
   border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
   box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
 }
 
 .gh-cl-preview:focus-visible {
@@ -671,12 +675,12 @@ const formatSize = (bytes) => {
   align-items: center;
   gap: 0.25rem;
   margin-top: 0.5rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--vp-c-text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  transition: color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: none;
+  letter-spacing: normal;
+  transition: color 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gh-cl-preview:hover .gh-cl-preview__hint {
@@ -753,10 +757,10 @@ const formatSize = (bytes) => {
   align-items: center;
   gap: 0.4rem;
   padding: 0.75rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--vp-c-text-2);
   border-bottom: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-elv);
@@ -816,6 +820,7 @@ const formatSize = (bytes) => {
 .gh-cl-asset__meta {
   font-size: 0.72rem;
   color: var(--vp-c-text-3);
+  font-variant-numeric: tabular-nums;
 }
 
 .gh-cl-asset__arrow {
@@ -930,6 +935,9 @@ const formatSize = (bytes) => {
   border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--vp-shadow-4);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gh-dialog__close {

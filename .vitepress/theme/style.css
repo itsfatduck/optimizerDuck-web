@@ -546,7 +546,14 @@ h6 {
 }
 
 .vp-button {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vp-button:active {
+  transform: scale(0.98);
 }
 
 /**
@@ -606,7 +613,7 @@ h6 {
   border: 1px solid var(--vp-c-divider) !important;
   border-top: none !important;
   border-radius: 8px !important;
-  padding: 0.85rem 1rem 0.85rem 2.75rem !important;
+  padding: 14px 16px 14px 44px !important;
   margin-bottom: 1.25rem !important;
   box-shadow: none !important;
   min-height: auto !important;
@@ -629,8 +636,8 @@ h6 {
 .vp-doc .custom-block::before {
   content: '';
   position: absolute;
-  top: 0.7rem;
-  left: 0.65rem;
+  top: 14px;
+  left: 14px;
   width: 24px;
   height: 24px;
   display: flex;
@@ -1012,22 +1019,10 @@ h6 {
 }
 
 
-/* ── Hero Logo Glowing Effect ── */
-@media (prefers-reduced-motion: no-preference) {
-  .VPHero .image-src {
-    animation: hero-icon-glow 3s ease-in-out infinite;
-  }
-}
-
-@keyframes hero-icon-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(216, 155, 29, 0.22));
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    filter: drop-shadow(0 0 14px rgba(216, 155, 29, 0.38));
-    transform: translate(-50%, -50%) scale(1.02);
-  }
+/* ── Hero Logo Static Presentation (Unslop: no looped breathing glow) ── */
+.VPHero .image-src {
+  filter: drop-shadow(0 4px 16px rgba(216, 155, 29, 0.2));
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* Content Link Hover: Slightly reduce intensity instead of changing hue */
@@ -1053,28 +1048,45 @@ html {
   transition: opacity 0.2s ease;
 }
 
+/* Anti-blur GPU compositing stabilization on Windows Chromium display scaling */
+.VPFeature,
+.card,
+.cl-card,
+.cm-item,
+.cd-card,
+.sp-card,
+.support-card,
+.hero-badge,
+.gh-asset,
+.gh-cl-preview,
+.gh-dialog {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 /* Fade-in entrance for main content on page load */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
 /* Only animate when user has NOT requested reduced motion */
 @media (prefers-reduced-motion: no-preference) {
   .VPContent .content {
-    animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fade-in-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   /* Staggered fade-in for feature cards on homepage */
   .VPFeatures .VPFeature {
     opacity: 0;
-    animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .VPFeatures .VPFeature:nth-child(1) { animation-delay: 0.05s; }
@@ -1083,7 +1095,7 @@ html {
 
   /* Hero section entrance animation */
   .VPHero {
-    animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
 

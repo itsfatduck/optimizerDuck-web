@@ -48,17 +48,31 @@ const props = defineProps({
   position: relative;
   display: block;
   border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
   margin-bottom: 1.5rem;
   overflow: hidden;
   background: var(--vp-c-bg-soft);
   color: inherit;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.support-card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.dark .support-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-inner {
-  padding: 1.5rem;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
   height: 100%;
 }
 
@@ -68,9 +82,9 @@ const props = defineProps({
 }
 
 .icon-wrapper {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,7 +133,7 @@ const props = defineProps({
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
   text-decoration: none !important;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cta-btn:hover {
@@ -128,7 +142,7 @@ const props = defineProps({
 }
 
 .cta-arrow {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cta-btn:hover .cta-arrow {
