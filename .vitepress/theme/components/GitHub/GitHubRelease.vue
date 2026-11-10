@@ -57,6 +57,15 @@ const formatSize = (bytes) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
+const getAssetArch = (name) => {
+  if (!name) return null;
+  const lower = name.toLowerCase();
+  if (lower.includes('arm64')) return 'ARM64';
+  if (lower.includes('x64') || lower.includes('win64')) return 'x64';
+  if (lower.includes('x86') || lower.includes('win32')) return 'x86';
+  return null;
+};
+
 const formatDownloads = (count) => {
   return new Intl.NumberFormat().format(count || 0);
 };
@@ -145,17 +154,28 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
         :key="asset.id"
         class="gh-asset"
         @click="handleDownload(asset)"
+        :aria-label="'Download ' + asset.name"
       >
         <div class="gh-asset__icon">
           <Icon name="download" :size="18" />
         </div>
         <div class="gh-asset__info">
-          <span class="gh-asset__name">{{ asset.name }}</span>
-          <span class="gh-asset__meta">
-            {{ formatSize(asset.size) }} &middot; {{ formatDownloads(asset.download_count) }} downloads
-          </span>
+          <div class="gh-asset__name-row">
+            <span v-if="getAssetArch(asset.name)" class="gh-asset__arch-badge">
+              {{ getAssetArch(asset.name) }}
+            </span>
+            <span class="gh-asset__name">{{ asset.name }}</span>
+          </div>
+          <div class="gh-asset__meta-row">
+            <span>{{ formatSize(asset.size) }}</span>
+            <span class="gh-asset__meta-dot">&middot;</span>
+            <span>{{ formatDownloads(asset.download_count) }} downloads</span>
+          </div>
         </div>
-        <Icon name="chevron-right" :size="14" class="gh-asset__arrow" />
+        <div class="gh-asset__cta">
+          <span class="gh-asset__cta-text">Download</span>
+          <Icon name="arrow-down" :size="13" class="gh-asset__cta-icon" />
+        </div>
       </button>
     </div>
 
@@ -395,33 +415,92 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
+}
+
+.gh-asset__name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.gh-asset__arch-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 4px;
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+  line-height: 1.2;
 }
 
 .gh-asset__name {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--vp-c-text-1);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.gh-asset__meta {
-  font-size: 0.78rem;
+.gh-asset__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
   font-variant-numeric: tabular-nums;
 }
 
-.gh-asset__arrow {
-  color: var(--vp-c-text-3);
-  flex-shrink: 0;
-  transition: transform 0.15s, color 0.15s;
+.gh-asset__meta-dot {
+  color: var(--vp-c-divider);
 }
 
-.gh-asset:hover .gh-asset__arrow {
+.gh-asset__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-default-soft);
+  border: 1px solid var(--vp-c-divider);
+  flex-shrink: 0;
+  transition:
+    background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gh-asset:hover .gh-asset__cta {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
   color: var(--vp-c-brand-1);
-  transform: translateX(2px);
+}
+
+.gh-asset__cta-icon {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gh-asset:hover .gh-asset__cta-icon {
+  transform: translateY(1px);
+}
+
+@media (max-width: 520px) {
+  .gh-asset__cta-text {
+    display: none;
+  }
+  .gh-asset__cta {
+    padding: 0.45rem;
+    border-radius: 50%;
+  }
 }
 
 /* ── Release Notes ── */
@@ -459,6 +538,29 @@ onUnmounted(() => window.removeEventListener("keydown", onDialogKeydown));
   contain: content;
   min-height: 0;
   overflow: hidden;
+}
+
+.gh-notes__content :deep(> :first-child) {
+  margin-top: 0 !important;
+}
+
+.gh-notes__content :deep(p:first-child),
+.gh-notes__content :deep(h1:first-child),
+.gh-notes__content :deep(h2:first-child),
+.gh-notes__content :deep(h3:first-child),
+.gh-notes__content :deep(ul:first-child),
+.gh-notes__content :deep(ol:first-child) {
+  margin-top: 0 !important;
+}
+
+.gh-notes__content :deep(> img:first-child),
+.gh-notes__content :deep(p:first-child > img) {
+  margin-top: 0 !important;
+}
+
+.gh-notes__content :deep(> :last-child),
+.gh-notes__content :deep(p:last-child) {
+  margin-bottom: 0 !important;
 }
 
 .gh-notes__fade {
