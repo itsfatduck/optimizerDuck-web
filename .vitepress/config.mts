@@ -99,12 +99,14 @@ export default defineConfig({
       {},
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">',
     ],
-    ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["link", { rel: "apple-touch-icon", href: "/icon.webp" }],
+    ["link", { rel: "icon", href: "/favicon.ico", sizes: "any" }],
+    ["link", { rel: "icon", href: "/icon.webp", type: "image/webp" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" }],
     ["link", { rel: "preload", href: "/icon.webp", as: "image", type: "image/webp" }],
 
-    // Meta - Theme & Viewport
-    ["meta", { name: "theme-color", content: "#0a0a0a" }],
+    // Meta - Theme & Viewport (Amber-gold brand color for Discord embed sidebar accent)
+    ["meta", { name: "theme-color", content: "#d89b1d" }],
+    ["meta", { name: "msapplication-TileColor", content: "#0a0a0a" }],
     [
       "meta",
       {
@@ -146,17 +148,23 @@ export default defineConfig({
     ["meta", { name: "apple-mobile-web-app-title", content: "optimizerDuck" }],
     ["meta", { name: "author", content: "fatDuck" }],
 
-    // SEO - Open Graph (static base values; per-page title/desc/url set in transformPageData)
-    ["meta", { property: "og:type", content: "website" }],
+    // SEO - Open Graph (1200x630 rich banner for Discord, Twitter/X, Telegram, Facebook)
     ["meta", { property: "og:site_name", content: "optimizerDuck" }],
-    ["meta", { property: "og:image", content: `${PROD_URL}/icon.webp` }],
-    ["meta", { property: "og:image:width", content: "256" }],
-    ["meta", { property: "og:image:height", content: "256" }],
+    ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:locale", content: "en_US" }],
+    ["meta", { property: "og:image", content: `${PROD_URL}/og.png` }],
+    ["meta", { property: "og:image:secure_url", content: `${PROD_URL}/og.png` }],
+    ["meta", { property: "og:image:type", content: "image/png" }],
+    ["meta", { property: "og:image:width", content: "1200" }],
+    ["meta", { property: "og:image:height", content: "630" }],
+    ["meta", { property: "og:image:alt", content: "optimizerDuck - Free Open-Source Windows Optimization Tool" }],
 
-    // SEO - Twitter Card (static base values; per-page title/desc set in transformPageData)
+    // SEO - Twitter Card (summary_large_image with 1200x630 banner)
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:image", content: `${PROD_URL}/icon.webp` }],
+    ["meta", { name: "twitter:site", content: "@itsfatduck" }],
+    ["meta", { name: "twitter:creator", content: "@itsfatduck" }],
+    ["meta", { name: "twitter:image", content: `${PROD_URL}/og.png` }],
+    ["meta", { name: "twitter:image:alt", content: "optimizerDuck - Free Open-Source Windows Optimization Tool" }],
 
     // SEO - Structured Data (JSON-LD) - Organization + SoftwareApplication
     [
@@ -234,15 +242,31 @@ export default defineConfig({
     priority: 0.7,
   },
 
-  // Per-page SEO: canonical URLs + dynamic OG/Twitter tags
+  // Per-page SEO: canonical URLs, dynamic OG/Twitter tags, and rich schema
   transformPageData(pageData) {
     const pageId = pageData.relativePath.replace(/\.md$/, "");
     const canonicalUrl = `${PROD_URL}/${pageId === "index" ? "" : pageId}`;
-    const pageTitle = pageData.frontmatter.title || pageData.title || "optimizerDuck";
+    const rawTitle = pageData.frontmatter.title || pageData.title || "optimizerDuck";
+    const formattedTitle =
+      pageId === "index"
+        ? "optimizerDuck - Free Open-Source Windows Optimization Tool"
+        : `${rawTitle} | optimizerDuck`;
     const pageDesc =
       pageData.frontmatter.description ||
       PAGE_DESCRIPTIONS[pageId] ||
       "Free, open-source Windows optimization tool for performance, privacy, and simplicity.";
+
+    // Per-page Open Graph image (page-specific screenshot or 1200x630 banner)
+    let ogImageUrl = `${PROD_URL}/og.png`;
+    let ogImageType = "image/png";
+    let ogImageWidth = "1200";
+    let ogImageHeight = "630";
+
+    if (pageData.frontmatter.image) {
+      const img = pageData.frontmatter.image;
+      ogImageUrl = img.startsWith("http") ? img : `${PROD_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+      if (ogImageUrl.endsWith(".webp")) ogImageType = "image/webp";
+    }
 
     pageData.frontmatter.head ??= [];
 
@@ -255,7 +279,7 @@ export default defineConfig({
     // Per-page OG tags
     pageData.frontmatter.head.push([
       "meta",
-      { property: "og:title", content: pageTitle },
+      { property: "og:title", content: formattedTitle },
     ]);
     pageData.frontmatter.head.push([
       "meta",
@@ -265,16 +289,60 @@ export default defineConfig({
       "meta",
       { property: "og:url", content: canonicalUrl },
     ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:type", content: pageId === "index" ? "website" : "article" },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image", content: ogImageUrl },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image:secure_url", content: ogImageUrl },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image:type", content: ogImageType },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image:width", content: ogImageWidth },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image:height", content: ogImageHeight },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: "og:image:alt", content: `${formattedTitle} - ${pageDesc.slice(0, 80)}` },
+    ]);
 
     // Per-page Twitter tags
     pageData.frontmatter.head.push([
       "meta",
-      { name: "twitter:title", content: pageTitle },
+      { name: "twitter:title", content: formattedTitle },
     ]);
     pageData.frontmatter.head.push([
       "meta",
       { name: "twitter:description", content: pageDesc },
     ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { name: "twitter:image", content: ogImageUrl },
+    ]);
+    pageData.frontmatter.head.push([
+      "meta",
+      { name: "twitter:image:alt", content: formattedTitle },
+    ]);
+
+    // Article modified time
+    if (pageData.lastUpdated) {
+      pageData.frontmatter.head.push([
+        "meta",
+        { property: "article:modified_time", content: new Date(pageData.lastUpdated).toISOString() },
+      ]);
+    }
 
     // Breadcrumb structured data per page
     const breadcrumbItems = [
@@ -294,7 +362,7 @@ export default defineConfig({
         breadcrumbItems.push({
           "@type": "ListItem",
           position: i + 2,
-          name: parts[i],
+          name: parts[i].replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
           item: `${PROD_URL}${accumulated}`,
         });
       }
@@ -310,6 +378,33 @@ export default defineConfig({
         itemListElement: breadcrumbItems,
       }),
     ]);
+
+    // TechArticle structured data for documentation pages
+    if (pageId.startsWith("docs/")) {
+      pageData.frontmatter.head.push([
+        "script",
+        { type: "application/ld+json" },
+        JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TechArticle",
+          "@id": `${canonicalUrl}/#article`,
+          headline: rawTitle,
+          description: pageDesc,
+          url: canonicalUrl,
+          inLanguage: "en-US",
+          mainEntityOfPage: canonicalUrl,
+          ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
+          author: {
+            "@type": "Person",
+            name: "fatDuck",
+            url: "https://github.com/itsfatduck",
+          },
+          publisher: {
+            "@id": `${PROD_URL}/#organization`,
+          },
+        }),
+      ]);
+    }
   },
 
   themeConfig: {
