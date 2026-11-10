@@ -58,8 +58,8 @@ const displayTitle = computed(() => props.title || typeLabels[props.type] || 'No
 <style scoped>
 .cb {
   position: relative;
-  margin: 1.25rem 0;
-  padding: 1rem 1.15rem 1rem 1.15rem;
+  margin: 20px 0;
+  padding: 16px 20px 16px 48px;
   border-radius: 8px;
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
@@ -86,11 +86,14 @@ const displayTitle = computed(() => props.title || typeLabels[props.type] || 'No
 }
 
 .cb__icon {
+  position: absolute;
+  top: 16px;
+  left: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 6px;
   background: color-mix(in srgb, var(--cb-accent, var(--vp-c-brand-1)) 10%, transparent);
   color: var(--cb-accent, var(--vp-c-brand-1));
@@ -98,10 +101,10 @@ const displayTitle = computed(() => props.title || typeLabels[props.type] || 'No
 }
 
 .cb__title {
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.875rem;
+  font-weight: 600;
   color: var(--vp-c-text-1);
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
 }
 
 .cb__body {

@@ -138,13 +138,17 @@ onMounted(() => {
     border-radius: 12px;
     overflow: hidden;
     position: relative;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     padding: 1rem;
 }
 
 .discord-widget:hover {
-    border-color: #5865F2;
-    box-shadow: 0 0 20px rgba(88, 101, 242, 0.15);
+    border-color: #5865f2;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.dark .discord-widget:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .widget-header {
@@ -197,6 +201,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .online-indicator {
@@ -211,10 +216,10 @@ onMounted(() => {
     color: white !important;
     font-weight: 600;
     padding: 0.4rem 1.2rem;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 0.9rem;
     text-decoration: none !important;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .join-btn:hover {

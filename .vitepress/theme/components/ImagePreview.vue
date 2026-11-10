@@ -224,9 +224,11 @@ function onWheel(e) {
 
 .thumb-frame:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent),
-    0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.dark .thumb-frame:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .thumb-frame:focus-visible {
@@ -304,10 +306,10 @@ function onWheel(e) {
 
 .thumb-zoom-label {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: normal;
+  text-transform: none;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -374,7 +376,7 @@ function onWheel(e) {
   background: rgba(255, 255, 255, 0.06);
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   text-decoration: none;
 }
 

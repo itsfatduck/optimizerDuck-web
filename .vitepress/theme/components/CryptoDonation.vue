@@ -245,18 +245,16 @@ async function copyAddress(id: string, address: string) {
   border-radius: 12px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cd-card:hover {
   border-color: var(--card-color);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--card-color) 18%, transparent),
-              0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .dark .cd-card:hover {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--card-color) 20%, transparent),
-              0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .cd-card-inner {
@@ -360,7 +358,7 @@ async function copyAddress(id: string, address: string) {
 }
 
 .cd-card:hover .cd-qr-frame {
-  box-shadow: 0 0 18px color-mix(in srgb, var(--card-color) 12%, transparent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cd-qr-img {
@@ -403,7 +401,7 @@ async function copyAddress(id: string, address: string) {
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cd-dl-btn:hover {
@@ -420,10 +418,10 @@ async function copyAddress(id: string, address: string) {
 }
 
 .cd-address-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--vp-c-text-3);
 }
 
@@ -438,6 +436,7 @@ async function copyAddress(id: string, address: string) {
   min-width: 0;
   font-size: 0.7rem;
   font-family: var(--vp-font-family-mono);
+  font-variant-numeric: tabular-nums;
   color: var(--vp-c-text-1);
   background: var(--vp-c-bg-mute);
   padding: 0.5rem 0.65rem;
@@ -466,7 +465,7 @@ async function copyAddress(id: string, address: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cd-copy-btn:hover {

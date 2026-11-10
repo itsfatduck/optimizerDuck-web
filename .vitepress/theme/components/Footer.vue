@@ -84,9 +84,9 @@ const year = new Date().getFullYear();
 
 .footer-group-title {
   font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--vp-c-text-1);
   margin-bottom: 1.25rem;
 }
@@ -104,13 +104,13 @@ const year = new Date().getFullYear();
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   width: fit-content;
 }
 
 .footer-link:hover {
   color: var(--vp-c-brand-1);
-  transform: translateX(4px);
+  transform: translateX(2px);
 }
 
 .footer-bottom {
@@ -143,7 +143,7 @@ const year = new Date().getFullYear();
   width: 100%;
   height: auto;
   opacity: 0.8;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   filter: grayscale(0.2);
 }
 
@@ -154,14 +154,14 @@ const year = new Date().getFullYear();
 }
 
 .license-text {
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--vp-c-text-3);
   text-align: center;
   white-space: nowrap;
-  transition: color 0.2s;
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .license-link:hover .license-text {
@@ -187,7 +187,7 @@ const year = new Date().getFullYear();
   color: var(--vp-c-text-2);
   background-color: transparent;
   border-radius: 8px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .footer-social-link:hover {
