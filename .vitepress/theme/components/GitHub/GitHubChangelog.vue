@@ -317,6 +317,15 @@ const formatSize = (bytes) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
+
+const getAssetArch = (name) => {
+  if (!name) return null;
+  const lower = name.toLowerCase();
+  if (lower.includes('arm64')) return 'ARM64';
+  if (lower.includes('x64') || lower.includes('win64')) return 'x64';
+  if (lower.includes('x86') || lower.includes('win32')) return 'x86';
+  return null;
+};
 </script>
 
 <template>
@@ -383,30 +392,43 @@ const formatSize = (bytes) => {
               v-html="renderMD(release.body || '', release.id)"
             />
             <div v-if="release.assets?.length" class="gh-cl-assets">
-              <div class="gh-cl-assets__title">
-                <Icon name="download" :size="14" />
-                Downloads
+              <div class="gh-cl-assets__header">
+                <div class="gh-cl-assets__label">
+                  <Icon name="download" :size="13" />
+                  <span>Downloads</span>
+                </div>
+                <span class="gh-cl-assets__count">{{ release.assets.length }} {{ release.assets.length === 1 ? 'file' : 'files' }}</span>
               </div>
-              <button
-                v-for="asset in release.assets"
-                :key="asset.id"
-                class="gh-cl-asset"
-                @click="handleDownload(asset)"
-              >
-                <div class="gh-cl-asset__icon">
-                  <Icon name="download" :size="16" />
-                </div>
-                <div class="gh-cl-asset__info">
-                  <span class="gh-cl-asset__name">{{ asset.name }}</span>
-                  <span class="gh-cl-asset__meta">
-                    {{ formatSize(asset.size) }} &middot; {{ formatDownloads(asset.download_count) }} downloads
-                  </span>
-                </div>
-                <svg class="gh-cl-asset__arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 7h10v10" />
-                  <path d="M7 17L17 7" />
-                </svg>
-              </button>
+              <div class="gh-cl-assets__list">
+                <button
+                  v-for="asset in release.assets"
+                  :key="asset.id"
+                  class="gh-cl-asset"
+                  @click="handleDownload(asset)"
+                  :aria-label="'Download ' + asset.name"
+                >
+                  <div class="gh-cl-asset__icon-wrap">
+                    <Icon name="download" :size="16" />
+                  </div>
+                  <div class="gh-cl-asset__details">
+                    <div class="gh-cl-asset__name-row">
+                      <span v-if="getAssetArch(asset.name)" class="gh-cl-asset__arch-badge">
+                        {{ getAssetArch(asset.name) }}
+                      </span>
+                      <span class="gh-cl-asset__filename">{{ asset.name }}</span>
+                    </div>
+                    <div class="gh-cl-asset__meta-row">
+                      <span>{{ formatSize(asset.size) }}</span>
+                      <span class="gh-cl-asset__meta-dot">&middot;</span>
+                      <span>{{ formatDownloads(asset.download_count) }} downloads</span>
+                    </div>
+                  </div>
+                  <div class="gh-cl-asset__cta">
+                    <span class="gh-cl-asset__cta-text">Download</span>
+                    <Icon name="arrow-down" :size="12" class="gh-cl-asset__cta-icon" />
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -690,19 +712,42 @@ const formatSize = (bytes) => {
 
 /* ── Expanded Body ── */
 .gh-cl-expanded-wrap {
-  margin-top: 0.5rem;
+  margin-top: 0;
 }
 
 .gh-cl-expanded-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 1rem 1.15rem;
   overflow: hidden;
 }
 
 .gh-cl-expanded {
   overflow: hidden;
+}
+
+.gh-cl-expanded :deep(> :first-child) {
+  margin-top: 0 !important;
+}
+
+.gh-cl-expanded :deep(p:first-child),
+.gh-cl-expanded :deep(h1:first-child),
+.gh-cl-expanded :deep(h2:first-child),
+.gh-cl-expanded :deep(h3:first-child),
+.gh-cl-expanded :deep(ul:first-child),
+.gh-cl-expanded :deep(ol:first-child) {
+  margin-top: 0 !important;
+}
+
+.gh-cl-expanded :deep(> img:first-child),
+.gh-cl-expanded :deep(p:first-child > img) {
+  margin-top: 0 !important;
+}
+
+.gh-cl-expanded :deep(> :last-child),
+.gh-cl-expanded :deep(p:last-child) {
+  margin-bottom: 0 !important;
 }
 
 .gh-cl-expanded :deep(img) {
@@ -746,92 +791,188 @@ const formatSize = (bytes) => {
 /* ── Assets Section ── */
 .gh-cl-assets {
   margin-top: 1.25rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--vp-c-bg);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--vp-c-divider);
 }
 
-.gh-cl-assets__title {
+.gh-cl-assets__header {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 1rem;
-  font-size: 0.78rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0 0.15rem;
+}
+
+.gh-cl-assets__label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  text-transform: none;
-  letter-spacing: normal;
-  color: var(--vp-c-text-2);
-  border-bottom: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg-elv);
+  color: var(--vp-c-text-1);
+}
+
+.gh-cl-assets__count {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.gh-cl-assets__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .gh-cl-asset {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 1rem;
-  text-decoration: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border-bottom: 1px solid var(--vp-c-divider);
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
   width: 100%;
   text-align: left;
   font: inherit;
   color: inherit;
-  background: none;
-  border-left: none;
-  border-right: none;
-  border-top: none;
   cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition:
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.gh-cl-asset:last-child {
-  border-bottom: none;
+.dark .gh-cl-asset {
+  background: var(--vp-c-bg-elv);
 }
 
+.gh-cl-asset:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px) translateZ(0);
+}
 
-.gh-cl-asset__icon {
+.dark .gh-cl-asset:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gh-cl-asset:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+.gh-cl-asset__icon-wrap {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--vp-c-brand-1) 10%, transparent);
   color: var(--vp-c-brand-1);
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.gh-cl-asset__info {
+.gh-cl-asset:hover .gh-cl-asset__icon-wrap {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
+}
+
+.gh-cl-asset__details {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
 }
 
-.gh-cl-asset__name {
-  font-size: 0.82rem;
+.gh-cl-asset__name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.gh-cl-asset__arch-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  color: var(--vp-c-text-1);
-  word-break: break-all;
+  border-radius: 4px;
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-2);
+  line-height: 1.2;
 }
 
-.gh-cl-asset__meta {
+.gh-cl-asset__filename {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gh-cl-asset__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.72rem;
   color: var(--vp-c-text-3);
   font-variant-numeric: tabular-nums;
 }
 
-.gh-cl-asset__arrow {
-  flex-shrink: 0;
-  color: var(--vp-c-text-3);
-  transition: color 0.15s, transform 0.15s;
+.gh-cl-asset__meta-dot {
+  color: var(--vp-c-divider);
 }
 
-.gh-cl-asset:hover .gh-cl-asset__arrow {
+.gh-cl-asset__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-default-soft);
+  border: 1px solid var(--vp-c-divider);
+  flex-shrink: 0;
+  transition:
+    background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gh-cl-asset:hover .gh-cl-asset__cta {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
   color: var(--vp-c-brand-1);
-  transform: translate(2px, -2px);
+}
+
+.gh-cl-asset__cta-icon {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gh-cl-asset:hover .gh-cl-asset__cta-icon {
+  transform: translateY(1px);
+}
+
+@media (max-width: 520px) {
+  .gh-cl-asset__cta-text {
+    display: none;
+  }
+  .gh-cl-asset__cta {
+    padding: 0.4rem;
+    border-radius: 50%;
+  }
 }
 
 /* ── Collapse Button ── */
