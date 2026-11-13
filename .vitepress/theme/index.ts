@@ -10,6 +10,7 @@ import ImagePreview from './components/ImagePreview.vue'
 import ContributorList from './components/ContributorList.vue'
 import ContributorMarquee from './components/ContributorMarquee.vue'
 import SupportCard from './components/SupportCard.vue'
+import CryptoDonation from './components/CryptoDonation.vue'
 import CustomBlock from './components/CustomBlock.vue'
 import Card from './components/Card.vue'
 import CardGrid from './components/CardGrid.vue'
@@ -32,6 +33,7 @@ export default {
     app.component('ContributorList', ContributorList)
     app.component('ContributorMarquee', ContributorMarquee)
     app.component('SupportCard', SupportCard)
+    app.component('CryptoDonation', CryptoDonation)
     app.component('CustomBlock', CustomBlock)
     app.component('Card', Card)
     app.component('CardGrid', CardGrid)

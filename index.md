@@ -47,16 +47,29 @@ features:
 
 <div class="home-section home-section--donation">
   <h2 class="home-section__title">Support the project</h2>
-  <p class="home-section__desc">If you find optimizerDuck helpful, consider supporting the project!</p>
-  <SupportCard
-    title="Support Me"
-    description="Donate via crypto, Ko-fi, or explore other ways to support the project."
-    icon="kofi"
-    url="/docs/contribute/support-me"
-    ctaText="Support the project"
-    :centered="true"
-    :centerIcon="true"
-  />
+  <p class="home-section__desc">optimizerDuck is 100% free and open-source. If you find it helpful, consider supporting continued development!</p>
+  
+  <div class="donation-grid">
+    <SupportCard
+      title="Buy me a coffee"
+      description="Support ongoing development with card or PayPal via Ko-fi."
+      icon="kofi"
+      url="https://ko-fi.com/itsfatduck"
+      ctaText="Donate on Ko-fi"
+    />
+    <SupportCard
+      title="Crypto Donation"
+      description="Donate directly with Bitcoin, Ethereum, USDT (TRC-20), or Litecoin."
+      icon="crypto"
+      url="/docs/contribute/support-me#crypto-donations"
+      ctaText="View crypto addresses"
+    />
+  </div>
+
+  <p class="other-support-cta">
+    Looking for other ways to contribute?
+    <a href="/docs/contribute/support-me" class="supporters-link">View other ways to support &rarr;</a>
+  </p>
 </div>
 
 <div class="home-section home-section--thanks">
@@ -95,12 +108,39 @@ features:
 .home-section--donation .home-section__desc {
   font-size: 0.9rem;
   color: var(--vp-c-text-2);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Donation Grid ── */
+.donation-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .donation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.donation-grid :deep(.support-card) {
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.other-support-cta {
+  font-size: 0.88rem;
+  color: var(--vp-c-text-3);
+  margin-top: 1.5rem;
 }
 
 /* ── Special Thanks ── */
 .home-section--thanks {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .supporters-grid {
