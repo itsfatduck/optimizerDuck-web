@@ -25,11 +25,28 @@ If you see a blocked download notification, click **"Keep"**, **"Allow"**, or **
 
 ### Browser-specific tips
 
-**Google Chrome:** Go to **Settings** → **Privacy and security** → **Security** → disable **Safe Browsing** temporarily, or click the download arrow in the top-right and select **Keep**.
+#### Google Chrome
 
-**Microsoft Edge:** Click the **three dots** menu → **Downloads** → find optimizerDuck and click **Keep** or **Allow**.
+<Steps>
+  <Step title="Open Chrome **Settings** and go to **Privacy and security** > **Security**" />
+  <Step title="Temporarily disable **Safe Browsing**, or click the download icon in the top-right and select **Keep**" />
+</Steps>
 
-**Mozilla Firefox:** Click the **download arrow** in the toolbar → right-click the blocked file → **Allow download**.
+#### Microsoft Edge
+
+<Steps>
+  <Step title="Click the **three dots** menu in the top-right corner" />
+  <Step title="Select **Downloads**" />
+  <Step title="Find optimizerDuck and click **Keep** or **Allow**" />
+</Steps>
+
+#### Mozilla Firefox
+
+<Steps>
+  <Step title="Click the **download arrow** in the toolbar" />
+  <Step title="Right-click the blocked file" />
+  <Step title="Select **Allow download**" />
+</Steps>
 
 ## Try a different browser
 
@@ -56,10 +73,12 @@ Make sure you have a stable internet connection. Try:
 
 Corrupted cached data can sometimes interfere with downloads:
 
-1. Open your browser's **Settings**
-2. Find **Privacy & Security** → **Clear browsing data**
-3. Select **Cached images and files** and clear them
-4. Try the download again
+<Steps>
+  <Step title="Open your browser's **Settings**" />
+  <Step title="Find **Privacy & Security** and select **Clear browsing data**" />
+  <Step title="Select **Cached images and files** and clear them" />
+  <Step title="Try downloading optimizerDuck again" />
+</Steps>
 
 ## I found a bug / want to request a feature
 

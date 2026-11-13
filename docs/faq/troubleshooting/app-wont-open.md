@@ -22,12 +22,21 @@ Make sure your system meets the minimum requirements:
 
 optimizerDuck requires Administrator privileges to apply system optimizations.
 
-1. Right-click the **optimizerDuck** application file
-2. Select **"Run as administrator"**
+<Steps>
+  <Step title="Right-click the **optimizerDuck** application file" />
+  <Step title='Select **"Run as administrator"**' />
+</Steps>
 
 <Card title="Set always run as Admin" icon="lightbulb">
 
-If you always want to run optimizerDuck as Administrator, right-click the file → **Properties** → **Compatibility** tab → check **"Run this program as an administrator"** → **OK**.
+If you always want to run optimizerDuck as Administrator:
+
+<Steps variant="flat">
+  <Step title="Right-click the file and select **Properties**" />
+  <Step title="Go to the **Compatibility** tab" />
+  <Step title='Check **"Run this program as an administrator"**' />
+  <Step title="Click **OK** to save changes" />
+</Steps>
 
 </Card>
 
@@ -43,9 +52,11 @@ Your download may have been interrupted or corrupted:
 
 If your system drive (C:) is nearly full, apps may fail to launch or behave unexpectedly:
 
-1. Open **File Explorer**
-2. Right-click your **C: drive** → **Properties**
-3. Check the available free space
+<Steps>
+  <Step title="Open **File Explorer**" />
+  <Step title="Right-click your **C: drive** and select **Properties**" />
+  <Step title="Check the available free space" />
+</Steps>
 
 If space is low, try:
 
@@ -77,10 +88,12 @@ If the app crashes immediately without any error message, your system files may 
 
 If optimizerDuck still won't open, the Windows Event Viewer may contain helpful error details:
 
-1. Press `Win + R`, type `eventvwr.msc`, and press Enter
-2. Go to **Windows Logs** → **Application**
-3. Look for error entries related to **optimizerDuck** or **.NET Runtime**
-4. The error details can help identify the root cause
+<Steps>
+  <Step title="Press `Win + R`, type `eventvwr.msc`, and press Enter" />
+  <Step title="Navigate to **Windows Logs** > **Application**" />
+  <Step title="Look for error entries related to **optimizerDuck** or **.NET Runtime**" />
+  <Step title="Inspect the error details to identify the root cause" />
+</Steps>
 
 ## I found a bug / want to request a feature
 

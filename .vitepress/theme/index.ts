@@ -16,6 +16,8 @@ import CardGrid from './components/CardGrid.vue'
 import Icon from './components/Icon.vue'
 import SupporterCard from './components/SupporterCard.vue'
 import HeroBadges from './components/HeroBadges.vue'
+import Steps from './components/Steps.vue'
+import Step from './components/Step.vue'
 import Layout from './Layout.vue'
 
 export default {
@@ -36,5 +38,7 @@ export default {
     app.component('Icon', Icon)
     app.component('SupporterCard', SupporterCard)
     app.component('HeroBadges', HeroBadges)
+    app.component('Steps', Steps)
+    app.component('Step', Step)
   }
 } satisfies Theme

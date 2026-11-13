@@ -20,9 +20,11 @@ Other applications may be consuming system resources. Close any programs you are
 
 If your system drive (C:) is nearly full, your entire system (including optimizerDuck) may become sluggish:
 
-1. Open **File Explorer**
-2. Right-click your **C: drive** → **Properties**
-3. If free space is below **1 GB**, free up some space
+<Steps>
+  <Step title="Open **File Explorer**" />
+  <Step title="Right-click your **C: drive** and select **Properties**" />
+  <Step title="If free space is below **1 GB**, free up some space" />
+</Steps>
 
 ### Free up disk space
 

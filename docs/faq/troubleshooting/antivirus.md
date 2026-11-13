@@ -26,34 +26,44 @@ Here are quick steps for popular antivirus programs:
 
 ### Windows Defender
 
-1. Open **Windows Security**
-2. Go to **Virus & threat protection** → **Protection history**
-3. Find the optimizerDuck entry and select **Allow on device**
+<Steps>
+  <Step title="Open **Windows Security**" />
+  <Step title="Go to **Virus & threat protection**, then select **Protection history**" />
+  <Step title="Find the optimizerDuck entry and select **Allow on device**" />
+</Steps>
 
 ### Other antivirus (Avast, AVG, Kaspersky, etc.)
 
-1. Open your antivirus application
-2. Look for **Quarantine**, **Chest**, or **Threat History**
-3. Find optimizerDuck and choose **Restore** or **Allow**
-4. Add the file to the **Exclusion list** to prevent future detections
+<Steps>
+  <Step title="Open your antivirus application" />
+  <Step title="Look for **Quarantine**, **Chest**, or **Threat History**" />
+  <Step title="Find optimizerDuck and choose **Restore** or **Allow**" />
+  <Step title="Add the file to the **Exclusion list** to prevent future detections" />
+</Steps>
 
 ### Bitdefender
 
-1. Open **Bitdefender** → **Protection** → **Advanced Threat Defense**
-2. Click **Manage exclusions**
-3. Add the optimizerDuck `.exe` file or folder to the exclusion list
+<Steps>
+  <Step title="Open **Bitdefender** and go to **Protection**" />
+  <Step title="Select **Advanced Threat Defense** and click **Manage exclusions**" />
+  <Step title="Add the optimizerDuck `.exe` file or folder to the exclusion list" />
+</Steps>
 
 ### Malwarebytes
 
-1. Open **Malwarebytes** → **Detection History**
-2. Find the optimizerDuck entry and select **Allow**
-3. Go to **Settings** → **General** → **Allow List** and add the optimizerDuck folder
+<Steps>
+  <Step title="Open **Malwarebytes** and go to **Detection History**" />
+  <Step title="Find the optimizerDuck entry and select **Allow**" />
+  <Step title="Open **Settings** > **General** > **Allow List** and add the optimizerDuck folder" />
+</Steps>
 
 ### Norton
 
-1. Open **Norton** → **Security** → **Quarantine**
-2. Find optimizerDuck and click **Restore**
-3. Add the file to the **Exception List** in **Settings** → **Antivirus** → **Exceptions**
+<Steps>
+  <Step title="Open **Norton** and navigate to **Security** > **Quarantine**" />
+  <Step title="Find optimizerDuck and click **Restore**" />
+  <Step title="Add the file to the **Exception List** in **Settings** > **Antivirus** > **Exceptions**" />
+</Steps>
 
 ## Still having issues?
 
