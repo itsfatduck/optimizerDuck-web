@@ -1,268 +1,184 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
+import Icon from './Icon.vue'
 
 const props = defineProps({
   src: { type: String, required: true },
-  alt: { type: String, default: 'Image Preview' },
+  alt: { type: String, default: 'Image preview' },
   caption: { type: String, default: '' },
-  maxWidth: { type: String, default: '1200px' },
+  maxWidth: { type: String, default: '100%' },
 })
 
-const isOpen = ref(false)
-const loaded = ref(false)
-const lightboxImgLoaded = ref(false)
-const touchStartY = ref(0)
-const touchDeltaY = ref(0)
-const isSwiping = ref(false)
-const lightboxScale = ref(1)
+const dialogRef = ref(null)
+const isLoaded = ref(false)
+const isClosing = ref(false)
+let savedScrollY = 0
 
-const isDark = ref(false)
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
-  const mq = window.matchMedia('(prefers-color-scheme: dark)')
-  isDark.value = mq.matches
-  mq.addEventListener('change', onThemeChange)
+const downloadName = computed(() => {
+  if (props.caption) return props.caption.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  if (props.alt && props.alt !== 'Image preview') return props.alt.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  return 'optimizerduck-screenshot'
 })
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
-  window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', onThemeChange)
-  document.body.style.overflow = ''
-})
-
-function onThemeChange(e) {
-  isDark.value = e.matches
-}
-
-function handleKeydown(e) {
-  if (!isOpen.value) return
-  if (e.key === 'Escape') close()
-}
 
 function open() {
-  isOpen.value = true
-  lightboxScale.value = 1
-  touchDeltaY.value = 0
-  document.body.style.overflow = 'hidden'
-  isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+  if (typeof window !== 'undefined') {
+    savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
+  }
+  isClosing.value = false
+  dialogRef.value?.showModal()
 }
 
 function close() {
-  isOpen.value = false
-  document.body.style.overflow = ''
+  if (isClosing.value) return
+  isClosing.value = true
+  setTimeout(() => {
+    dialogRef.value?.close()
+    isClosing.value = false
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: savedScrollY, behavior: 'instant' })
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: savedScrollY, behavior: 'instant' })
+      })
+    }
+  }, 150)
 }
 
-function onThumbnailLoad() {
-  loaded.value = true
+function onCancel(e) {
+  e.preventDefault()
+  close()
 }
 
-function onLightboxImgLoad() {
-  lightboxImgLoaded.value = true
-}
-
-/* ── Touch / Swipe to close ── */
-
-function onTouchStart(e) {
-  if (lightboxScale.value > 1) return
-  touchStartY.value = e.touches[0].clientY
-  touchDeltaY.value = 0
-  isSwiping.value = true
-}
-
-function onTouchMove(e) {
-  if (!isSwiping.value) return
-  touchDeltaY.value = e.touches[0].clientY - touchStartY.value
-  const opacity = Math.max(0, 1 - Math.abs(touchDeltaY.value) / 300)
-  const scale = Math.max(0.7, 1 - Math.abs(touchDeltaY.value) / 600)
-  const el = document.querySelector('.lightbox-overlay')
-  if (el) {
-    el.style.opacity = opacity
-    el.style.transform = `scale(${scale})`
-  }
-}
-
-function onTouchEnd() {
-  if (!isSwiping.value) return
-  isSwiping.value = false
-  const el = document.querySelector('.lightbox-overlay')
-  if (Math.abs(touchDeltaY.value) > 100) {
+function onBackdropClick(e) {
+  // If clicked anywhere except the image or action buttons, close
+  if (!e.target.closest('.dialog-img') && !e.target.closest('.dialog-actions')) {
     close()
-  } else if (el) {
-    el.style.opacity = ''
-    el.style.transform = ''
   }
-  touchDeltaY.value = 0
-}
-
-/* ── Zoom via scroll ── */
-
-function onWheel(e) {
-  if (!isOpen.value) return
-  const delta = e.deltaY > 0 ? -0.1 : 0.1
-  lightboxScale.value = Math.max(0.5, Math.min(3, lightboxScale.value + delta))
 }
 </script>
 
 <template>
-  <div class="image-preview-root">
-    <div
-      class="thumb-frame"
-      :style="{ maxWidth }"
+  <figure class="image-preview" :style="{ maxWidth }">
+    <button
+      type="button"
+      class="preview-trigger"
+      :aria-label="'Enlarge image: ' + (caption || alt)"
       @click="open"
-      role="button"
-      tabindex="0"
-      :aria-label="'View larger: ' + (caption || alt)"
-      @keydown.enter="open"
-      @keydown.space.prevent="open"
     >
-      <div class="thumb-aspect">
-        <div v-if="!loaded" class="thumb-skeleton" />
-
+      <div class="thumb-container">
         <img
           :src="src"
-          :alt="alt"
+          :alt="caption || alt"
           class="thumb-img"
-          :class="{ loaded }"
+          :class="{ loaded: isLoaded }"
           loading="lazy"
           decoding="async"
-          @load="onThumbnailLoad"
+          @load="isLoaded = true"
         />
-        <div class="thumb-hover">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="thumb-zoom-icon">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            <line x1="11" y1="8" x2="11" y2="14" />
-            <line x1="8" y1="11" x2="14" y2="11" />
-          </svg>
-          <span class="thumb-zoom-label">Click to zoom</span>
+        <div class="thumb-overlay" aria-hidden="true">
+          <span class="zoom-pill">
+            <Icon name="arrow-up-right" :size="14" />
+            <span>Click to enlarge</span>
+          </span>
         </div>
       </div>
+    </button>
 
-      <p v-if="caption" class="thumb-caption">{{ caption }}</p>
-    </div>
+    <figcaption v-if="caption" class="preview-caption">
+      {{ caption }}
+    </figcaption>
+
+    <!-- Native HTML5 Dialog teleported to body -->
     <Teleport to="body">
-      <Transition name="lightbox">
-        <div
-          v-if="isOpen"
-          class="lightbox-overlay"
-          :class="{ dark: isDark }"
-          @click.self="close"
-          @touchstart.passive="onTouchStart"
-          @touchmove.passive="onTouchMove"
-          @touchend.passive="onTouchEnd"
-          @wheel.passive="onWheel"
-        >
-          <div class="lightbox-topbar">
-            <span class="lightbox-filename">{{ alt }}</span>
-            <div class="lightbox-actions">
-              <a
-                :href="src"
-                :download="alt || 'image'"
-                class="lightbox-btn"
-                aria-label="Download image"
-                title="Download"
-                @click.stop
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </a>
-              <button class="lightbox-btn lightbox-btn--close" @click="close" aria-label="Close (Esc)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="lightbox-body">
-            <div v-if="!lightboxImgLoaded" class="lightbox-spinner">
-              <div class="spinner-ring" />
-            </div>
-
-            <img
-              :src="src"
-              :alt="caption || alt"
-              class="lightbox-img"
-              :class="{ loaded: lightboxImgLoaded }"
-              :style="{ transform: `scale(${lightboxScale})` }"
-              decoding="async"
-              @load="onLightboxImgLoad"
-            />
-          </div>
-          <div v-if="caption" class="lightbox-footer">
-            <span class="lightbox-caption">{{ caption }}</span>
-            <span class="lightbox-hint">Scroll to zoom &middot; Swipe to close</span>
+      <dialog
+        ref="dialogRef"
+        class="preview-dialog"
+        :class="{ 'is-closing': isClosing }"
+        :aria-label="caption || alt"
+        @click="onBackdropClick"
+        @cancel="onCancel"
+      >
+        <div class="dialog-bar">
+          <div class="dialog-actions">
+            <a
+              :href="src"
+              :download="downloadName"
+              class="dialog-btn"
+              title="Download image"
+              aria-label="Download image"
+              @click.stop
+            >
+              <Icon name="download" :size="16" />
+            </a>
+            <button
+              type="button"
+              class="dialog-btn dialog-btn--close"
+              title="Close (Esc)"
+              aria-label="Close dialog"
+              @click="close"
+            >
+              <Icon name="xmark" :size="16" />
+            </button>
           </div>
         </div>
-      </Transition>
+
+        <div class="dialog-viewport">
+          <img
+            :src="src"
+            :alt="caption || alt"
+            class="dialog-img"
+          />
+        </div>
+
+        <div v-if="caption" class="dialog-footer">
+          <span class="caption-tag">{{ caption }}</span>
+        </div>
+      </dialog>
     </Teleport>
-  </div>
+  </figure>
 </template>
 
 <style scoped>
-/* ─── Root ─── */
-.image-preview-root {
-  margin: 2rem 0;
+/* ─── Thumbnail & Figure ─── */
+.image-preview {
+  margin: 1.75rem auto;
   width: 100%;
 }
 
-/* ─── Thumbnail ─── */
-.thumb-frame {
-  margin: 0 auto;
+.preview-trigger {
+  all: unset;
+  display: block;
+  width: 100%;
   cursor: pointer;
   border-radius: 12px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  outline: none;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.thumb-frame:hover {
+.preview-trigger:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
-.dark .thumb-frame:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+.dark .preview-trigger:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-.thumb-frame:focus-visible {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent);
+.preview-trigger:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 
-.thumb-aspect {
+.thumb-container {
   position: relative;
   overflow: hidden;
   background: var(--vp-c-bg-elv);
   line-height: 0;
-  width: 100%;
-  aspect-ratio: auto;
-}
-
-/* Loading skeleton */
-.thumb-skeleton {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    110deg,
-    var(--vp-c-bg-soft) 20%,
-    var(--vp-c-bg-elv) 50%,
-    var(--vp-c-bg-soft) 80%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.8s ease-in-out infinite;
-  z-index: 1;
-}
-
-@keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .thumb-img {
@@ -270,264 +186,224 @@ function onWheel(e) {
   width: 100%;
   height: auto;
   object-fit: contain;
-  transition: opacity 0.5s ease;
   opacity: 0;
-  position: relative;
-  z-index: 2;
+  transition: opacity 0.3s ease;
 }
 
 .thumb-img.loaded {
   opacity: 1;
 }
 
-/* Hover overlay */
-.thumb-hover {
+.thumb-overlay {
   position: absolute;
   inset: 0;
-  z-index: 3;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.25);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
-.thumb-frame:hover .thumb-hover {
+.preview-trigger:hover .thumb-overlay,
+.preview-trigger:focus-visible .thumb-overlay {
   opacity: 1;
 }
 
-.thumb-zoom-icon {
-  color: white;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
-}
-
-.thumb-zoom-label {
-  font-size: 0.75rem;
+.zoom-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(17, 19, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.8125rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: normal;
-  text-transform: none;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Caption */
-.thumb-caption {
-  margin: 0;
-  padding: 14px 18px;
+.preview-caption {
+  margin: 0.5rem 0 0 0;
   text-align: center;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.84rem;
   color: var(--vp-c-text-2);
   line-height: 1.5;
-  border-top: 1px solid var(--vp-c-divider);
 }
 
-/* ─── Lightbox ─── */
-.lightbox-overlay {
+/* ─── Native Modal Dialog ─── */
+.preview-dialog {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
   padding: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  border: none;
+  background: transparent;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: default;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-/* ─── Top bar ─── */
-.lightbox-topbar {
+.preview-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.preview-dialog.is-closing {
+  opacity: 0 !important;
+  transform: scale(0.98) !important;
+}
+
+/* MANDATORY per modern-web-guidance (prevent-page-scroll-under-modal-dialog) */
+.preview-dialog:modal {
+  overscroll-behavior: contain;
+}
+
+.preview-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.preview-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+.preview-dialog.is-closing::backdrop {
+  opacity: 0 !important;
+}
+
+/* ─── Dialog Top Bar ─── */
+.dialog-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 16px 20px;
   flex-shrink: 0;
   z-index: 2;
+  cursor: default;
 }
 
-.lightbox-filename {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.55);
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 50%;
-}
-
-.lightbox-actions {
+.dialog-actions {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
 }
 
-.lightbox-btn {
-  display: flex;
+.dialog-btn {
+  all: unset;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
-  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-  text-decoration: none;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.lightbox-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.2);
+.dialog-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
-.lightbox-btn--close:hover {
-  background: rgba(255, 70, 70, 0.2);
-  border-color: rgba(255, 70, 70, 0.3);
-  color: #ff6b6b;
+.dialog-btn--close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
 }
 
-/* ─── Body ─── */
-.lightbox-body {
+.dialog-btn:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+/* ─── Dialog Viewport & Image ─── */
+.dialog-viewport {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-  position: relative;
+  padding: 12px 24px;
   min-height: 0;
+  cursor: default;
 }
 
-.lightbox-img {
+.dialog-img {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90vw;
+  max-height: calc(85vh - 80px);
   object-fit: contain;
   border-radius: 8px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transform: scale(0.92) translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
   user-select: none;
   -webkit-user-drag: none;
+  cursor: default;
 }
 
-.lightbox-img.loaded {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-/* ─── Loading Spinner ─── */
-.lightbox-spinner {
-  position: absolute;
-  inset: 0;
+/* ─── Dialog Footer ─── */
+.dialog-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.spinner-ring {
-  width: 36px;
-  height: 36px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ─── Footer ─── */
-.lightbox-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 14px 20px 20px;
+  padding: 12px 20px 20px 20px;
   flex-shrink: 0;
-  flex-wrap: wrap;
+  cursor: default;
 }
 
-.lightbox-caption {
-  font-size: 0.88rem;
+.caption-tag {
+  font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.85);
-  font-weight: 500;
   background: rgba(255, 255, 255, 0.08);
-  padding: 7px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 14px;
   border-radius: 100px;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  text-align: center;
 }
 
-.lightbox-hint {
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.35);
-  font-weight: 400;
-  text-align: center;
-}
-
-/* ─── Transition ─── */
-.lightbox-enter-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.lightbox-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.lightbox-enter-from,
-.lightbox-leave-to {
-  opacity: 0;
-  transform: scale(0.96);
-}
-
-/* ─── Mobile ─── */
-@media (max-width: 768px) {
-  .lightbox-body {
-    padding: 12px;
-  }
-
-  .lightbox-topbar {
+/* ─── Responsive & Accessibility ─── */
+@media (max-width: 640px) {
+  .dialog-bar {
     padding: 12px 14px;
   }
-
-  .lightbox-footer {
-    padding: 10px 14px 14px;
-    flex-direction: column;
-    gap: 8px;
+  .dialog-viewport {
+    padding: 8px 12px;
   }
-
-  .lightbox-hint {
-    display: none;
-  }
-
-  .lightbox-caption {
-    font-size: 0.82rem;
-    padding: 6px 14px;
-  }
-
-  .thumb-zoom-label {
-    display: none;
+  .dialog-img {
+    max-width: 96vw;
+    max-height: calc(85vh - 70px);
   }
 }
 
-/* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
+  .preview-trigger,
   .thumb-img,
-  .thumb-frame,
-  .lightbox-overlay,
-  .lightbox-img {
+  .thumb-overlay,
+  .preview-dialog,
+  .preview-dialog::backdrop {
     transition: none !important;
-    animation: none !important;
   }
 }
 </style>
